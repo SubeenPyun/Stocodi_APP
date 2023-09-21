@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-
+import '../CommentItem.dart';
+//https://duzi077.tistory.com/301
 void main() => runApp(FriendlychatApp());
-
-const String _name = "Your Name";
 
 class FriendlychatApp extends StatelessWidget {
   @override
@@ -21,7 +20,7 @@ class ChatScreen extends StatefulWidget {
 
 class ChatScreenState extends State<ChatScreen> {
 
-  final List<ChatMessage> _messages = <ChatMessage>[];
+  final List<CommentItem> _messages = <CommentItem>[];
   final TextEditingController _textController = new TextEditingController();
 
   @override
@@ -81,43 +80,11 @@ class ChatScreenState extends State<ChatScreen> {
 
   void _handleSubmitted(String text) {
     _textController.clear();
-    var message = ChatMessage(
+    var message = CommentItem(
       text: text,
     );
     setState(() {
       _messages.insert(0, message);
     });
   }
-
-}
-
-class ChatMessage extends StatelessWidget {
-  ChatMessage({required this.text});
-  final String text;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            margin: const EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(child: Text(_name[0])),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(_name, style: Theme.of(context).textTheme.subtitle2),
-              Container(
-                margin: const EdgeInsets.only(top: 5.0),
-                child: Text(text),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
 }

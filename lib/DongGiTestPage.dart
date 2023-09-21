@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'lecture/ChatTest.dart';
-
+import 'lecture/Test/ChatTest.dart';
+import 'lecture/Test/TabBarTest.dart';
 void main(){
   runApp(DongGi());
 }
@@ -36,6 +36,15 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
                 child: Text('chatting'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context)=> TabBarDemo()),
+                );
+              },
+              child: Text('comment'),
             ),
           ],
         ),
