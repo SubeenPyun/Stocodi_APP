@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'stocodi_api_test.dart';
+import 'DongGiTestPage.dart';
 
 void main() {
   runApp(MyApp());
@@ -40,10 +41,10 @@ class HomeScreen extends StatelessWidget {
                 // 첫 번째 버튼을 누르면 두 번째 화면으로 이동
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SignUp()),
+                  MaterialPageRoute(builder: (context) => DongGi()),
                 );
               },
-              child: Text('api test'),
+              child: Text('DongGiTestPage'),
             ),
           ],
         ),

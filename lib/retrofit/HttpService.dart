@@ -28,6 +28,7 @@ class AuthenticationManager {
       print('로그인 오류: $e');
     }
   }
+
   Future<void> nickNameExist() async{
     try {
       final response = await _apiService.nickNameExist('예리미양');
@@ -46,6 +47,7 @@ class AuthenticationManager {
       print('중복체크 오류: $e');
     }
   }
+
   Future<void> signUp(signUpRequest data) async{
     try {
       final response = await _apiService.signUp(data);
