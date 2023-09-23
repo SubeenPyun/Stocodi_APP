@@ -1,13 +1,12 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'HttpDTO.dart';
+import 'HttpDTO/Login.dart';
+import 'HttpDTO/Register.dart';
 
 class ApiService {
   final Dio dio = Dio(); // Dio 인스턴스 생성
 
   ApiService() {
-    dio.options.baseUrl = 'http://49.50.175.59:8080/api/v1'; // API 기본 URL로 변경
+    dio.options.baseUrl = 'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
     dio.options.connectTimeout = 5000; // 연결 시간 초과: 5초
     dio.options.receiveTimeout = 3000; // 응답 시간 초과: 3초
     dio.options.headers = {
@@ -15,9 +14,9 @@ class ApiService {
     };
   }
 
-  Future<Response> login(Map<String, dynamic> data) async {
+  Future<Response> login(Login data) async {
     try {
-      final response = await dio.post('/users/login', data: data);
+      final response = await dio.post('/auth/sign-in', data: data.toJson());
       return response;
     } catch (e) {
       throw Exception('Failed to login: $e');
@@ -26,16 +25,16 @@ class ApiService {
 
   Future<Response> nickNameExist(String nickname) async{
     try{
-      final response = await dio.get('/users/nickname/exists?nickname=$nickname');
+      final response = await dio.get('/auth/check-nickname?nickname=$nickname');
       return response;
     }catch(e){
       throw Exception('Failed to check ninickname exists: $e');
     }
   }
 
-  Future<Response> signUp(signUpRequest data) async {
+  Future<Response> signUp(Register data) async {
     try {
-      final response = await dio.post('/members/register', data: data.toJson());
+      final response = await dio.post('/auth/sign-up', data: data.toJson());
       return response;
     } catch (e) {
       throw Exception('Failed to signup: $e');

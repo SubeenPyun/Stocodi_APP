@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/retrofit/HttpDTO/Login.dart';
+import 'package:stocodi_app/retrofit/HttpDTO/Register.dart';
 import 'retrofit/HttpService.dart';
-import 'retrofit/HttpDTO.dart';
 
 void main() {
   runApp(const SignUp());
@@ -10,14 +11,18 @@ class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
 
   Future<void> _signUp() async {
-    final data = signUpRequest(
-      "test111@naver.com",
-      "편수빈",
+    final data = Register(
+      "oz@naver.com",
       "1234",
-      "봉봉",
-      "2001-07-03",
-      ["IT"],
-      "USER",
+      "김동기",
+      'oz',
+      "2000-01-11",
+      'M',
+      "IT",
+    );
+    final loginData = Login(
+      'oz@naver.com',
+      '1234'
     );
 
     try {
@@ -25,6 +30,8 @@ class SignUp extends StatelessWidget {
       final authenticationManager = AuthenticationManager();
       /*await authenticationManager.nickNameExist();*/
       await authenticationManager.signUp(data);
+      await authenticationManager.nickNameExist('예리미양');
+      /*await authenticationManager.login(loginData);*/
     } catch (e) {
       // 오류 처리
       print('오류 발생: $e');
