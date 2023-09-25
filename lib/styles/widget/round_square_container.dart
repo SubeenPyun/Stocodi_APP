@@ -1,0 +1,37 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+
+class RoundSquareContainer extends StatelessWidget{
+  final double width; // 가로 크기를 설정할 변수
+  final double height; // 세로 크기를 설정할 변수
+  final Widget child;
+
+  RoundSquareContainer({
+    this.width = 200.0,
+    this.height = 200.0,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(20),
+      margin: EdgeInsets.only(bottom: 15),
+      width: width,
+      height: height,
+      decoration: BoxDecoration(
+        color: Colors.white, // 하얀색 배경
+        borderRadius: BorderRadius.circular(25), // 둥근 모서리
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.grey.withOpacity(0.5), // 그림자 색상
+        //     spreadRadius: 0.01, // 그림자 확산 정도
+        //     blurRadius: 8, // 그림자 흐림 정도
+        //     offset: Offset(0, 0), // 그림자의 위치 (가로, 세로)
+        //   ),
+        // ],
+      ),
+      child: child,
+    );
+  }
+}

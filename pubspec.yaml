@@ -30,6 +30,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^1.1.0
+  logger: ^2.0.2
+  dio: ^5.3.2
+  json_annotation: ^4.8.1
+  build_runner: ^2.4.6
+  json_serializable: ^6.7.1
+  intl: ^0.18.1
+  toggle_switch: ^2.1.0
+  fl_chart: ^0.63.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -39,12 +48,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  http: ^1.1.0
-  logger: ^2.0.2
-  dio: ^5.3.2
-  json_annotation: ^4.8.1
-  build_runner: ^2.4.6
-  json_serializable: ^6.7.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -68,6 +71,13 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+
+  assets:
+    - assets/icon/home_on.png
+    - assets/icon/home_off.png
+    - assets/images/apple.jpeg
+    - assets/images/no_image.jpg
+    - assets/images/arrow.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

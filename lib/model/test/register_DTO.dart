@@ -2,27 +2,25 @@ import 'package:dio/dio.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // 터미널 명령어 -> flutter pub run build_runner build
-part 'RegisterDTO.g.dart'; // 현재 파일 이름과 같아야 함!!!
+part 'register_DTO.g.dart'; // 현재 파일 이름과 같아야 함!!!
 
 @JsonSerializable()
 class RegisterDTO{
   final String email;
-  final String name;
   final String password;
+  final String name;
   final String nickname;
-  final String birth_date;
-  final List<String> interest_categories;
-  final List<String> roles;
+  final String birthDate;
+  final List<String> interestCategories;
   final List<String> gender;
 
   RegisterDTO(
       this.email,
-      this.name,
       this.password,
+      this.name,
       this.nickname,
-      this.birth_date,
-      this.interest_categories,
-      this.roles,
+      this.birthDate,
+      this.interestCategories,
       this.gender
       );
 
