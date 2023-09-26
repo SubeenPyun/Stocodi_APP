@@ -32,7 +32,7 @@ class InterestInvestItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CircleAvatar(
-            backgroundImage: Image.asset('assets/images/$image').image,
+            backgroundImage: Image.asset('assets/images/$image', fit: BoxFit.fill,).image,
             radius: 20, // 동그란 이미지 크기 설정
           ),
           SizedBox(width: 16),
@@ -66,7 +66,8 @@ class InterestInvestItem extends StatelessWidget {
           ),
           Spacer(),
           IconButton(
-            icon: Icon(Icons.favorite_border), // 하트 버튼
+            icon: Icon(Icons.favorite), // 하트 버튼
+            color: theme.primaryColor,
             onPressed: onPressed,
           ),
         ],

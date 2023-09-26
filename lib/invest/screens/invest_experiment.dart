@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/invest/item/interest_invest_item.dart';
 import 'package:stocodi_app/invest/screens/portfolio.dart';
+import 'package:stocodi_app/styles/widget/custom_appbar.dart';
 
 import '../../styles/theme/app_theme.dart';
 import '../../styles/widget/round_square_container.dart';
+
+final ThemeData theme = AppTheme.appTheme;
 
 class InvestExperiment extends StatefulWidget{
   const InvestExperiment({Key? key}) : super(key: key);
@@ -14,7 +17,15 @@ class InvestExperiment extends StatefulWidget{
 
 Container _bodyWidget(BuildContext context){
 
-  ThemeData theme = AppTheme.appTheme;
+  Widget buildInterestItem(String image, String title, int price, double percentage) {
+    return InterestInvestItem(
+      image: image,
+      title: title,
+      price: price,
+      percentage: percentage,
+      onPressed: () {},
+    );
+  }
 
   return Container(
     color: theme.backgroundColor,
@@ -46,6 +57,7 @@ Container _bodyWidget(BuildContext context){
                             );
                           },
                           style: ElevatedButton.styleFrom(
+                            elevation: 0.0,
                             backgroundColor: theme.cardColor,
                             padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0), // 버튼 내부 패딩 조정
                             shape: RoundedRectangleBorder(
@@ -55,7 +67,8 @@ Container _bodyWidget(BuildContext context){
                           child: Text(
                               "관리",
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: const Color(0xff575E6B),
+                              fontWeight: FontWeight.w500,
                               fontSize: 14,
                             ),
                           ),
@@ -96,13 +109,25 @@ Container _bodyWidget(BuildContext context){
                   child: ListView.builder(
                     itemCount: 5,
                     itemBuilder: (context, index){
-                      return InterestInvestItem(
-                          image: "apple.jpeg",
-                          title: "애플",
-                          price: 237816,
-                          percentage: 3.6,
-                          onPressed: (){},
-                      );
+                      switch (index) {
+                        case 0:
+                          return buildInterestItem(
+                              "apple.jpeg", "애플", 237816, 3.6);
+                        case 1:
+                          return buildInterestItem(
+                              "teslr.jpg", "테슬라", 331672, -1.1);
+                        case 2:
+                          return buildInterestItem(
+                              "ecopro.png", "에코프로", 1021000, 1.4);
+                        case 3:
+                          return buildInterestItem(
+                              "posco.png", "포스코DX", 60700, 3.2);
+                        case 4:
+                          return buildInterestItem(
+                              "sm.jpg", "에스엠", 132000, 1.3);
+                        default:
+                          return SizedBox.shrink();
+                      }
                     },
 
                   ),
@@ -121,8 +146,11 @@ class _InvestExperimentState extends State<InvestExperiment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('투자실험'),
+      appBar: CustomAppBar(
+        preferredHeight: 64,
+        title: "투자실험",
+        onSearchPressed: (){},
+        showSearchIcon: true, // searchIcon 보이게
       ),
       body: _bodyWidget(context),
     );

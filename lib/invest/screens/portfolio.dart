@@ -1,8 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/invest/screens/transaction_log.dart';
 import 'package:stocodi_app/styles/theme/app_theme.dart';
 
+import '../../styles/widget/custom_appbar.dart';
 import '../../styles/widget/round_square_container.dart';
 
 class Portfolio extends StatefulWidget {
@@ -170,45 +172,57 @@ class _PortfolioState extends State<Portfolio> {
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         children: [
-          _buildGridContainer("보유종목"),
+          _buildGridContainer("보유종목",null),
           _buildGridContainer1("거래내역"),
-          _buildGridContainer("거래일지"),
-          _buildGridContainer("배당금"),
+          _buildGridContainer("거래일지",TransactionLog()),
+          _buildGridContainer("배당금",null),
         ],
       ),
     );
   }
 
-  Widget _buildGridContainer(String title) {
-    return RoundSquareContainer(
-      width: 160,
-      height: 178,
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                  child: Text(
-                      title,
-                      style: theme.textTheme.titleMedium,
-                  )
+  Widget _buildGridContainer(String title, Widget? destinationPage) {
+    return GestureDetector(
+      onTap: () {
+         if (destinationPage != null) {
+           Navigator.push(
+             context,
+              MaterialPageRoute(
+                builder: (context) => destinationPage,
               ),
-              SizedBox(width: 40),
-              Container(
-                width: 18,
-                height: 18,
-                child: Image.asset('assets/images/arrow.png', color: theme.primaryColor),
-              ),
-            ],
-          ),
-          SizedBox(height: 10),
-          Container(
-              width: 84,
-              height: 84,
-              child: Image.asset('assets/images/no_image.jpg', fit: BoxFit.fill),
-          ),
-        ],
+           );
+        }
+      },
+      child: RoundSquareContainer(
+        width: 160,
+        height: 178,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                    child: Text(
+                        title,
+                        style: theme.textTheme.titleMedium,
+                    )
+                ),
+                SizedBox(width: 40),
+                Container(
+                  width: 18,
+                  height: 18,
+                  child: Image.asset('assets/images/arrow.png', color: theme.primaryColor),
+                ),
+              ],
+            ),
+            SizedBox(height: 10),
+            Container(
+                width: 84,
+                height: 84,
+                child: Image.asset('assets/images/no_image.jpg', fit: BoxFit.fill),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -302,8 +316,12 @@ class _PortfolioState extends State<Portfolio> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('포트폴리오'),
+      appBar: CustomAppBar(
+        // isSub: true,
+        preferredHeight: 64,
+        title: "포트폴리오",
+        onSearchPressed: (){},
+        showSearchIcon: false, // searchIcon 안 보이게
       ),
       body: SingleChildScrollView(
         primary: true, // 자식 위젯의 크기에 스크롤 높이 맞춰짐

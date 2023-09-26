@@ -75,9 +75,13 @@ flutter:
   assets:
     - assets/icon/home_on.png
     - assets/icon/home_off.png
-    - assets/images/apple.jpeg
     - assets/images/no_image.jpg
     - assets/images/arrow.png
+    - assets/images/apple.jpeg
+    - assets/images/teslr.jpg
+    - assets/images/ecopro.png
+    - assets/images/posco.png
+    - assets/images/sm.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
