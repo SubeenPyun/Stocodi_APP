@@ -69,7 +69,7 @@ class _TextEditBtnState extends State<TextEditBtn> {
               obscureText: widget.nosee,
               keyboardType: widget.inputtype,
               style: const TextStyle(
-                color: Color(0xFFBDBDBD),
+                color: Color(0xFF191919),
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 fontFamily: 'Pretendard Variable',
