@@ -11,9 +11,9 @@ Register _$RegisterFromJson(Map<String, dynamic> json) => Register(
       json['password'] as String,
       json['name'] as String,
       json['nickname'] as String,
-      json['birthDate'] as String,
+      json['birth_date'] as String,
       json['gender'] as String,
-      json['interestCategories'] as String,
+      json['interest_categories'] as String,
     );
 
 Map<String, dynamic> _$RegisterToJson(Register instance) => <String, dynamic>{
@@ -21,7 +21,7 @@ Map<String, dynamic> _$RegisterToJson(Register instance) => <String, dynamic>{
       'password': instance.password,
       'name': instance.name,
       'nickname': instance.nickname,
-      'birthDate': instance.birthDate,
+      'birth_date': instance.birth_date,
       'gender': instance.gender,
-      'interestCategories': instance.interestCategories,
+      'interest_categories': instance.interest_categories,
     };

@@ -9,13 +9,13 @@ class Register {
   final String password;
   final String name;
   final String nickname;
-  final String birthDate;
+  final String birth_date;
   final String gender;
-  final String interestCategories;
+  final String interest_categories;
 
 
-  Register(this.email, this.password, this.name, this.nickname, this.birthDate,
-      this.gender, this.interestCategories); // JSON 직렬화를 위한 메서드
+  Register(this.email, this.password, this.name, this.nickname, this.birth_date,
+      this.gender, this.interest_categories); // JSON 직렬화를 위한 메서드
 
   Map<String, dynamic> toJson() => _$RegisterToJson(this);
 
