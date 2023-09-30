@@ -7,7 +7,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double preferredHeight;
   final String title;
   final VoidCallback? onSearchPressed;
-
   final bool showSearchIcon; // 아이콘 버튼을 표시할지 여부를 나타내는 속성
 
   CustomAppBar({

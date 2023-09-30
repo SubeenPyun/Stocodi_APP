@@ -7,6 +7,12 @@ import 'package:stocodi_app/styles/theme/app_theme.dart';
 import '../../styles/widget/custom_appbar.dart';
 import '../../styles/widget/round_square_container.dart';
 
+List<String> get weekDays =>
+      const ['3월', '4월', '5월', '6월', '7월', '8월', '9월'];
+
+List<double> get yValues => const [60, 40, 39, 42, 50, 100];
+
+
 class Portfolio extends StatefulWidget {
   const Portfolio({Key? key}) : super(key: key);
 
@@ -15,8 +21,16 @@ class Portfolio extends StatefulWidget {
 }
 
 class _PortfolioState extends State<Portfolio> {
+  double touchedValue = -1;
+
   bool showEarnings = true;
   ThemeData theme = AppTheme.appTheme;
+
+  @override
+  void initState() {
+    touchedValue = -1;
+    super.initState();
+  }
 
   Widget _buildPortfolioHeader() {
     return RoundSquareContainer(
@@ -59,6 +73,27 @@ class _PortfolioState extends State<Portfolio> {
     );
   }
 
+  Widget bottomTitleWidgets(double value, TitleMeta meta) {
+    final isTouched = value == touchedValue;
+    final style = TextStyle(
+      fontWeight: FontWeight.w400,
+      fontSize: 16,
+      color: isTouched? theme.primaryColor : const Color(0xffB1CAC8),
+    );
+
+    Widget text = Text(
+        '${value.toInt()+3}월',
+        style: style
+    );
+
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      child: text,
+    );
+  }
+
+  // fl_chart 라이브러리 깃허브
+  // https://github.com/imaNNeo/fl_chart/blob/master/repo_files/documentations/line_chart.md
   Widget _buildAssetSection() {
     return RoundSquareContainer(
       width: double.infinity,
@@ -77,37 +112,162 @@ class _PortfolioState extends State<Portfolio> {
 
           Container(
             margin: EdgeInsets.only(left: 5, right: 5),
+            padding: EdgeInsets.all(7),
             height: showEarnings ? 222 : 222, // showEarnings에 따라 그래프의 높이 조절
             child: showEarnings
                 ? LineChart(
                     LineChartData(
-                      gridData: FlGridData(show: false),
-                      titlesData: FlTitlesData(show: false),
+                      gridData: FlGridData(
+                        show: true,
+                        drawHorizontalLine: false,
+                        drawVerticalLine: true,
+                        checkToShowVerticalLine: (value) => value % 1 == 0,
+                        getDrawingVerticalLine: (value) {
+                          return const FlLine(
+                              color: const Color(0xffF3F7F9),
+                              strokeWidth: 0.5,
+                            );
+                        }
+                      ),
+                      titlesData: FlTitlesData(
+                        show: true,
+                        topTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: false,
+                          )
+                        ),
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            reservedSize: 30,
+                            getTitlesWidget: bottomTitleWidgets,
+                            interval: 1,
+                          ),
+                        ),
+                        leftTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: false,
+                          )
+                        ),
+                        rightTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: false,
+                          )
+                        ),
+                      ),
                       borderData: FlBorderData(
                         show: false,
                       ),
                       minX: 0, // X 축의 최소 값 (3월)
                       maxX: 5, // X 축의 최대 값 (9월)
                       minY: 0, // Y 축의 최소 값 (만원 단위)
-                      maxY: 100, // Y 축의 최대 값 (만원 단위)
+                      maxY: 110, // Y 축의 최대 값 (만원 단위)
                       lineBarsData: [
                         LineChartBarData(
                           spots: [
                             FlSpot(0, 60), // (X, Y) 좌표 설정
-                            FlSpot(1, 40),
-                            FlSpot(2, 41),
-                            FlSpot(3, 42),
+                            FlSpot(1, 35),
+                            FlSpot(2, 31),
+                            FlSpot(3, 35),
                             FlSpot(4, 50),
                             FlSpot(5, 100),
                           ],
-                          isCurved: true, // 꺾인 선 그래프 설정
-                          color: theme.primaryColor, // 그래프 선 색상
-                          dotData: FlDotData(show: true), // 데이터 점 숨기기
+                          isCurved: false, // 그래프 각지게
+                          color: const Color(0xff81DFBA), // 그래프 선 색상
+                          barWidth: 4,
+                          dotData: FlDotData(
+                            show: true, // 데이터 점 보이게
+                            getDotPainter: (spot, percent, barData, index) =>
+                                FlDotCirclePainter(
+                                  radius: 4,
+                                  color: Colors.white,
+                                  strokeColor: const Color(0xff0ECB81),
+                                  strokeWidth: 4,
+                                ),
+                          ),
+                          belowBarData: BarAreaData(
+                            show: true,
+                            gradient: LinearGradient(
+                              colors: [
+                                const Color(0xffE3FFE7).withOpacity(1),
+                                const Color(0xffDCFFE0).withOpacity(1),
+                                const Color(0xffFFFFFF).withOpacity(0),
+                              ],
+                              // stops: const [0.5, 1.0],
+                              begin: Alignment.topCenter,
+                              end:Alignment.bottomCenter,
+                            ),
+                          ),
                         ),
                       ],
-                    ),
+                      lineTouchData: LineTouchData(
+                        getTouchedSpotIndicator:
+                            (LineChartBarData barData, List<int> spotIndexes) {
+                          return spotIndexes.map((spotIndex) {
+                            final spot = barData.spots[spotIndex];
+                            // if (spot.x == 0 || spot.x == 6) {
+                            //   return null;
+                            // }
+                            return TouchedSpotIndicatorData(
+                              FlLine(
+                                color: const Color(0xff81DFBA),
+                                strokeWidth: 0,
+                              ),
+                              FlDotData(
+                                getDotPainter: (spot, percent, barData, index) {
+                                  return FlDotCirclePainter(
+                                    radius: 5,
+                                    color: Colors.white,
+                                    strokeWidth: 5,
+                                    strokeColor: const Color(0xff0ECB81),
+                                  );
+                                },
+                              ),
+                            );
+                          }).toList();
+                        },
+                        touchTooltipData: LineTouchTooltipData(
+                          tooltipBgColor: Colors.black,
+                          tooltipRoundedRadius: 20,
+                          getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
+                            return touchedBarSpots.map((barSpot) {
+                              final flSpot = barSpot;
+                              // if(flSpot.x==0 || flSpot.x==6){
+                              //   return null;
+                              // }
+
+                              return LineTooltipItem(
+                                '${flSpot.y.toInt()}만원',
+                                TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                ),
+                              );
+                            }).toList();
+                          },
+                        ),
+                        touchCallback:
+                            (FlTouchEvent event, LineTouchResponse? lineTouch){
+                          if(!event.isInterestedForInteractions ||
+                            lineTouch == null ||
+                            lineTouch.lineBarSpots == null){
+                            setState(() {
+                              touchedValue = -1;
+                            });
+                            return;
+                          }
+
+                          final value = lineTouch.lineBarSpots![0].x;
+
+                          setState(() {
+                            touchedValue = value;
+                          });
+                        }
+
+                      ),
                   )
-                : SizedBox(), // 그래프가 보이지 않는 경우 빈 SizedBox 반환
+              ) : SizedBox.shrink(), // 그래프가 보이지 않는 경우 빈 SizedBox 반환
           ),
 
           SizedBox(height: 30),
@@ -159,29 +319,27 @@ class _PortfolioState extends State<Portfolio> {
     );
   }
 
-
-
   Widget _buildGridContainerSection() {
     return Container(
       width: double.infinity,
-      height: 370, // 그리드 높이 동적 조정
       child: GridView.count(
         crossAxisCount: 2,
+        childAspectRatio: (164 / 178),
         crossAxisSpacing: 14, // 가로 간격 14로 설정
         mainAxisSpacing: 14, // 세로 간격 14로 설정
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         children: [
-          _buildGridContainer("보유종목",null),
+          _buildGridContainer("보유종목", "grid1", null),
           _buildGridContainer1("거래내역"),
-          _buildGridContainer("거래일지",TransactionLog()),
-          _buildGridContainer("배당금",null),
+          _buildGridContainer("거래일지", "grid3", TransactionLog()),
+          _buildGridContainer("배당금", "grid4", null),
         ],
       ),
     );
   }
 
-  Widget _buildGridContainer(String title, Widget? destinationPage) {
+  Widget _buildGridContainer(String title, String image, Widget? destinationPage) {
     return GestureDetector(
       onTap: () {
          if (destinationPage != null) {
@@ -194,8 +352,7 @@ class _PortfolioState extends State<Portfolio> {
         }
       },
       child: RoundSquareContainer(
-        width: 160,
-        height: 178,
+        width: 164,
         child: Column(
           children: [
             Row(
@@ -217,9 +374,9 @@ class _PortfolioState extends State<Portfolio> {
             ),
             SizedBox(height: 10),
             Container(
-                width: 84,
-                height: 84,
-                child: Image.asset('assets/images/no_image.jpg', fit: BoxFit.fill),
+                width: 96,
+                height: 96,
+                child: Image.asset('assets/images/${image}.png', fit: BoxFit.fill),
             ),
           ],
         ),
@@ -231,7 +388,6 @@ class _PortfolioState extends State<Portfolio> {
   Widget _buildGridContainer1(String title) {
     return RoundSquareContainer(
       width: 164,
-      height: 178,
       child: Column(
         children: [
           Row(

@@ -39,6 +39,8 @@ dependencies:
   intl: ^0.18.1
   toggle_switch: ^2.1.0
   fl_chart: ^0.63.0
+  table_calendar: ^3.0.9
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -75,13 +77,23 @@ flutter:
   assets:
     - assets/icon/home_on.png
     - assets/icon/home_off.png
-    - assets/images/no_image.jpg
+    - assets/icon/lecture_on.png
+    - assets/icon/lecture_off.png
+    - assets/icon/invest_on.png
+    - assets/icon/invest_off.png
+    - assets/icon/column_on.png
+    - assets/icon/column_off.png
+    - assets/icon/more_off.png
+    - assets/icon/more_on.png
     - assets/images/arrow.png
-    - assets/images/apple.jpeg
-    - assets/images/teslr.jpg
+    - assets/images/apple.png
+    - assets/images/teslr.png
     - assets/images/ecopro.png
     - assets/images/posco.png
-    - assets/images/sm.jpg
+    - assets/images/sm.png
+    - assets/images/grid1.png
+    - assets/images/grid3.png
+    - assets/images/grid4.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

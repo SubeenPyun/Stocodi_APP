@@ -112,19 +112,19 @@ Container _bodyWidget(BuildContext context){
                       switch (index) {
                         case 0:
                           return buildInterestItem(
-                              "apple.jpeg", "애플", 237816, 3.6);
+                              "apple", "애플", 237816, 3.6);
                         case 1:
                           return buildInterestItem(
-                              "teslr.jpg", "테슬라", 331672, -1.1);
+                              "teslr", "테슬라", 331672, -1.1);
                         case 2:
                           return buildInterestItem(
-                              "ecopro.png", "에코프로", 1021000, 1.4);
+                              "ecopro", "에코프로", 1021000, 1.4);
                         case 3:
                           return buildInterestItem(
-                              "posco.png", "포스코DX", 60700, 3.2);
+                              "posco", "포스코DX", 60700, 3.2);
                         case 4:
                           return buildInterestItem(
-                              "sm.jpg", "에스엠", 132000, 1.3);
+                              "sm", "에스엠", 132000, 1.3);
                         default:
                           return SizedBox.shrink();
                       }

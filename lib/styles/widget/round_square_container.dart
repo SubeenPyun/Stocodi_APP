@@ -22,14 +22,6 @@ class RoundSquareContainer extends StatelessWidget{
       decoration: BoxDecoration(
         color: Colors.white, // 하얀색 배경
         borderRadius: BorderRadius.circular(25), // 둥근 모서리
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: Colors.grey.withOpacity(0.5), // 그림자 색상
-        //     spreadRadius: 0.01, // 그림자 확산 정도
-        //     blurRadius: 8, // 그림자 흐림 정도
-        //     offset: Offset(0, 0), // 그림자의 위치 (가로, 세로)
-        //   ),
-        // ],
       ),
       child: child,
     );

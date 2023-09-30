@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import '../../styles/theme/app_theme.dart';
 
 class InterestInvestItem extends StatelessWidget {
@@ -32,7 +29,7 @@ class InterestInvestItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CircleAvatar(
-            backgroundImage: Image.asset('assets/images/$image', fit: BoxFit.fill,).image,
+            backgroundImage: Image.asset('assets/images/${image}.png', fit: BoxFit.fill,).image,
             radius: 20, // 동그란 이미지 크기 설정
           ),
           SizedBox(width: 16),
@@ -52,11 +49,11 @@ class InterestInvestItem extends StatelessWidget {
                   ),
                   SizedBox(width: 4),
                   Text(
-                    (percentage > 0 ? "+" : "-") + "${(percentage)}%",
+                    (percentage > 0 ? "+" : "") + "${(percentage)}%",
                     style: TextStyle(
                       height: 1,
                       fontSize: 14,
-                      color: percentage > 0 ? Colors.red : Colors.blue,
+                      color: percentage > 0 ? Color(0xffF6465D) : Color(0xff4496F7),
                     ),
                   ),
                 ],
