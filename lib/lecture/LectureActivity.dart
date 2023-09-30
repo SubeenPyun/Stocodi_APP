@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 
 void main() {
   runApp(const LectureActivity());
@@ -89,7 +89,7 @@ class LectureActivity extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 import 'package:flutter/material.dart';
 
 import 'LectureTabActivity.dart';
