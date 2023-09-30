@@ -5,6 +5,8 @@ import 'lecture/NextVideoActivity.dart';
 import 'lecture/Test/ChatTest.dart';
 import 'lecture/Test/TabBarTest.dart';
 import 'lecture/LectureActivity.dart';
+import 'lecture/Test/figmatoflutterTest.dart';
+import 'lecture/VideoScreenActivity.dart';
 void main(){
   runApp(DongGi());
 }
@@ -85,6 +87,15 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               child: Text('comment'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context)=> VideoScreenActivity()),
+                );
+              },
+              child: Text('VideoScreen'),
             ),
           ],
         ),

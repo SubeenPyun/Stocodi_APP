@@ -19,8 +19,10 @@ class CommentItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            margin: const EdgeInsets.only(right: 16.0),
-            child: CircleAvatar(child: Text(name[0])),
+            margin: const EdgeInsets.fromLTRB(10, 0, 15, 0),
+            child: CircleAvatar(
+              backgroundImage: AssetImage(profileImage), // 프로필 이미지 설정
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -31,39 +31,38 @@ class VideoCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(thumbnailUrl, width: 160.0, height: 90.0), // 썸네일 이미지
+            Container(
+              margin: const EdgeInsets.fromLTRB(5, 12, 0, 12),
+              width: 160.0, // 원하는 가로 크기
+              height: 90.0, // 원하는 세로 크기
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/kakao.jpg'),
+                  fit: BoxFit.cover, // 이미지를 가득 채우도록 설정
+                ),
+              ),
+            ),
+            //Image.network(thumbnailUrl, width: 160.0, height: 90.0), // 썸네일 이미지
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      title,
-                      style: textTheme.displayLarge
-                    ),
+                    child: Text(title, style: textTheme.displayLarge),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                        nickname,
-                        style: textTheme.displayMedium
-                    ),
+                    child: Text(nickname, style: textTheme.displayMedium),
                   ),
                   Row(
                       children: [Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                            uploadDate,
-                            style: textTheme.displaySmall
-                        ),
+                        child: Text(uploadDate, style: textTheme.displaySmall),
                       ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                              views,
-                              style: textTheme.displaySmall
-                          ),
+                          child: Text(views, style: textTheme.displaySmall),
                         ),
                       ]
                   )
