@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/lecture/LectureTabActivity.dart';
+import 'package:stocodi_app/lecture/widget/LectureTab.dart';
 import 'package:stocodi_app/lecture/VideoScreenActivity.dart';
 
 void main() {
-  runApp(const LectureActivity());
+  runApp(const Lecture());
 }
 
-class LectureActivity extends StatelessWidget {
-  const LectureActivity({Key? key}) : super(key: key);
+class Lecture extends StatelessWidget {
+  const Lecture({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class LectureActivity extends StatelessWidget {
           children: [
             VideoScreenActivity(),
             Expanded(
-              child: LectureTabActivity(),
+              child: LectureTab(),
             ),
           ],
         ),

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/lecture/CommentActivity.dart';
-import 'package:stocodi_app/lecture/NextVideoActivity.dart';
+import 'package:stocodi_app/lecture/widget/Comment.dart';
+import 'package:stocodi_app/lecture/widget/NextVideo.dart';
 import 'package:stocodi_app/theme/TabTheme.dart';
 
 void main() {
-  runApp(const LectureTabActivity());
+  runApp(const LectureTab());
 }
 
 final theme = AppTheme.getAppTheme();
 final textTheme = AppTheme.getAppTheme().textTheme;
 
-class LectureTabActivity extends StatefulWidget {
-  const LectureTabActivity({Key? key}) : super(key: key);
+class LectureTab extends StatefulWidget {
+  const LectureTab({Key? key}) : super(key: key);
 
   @override
   _LectureTabState createState() => _LectureTabState();
 }
 
-class _LectureTabState extends State<LectureTabActivity> with SingleTickerProviderStateMixin {
+class _LectureTabState extends State<LectureTab> with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -62,8 +62,8 @@ class _LectureTabState extends State<LectureTabActivity> with SingleTickerProvid
         body: TabBarView(
           controller: _tabController,
           children: const [
-            CommentActivity(),
-            NextVideoActivity(),
+            Comment(),
+            NextVideo(),
           ],
         ),
       ),

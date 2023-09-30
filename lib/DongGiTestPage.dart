@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/lecture/LectureTabActivity.dart';
-import 'lecture/CommentActivity.dart';
-import 'lecture/NextVideoActivity.dart';
+import 'package:stocodi_app/lecture/widget/LectureTab.dart';
+import 'lecture/Course.dart';
+import 'lecture/widget/NextVideo.dart';
 import 'lecture/Test/ChatTest.dart';
 import 'lecture/Test/TabBarTest.dart';
-import 'lecture/LectureActivity.dart';
-import 'lecture/Test/figmatoflutterTest.dart';
+import 'lecture/widget/Lecture.dart';
 import 'lecture/VideoScreenActivity.dart';
 void main(){
   runApp(DongGi());
@@ -38,16 +37,16 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> CommentActivity()),
+                  MaterialPageRoute(builder: (context)=> Course()),
                 );
               },
-              child: Text('commentActivity'),
+              child: Text('classroom'),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> NextVideoActivity()),
+                  MaterialPageRoute(builder: (context)=> NextVideo()),
                 );
               },
               child: Text('nextVideo'),
@@ -56,7 +55,7 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> LectureTabActivity()),
+                  MaterialPageRoute(builder: (context)=> LectureTab()),
                 );
               },
               child: Text('LectureTab'),
@@ -65,7 +64,7 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> LectureActivity()),
+                  MaterialPageRoute(builder: (context)=> Lecture()),
                 );
               },
               child: Text('LectureActivity'),

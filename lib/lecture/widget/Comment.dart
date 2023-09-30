@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:stocodi_app/lecture/Item/CommentItem.dart';
 
 void main() {
-  runApp(const CommentActivity());
+  runApp(const Comment());
 }
 
 
-class CommentActivity extends StatelessWidget {
-  const CommentActivity({super.key});
+class Comment extends StatelessWidget {
+  const Comment({super.key});
 
   @override
   Widget build(BuildContext context) {

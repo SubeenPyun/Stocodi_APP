@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CommentItem extends StatelessWidget {
-  const CommentItem({
+  const CommentItem({super.key,
     this.name = 'Your Name',
     this.profileImage = 'Y',
     required this.text,

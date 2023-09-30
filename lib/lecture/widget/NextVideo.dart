@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:stocodi_app/lecture/Item/NextVideoItem.dart';
 
 void main() {
-  runApp(const NextVideoActivity());
+  runApp(const NextVideo());
 }
 
 
-class NextVideoActivity extends StatelessWidget {
-  const NextVideoActivity({super.key});
+class NextVideo extends StatelessWidget {
+  const NextVideo({super.key});
 
   @override
   Widget build(BuildContext context) {
