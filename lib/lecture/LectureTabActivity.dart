@@ -11,8 +11,7 @@ final theme = AppTheme.getAppTheme();
 final textTheme = AppTheme.getAppTheme().textTheme;
 
 class LectureTabActivity extends StatefulWidget {
-  const LectureTabActivity({super.key});
-
+  const LectureTabActivity({Key? key}) : super(key: key);
 
   @override
   _LectureTabState createState() => _LectureTabState();
@@ -27,7 +26,7 @@ class _LectureTabState extends State<LectureTabActivity> with SingleTickerProvid
     _tabController = TabController(length: 2, vsync: this);
 
     _tabController.addListener(() {
-      setState((){});
+      setState(() {});
     });
   }
 
@@ -35,25 +34,30 @@ class _LectureTabState extends State<LectureTabActivity> with SingleTickerProvid
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          bottom: TabBar(
-            controller: _tabController,
-            /*labelColor: theme.primaryColor,
-            unselectedLabelColor: theme.unselectedWidgetColor,*/
-            tabs: [
-              Tab(
-                child: TabItem(text: '댓글', count: '999', isSelected: _tabController.index == 0),
-              ),
-              Tab(
-                child:  Text(
-                  '다음 동영상', style: textTheme.displayMedium?.copyWith(
-                    color: _tabController.index == 0 ? theme.unselectedWidgetColor : theme.primaryColor,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight), // Set the height to 0.0
+          child: Container(
+            color: theme.backgroundColor,
+            child: TabBar(
+              controller: _tabController,
+              indicatorColor: theme.primaryColor, // 선택된 탭의 밑줄 색상
+              indicatorWeight: 3.0, // 선택된 탭의 밑줄 두께
+              indicatorSize: TabBarIndicatorSize.label,
+              /*labelColor: theme.primaryColor,
+              unselectedLabelColor: theme.unselectedWidgetColor,*/
+              tabs: [
+                Tab(
+                  child: TabItem(text: '댓글', count: '999', isSelected: _tabController.index == 0),
+                ),
+                Tab(
+                  child: Text('다음 동영상', style: textTheme.displayMedium?.copyWith(
+                      color: _tabController.index == 0 ? theme.unselectedWidgetColor : theme.primaryColor,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-          backgroundColor: theme.backgroundColor,
         ),
         body: TabBarView(
           controller: _tabController,
@@ -66,6 +70,7 @@ class _LectureTabState extends State<LectureTabActivity> with SingleTickerProvid
     );
   }
 }
+
 
 class TabItem extends StatelessWidget {
   final String text;
@@ -82,6 +87,7 @@ class TabItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min, // Row 크기를 자식 위젯 크기에 맞게 조절
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(text, style: textTheme.displayLarge?.copyWith(
