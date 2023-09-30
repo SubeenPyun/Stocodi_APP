@@ -1,125 +1,249 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'widgets/inputField.dart';
+import 'main2.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(home: Login()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
 
-  // This widget is the root of your application.
+class _LoginState extends State<Login> {
+  bool? _isChecked = false;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      home: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(80.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppBar(
+                  centerTitle: true,
+                  backgroundColor: Colors.white,
+                  elevation: 0,
+                  leading: Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: IconButton(
+                      icon: Image.asset(
+                        'assets/images/back.png',
+                        width: 10,
+                        height: 20,
+                      ),
+                      onPressed: null,
+                    ),
+                  ),
+                  title: Text(
+                    "로그인",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          body: SingleChildScrollView(
+            child: Center(
+              child: Container(
+                margin: EdgeInsets.all(25),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    InputField(
+                      focus: true,
+                      image: Icon(Icons.mail, size: 20),
+                      text: "메일을 입력해주세요",
+                      obscure: false,
+                    ),
+                    SizedBox(height: 12),
+                    InputField(
+                      focus: true,
+                      image: Icon(Icons.lock, size: 20),
+                      text: "비밀번호를 입력해주세요",
+                      obscure: true,
+                    ),
+                    SizedBox(height: 12),
+                    Padding(
+                      padding: EdgeInsets.only(right: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            child: Row(
+                              children: [
+                                Transform.scale(
+                                  scale: 1.2,
+                                  child: Checkbox(
+                                    checkColor: Colors.white,
+                                    activeColor: Color(0xFF9EB2AC),
+                                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                    value: _isChecked,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _isChecked = value;
+                                      });
+                                    },
+                                    side: BorderSide(
+                                      color: Color(0xFF9EB2AC),
+                                      strokeAlign: 0,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  "아이디 저장",
+                                  style: TextStyle(color: Color(0xFF9EB2AC), fontSize: 14),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            "아이디/비밀번호 찾기",
+                            style: TextStyle(color: Color(0xFF9EB2AC), fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 45,),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Main2()),
+                        );
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Color(0xFF0ECB81)),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        elevation: MaterialStateProperty.all(0),
+                      ),
+                      child: Container(
+                        width: double.infinity,
+                        height:60,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF0ECB81),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("로그인",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 45,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Main2()),
+                            );
+                          },
+                          child: Container(
+                            width: 70,
+                            height: 56,
+                            padding: EdgeInsets.all(17),
+                            margin: EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(color: Color(0xFFEBEBEB)),
+                              image: DecorationImage(
+                                image: AssetImage("assets/images/Google.png"),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Main2()),
+                            );
+                          },
+                          child: Container(
+                            width: 70,
+                            height: 56,
+                            padding: EdgeInsets.all(17),
+                            margin: EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(color: Color(0xFFEBEBEB)),
+                              image: DecorationImage(
+                                image: AssetImage("assets/images/Naver.png"),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Main2()),
+                            );
+                          },
+                          child: Container(
+                            width: 70,
+                            height: 56,
+                            padding: EdgeInsets.all(17),
+                            margin: EdgeInsets.all(6),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(color: Color(0xFFEBEBEB)),
+                              image: DecorationImage(
+                                image: AssetImage("assets/images/KakaoTalk.png"),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("아직 계정이 없다면"),
+                          SizedBox(width: 7),
+                          Text("회원가입", style: TextStyle(
+                            color: Color(0xFF0ECB81),
+                            decoration: TextDecoration.underline,
+                          ),),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                  ],
+                ),
+              ),
             ),
-          ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
