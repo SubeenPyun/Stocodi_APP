@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/lecture/widget/LectureTab.dart';
-import 'lecture/Course.dart';
+import 'lecture/ClassRoom.dart';
+import 'lecture/widget/ClassRoomLecture.dart';
 import 'lecture/widget/NextVideo.dart';
 import 'lecture/Test/ChatTest.dart';
 import 'lecture/Test/TabBarTest.dart';
@@ -37,7 +38,7 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> Course()),
+                  MaterialPageRoute(builder: (context)=> ClassRoom()),
                 );
               },
               child: Text('classroom'),
@@ -46,10 +47,10 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context)=> NextVideo()),
+                  MaterialPageRoute(builder: (context)=> ClassRoomLecture()),
                 );
               },
-              child: Text('nextVideo'),
+              child: Text('classroom package'),
             ),
             ElevatedButton(
               onPressed: () {

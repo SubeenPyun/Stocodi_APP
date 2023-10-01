@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/theme/ClassRoomTheme.dart';
+import 'package:stocodi_app/lecture/data/CourseData.dart';
 
 final theme = ClassRoomTheme.getAppTheme();
 final textTheme = theme.textTheme;
 
 class CourseItem extends StatelessWidget {
-  final String popularCourseTitle;
+  final String courseTitle;
   final List<CourseData> courseList;
 
   const CourseItem({
     Key? key,
-    required this.popularCourseTitle,
+    required this.courseTitle,
     required this.courseList,
   }) : super(key: key);
 
@@ -18,7 +19,7 @@ class CourseItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: theme.backgroundColor,
-      child: ListView(
+      child: Column(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -28,7 +29,7 @@ class CourseItem extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(popularCourseTitle, style: textTheme.displayLarge),
+                    Text(courseTitle, style: textTheme.displayLarge),
                     SizedBox(
                       width: 28,
                       height: 28,
@@ -57,17 +58,6 @@ class CourseItem extends StatelessWidget {
   }
 }
 
-class CourseData {
-  final String title;
-  final String description;
-  final String imagePath;
-
-  CourseData({
-    required this.title,
-    required this.description,
-    required this.imagePath,
-  });
-}
 
 class CourseCard extends StatelessWidget {
   final String courseTitle;
@@ -75,11 +65,7 @@ class CourseCard extends StatelessWidget {
   final String courseImage;
 
   const CourseCard({
-    Key? key,
-    required this.courseTitle,
-    required this.courseDescription,
-    required this.courseImage,
-  }) : super(key: key);
+    Key? key, required this.courseTitle, required this.courseDescription, required this.courseImage,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
