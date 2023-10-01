@@ -10,14 +10,17 @@ class ClassRoom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(
-          height: 400,
-          child: ClassRoomLecture(),
+        const Expanded(
+          child: SizedBox(
+            height: 400,
+            child: ClassRoomLecture(),
+          ),
         ),
         Expanded(
           child: Container(
             color: Colors.white, // 배경색을 흰색으로 설정
             child: ListView(
+              padding: EdgeInsets.zero, // 여기에 패딩을 제거합니다.
               shrinkWrap: true,
               children: [
                 CourseItem(courseTitle: '실시간 인기강의', courseList: courseList),

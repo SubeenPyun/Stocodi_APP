@@ -27,17 +27,21 @@ class CourseItem extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(courseTitle, style: textTheme.displayLarge),
-                    SizedBox(
-                      width: 28,
-                      height: 28,
-                      child: Icon(Icons.arrow_right, color: theme.primaryColor),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 4),
+                      child: Text(courseTitle, style: textTheme.displayLarge),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 0, 10, 4),
+                      child: Icon(Icons.chevron_right, color: theme.primaryColor, size: 35),
                     ),
                   ],
                 ),
               ),
+
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
@@ -72,9 +76,9 @@ class CourseCard extends StatelessWidget {
     return Container(
       width: 200,
       height: 165,
-      margin: const EdgeInsets.all(8),
+      margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start, // 텍스트를 왼쪽으로 정렬
         children: [
           Container(
             width: 200,
@@ -87,13 +91,9 @@ class CourseCard extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(courseTitle, style: textTheme.displayMedium),
-              Text(courseDescription, style: textTheme.displaySmall),
-            ],
-          ),
+          const SizedBox(height: 5), // 이미지와 텍스트 사이의 공간을 조절
+          Text(courseTitle, style: textTheme.displayMedium),
+          Text(courseDescription, style: textTheme.displaySmall),
         ],
       ),
     );
