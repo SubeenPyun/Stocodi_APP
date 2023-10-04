@@ -30,6 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  android_intent:
+  css_colors:
+  cupertino_icons: ^1.0.2
+  fluttertoast: ^8.0.8
   http: ^1.1.0
   logger: ^2.0.2
   dio: ^5.3.2
@@ -42,14 +46,14 @@ dependencies:
   table_calendar: ^3.0.9
   flutter_native_splash: ^2.3.2
   grouped_list: ^5.1.2
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -63,6 +67,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/kakao.jpg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

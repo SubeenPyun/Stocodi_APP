@@ -5,7 +5,7 @@ import 'app.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -33,3 +33,4 @@ class MyApp extends StatelessWidget {
     }
   }
 }
+
