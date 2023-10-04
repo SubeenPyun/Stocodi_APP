@@ -132,6 +132,31 @@ class _TransactionLogState extends State<TransactionLog> {
                     textAlign: TextAlign.left,
                     style: theme.textTheme.titleMedium,
                   ),
+                  SizedBox(width: 6), // 숫자와의 간격 조절
+                  ValueListenableBuilder<List<Event>>(
+                    valueListenable: _selectedEvents,
+                    builder: (context, value, _) {
+                      int eventCount = value.length;
+                      return Stack(
+                        children: [
+                          Container(
+                            width: 26, // 동그란 원의 지름
+                            height: 26, // 동그란 원의 지름
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color(0xffE7FBF3), // 원의 색상
+                            ),
+                            child: Center(
+                              child: Text(
+                                eventCount.toString(),
+                                style: theme.textTheme.titleSmall?.copyWith(color: theme.primaryColor),
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ],
               ),
             ),

@@ -12,6 +12,13 @@ List<String> get weekDays =>
 
 List<double> get yValues => const [60, 40, 39, 42, 50, 100];
 
+List<String> portfolioList = [
+  "유의 포트폴리오_1",
+  "유의 포트폴리오_2",
+  "유의 포트폴리오_3",
+];
+
+String selectedPortfolio = "유의 포트폴리오_1"; // 초기 선택
 
 class Portfolio extends StatefulWidget {
   const Portfolio({Key? key}) : super(key: key);
@@ -39,10 +46,25 @@ class _PortfolioState extends State<Portfolio> {
       child: Column(
         children: [
           Container(
+            height: 22,
             alignment: Alignment.centerLeft,
-            child: Text(
-              "유의 포트폴리오_1",
-              style: theme.textTheme.titleSmall,
+           child: DropdownButton<String>(
+              underline: SizedBox.shrink(),
+              value: selectedPortfolio, // 현재 선택된 포트폴리오
+              items: portfolioList.map((String portfolio) {
+                return DropdownMenuItem<String>(
+                  value: portfolio,
+                  child: Text(
+                    portfolio,
+                    style: theme.textTheme.titleSmall,
+                  ),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  selectedPortfolio = newValue!;
+                });
+              },
             ),
           ),
           SizedBox(height: 28),
