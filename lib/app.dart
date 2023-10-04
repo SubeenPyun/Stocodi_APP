@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/invest/screens/invest_experiment.dart';
-import 'package:stocodi_app/styles/theme/app_theme.dart';
+import 'package:stocodi_app/lecture/ClassRoom.dart';
+import 'package:stocodi_app/lecture/widget/VideoScreenActivity.dart';
+import 'package:stocodi_app/theme/app_theme.dart';
+
+import 'lecture/Lecture.dart';
 
 class AppScreen extends StatefulWidget {
   const AppScreen({Key? key}) : super(key: key);
@@ -22,9 +26,9 @@ class _AppScreenState extends State<AppScreen> {
 
   final List<Widget> _pages = [
     Container(),
-    Container(),
-    InvestExperiment(),
-    Container(),
+    const ClassRoom(),
+    const InvestExperiment(),
+    const Lecture(),
     Container(),
   ];
 

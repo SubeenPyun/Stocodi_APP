@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/screens/init_screens/signup_done.dart';
-import 'package:stocodi_app/screens/init_screens/signup_password.dart';
+import 'package:stocodi_app/sign_up/signup_done.dart';
 import 'package:stocodi_app/widgets/green_longbtn.dart';
 import 'package:stocodi_app/widgets/interestBox.dart';
 import 'package:stocodi_app/widgets/textEditBtn.dart';

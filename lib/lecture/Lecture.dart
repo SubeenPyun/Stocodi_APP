@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/lecture/widget/LectureTab.dart';
-import 'package:stocodi_app/lecture/VideoScreenActivity.dart';
+import 'package:stocodi_app/lecture/widget/VideoScreenActivity.dart';
 
 void main() {
   runApp(const Lecture());

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/theme/ClassRoomTheme.dart';
 import 'package:stocodi_app/lecture/data/CourseData.dart';
+import 'package:stocodi_app/theme/ClassRoomTheme.dart';
+
+import '../Lecture.dart';
 
 final theme = ClassRoomTheme.getAppTheme();
 final textTheme = theme.textTheme;
@@ -73,28 +75,38 @@ class CourseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 200,
-      height: 165,
-      margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // 텍스트를 왼쪽으로 정렬
-        children: [
-          Container(
-            width: 200,
-            height: 112,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: AssetImage(courseImage),
-                fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        // CourseCard 클릭 시 VideoScreenActivity로 이동
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const Lecture(),
+          ),
+        );
+      },
+      child: Container(
+        width: 200,
+        height: 165,
+        margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start, // 텍스트를 왼쪽으로 정렬
+          children: [
+            Container(
+              width: 200,
+              height: 112,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  image: AssetImage(courseImage),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 5), // 이미지와 텍스트 사이의 공간을 조절
-          Text(courseTitle, style: textTheme.displayMedium),
-          Text(courseDescription, style: textTheme.displaySmall),
-        ],
+            const SizedBox(height: 5), // 이미지와 텍스트 사이의 공간을 조절
+            Text(courseTitle, style: textTheme.displayMedium),
+            Text(courseDescription, style: textTheme.displaySmall),
+          ],
+        ),
       ),
     );
   }

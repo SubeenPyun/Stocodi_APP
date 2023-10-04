@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/screens/init_screens/signup.dart';
-import 'package:stocodi_app/screens/init_screens/splash_screen.dart';
+import 'package:stocodi_app/sign_up/splash_screen.dart';
 import 'app.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -27,7 +26,8 @@ class MyApp extends StatelessWidget {
     if (snapshot.hasError) {
       return const Text("Error!!");
     } else if (snapshot.hasData) {
-      return const Signup();
+      return const AppScreen();
+      // return const Signup();
     } else {
       return const Splash_Screen();
     }

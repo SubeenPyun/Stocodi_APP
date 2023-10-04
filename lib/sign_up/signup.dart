@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/screens/init_screens/signup_email_enter.dart';
+import 'package:stocodi_app/sign_up/signup_email_enter.dart';
 import 'package:stocodi_app/widgets/longbtn.dart';
 
 class Signup extends StatefulWidget {

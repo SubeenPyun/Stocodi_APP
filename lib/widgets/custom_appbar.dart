@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../invest/screens/invest_experiment.dart';
+import '../invest/screens/invest_experiment.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isSub;

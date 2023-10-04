@@ -2,10 +2,10 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/invest/screens/transaction_log.dart';
-import 'package:stocodi_app/styles/theme/app_theme.dart';
+import 'package:stocodi_app/theme/app_theme.dart';
 
-import '../../styles/widget/custom_appbar.dart';
-import '../../styles/widget/round_square_container.dart';
+import '../../widgets/custom_appbar.dart';
+import '../../widgets/round_square_container.dart';
 
 List<String> get weekDays =>
       const ['3월', '4월', '5월', '6월', '7월', '8월', '9월'];

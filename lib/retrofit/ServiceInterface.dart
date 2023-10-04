@@ -7,8 +7,8 @@ class ApiService {
 
   ApiService() {
     dio.options.baseUrl = 'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
-    dio.options.connectTimeout = 5000; // 연결 시간 초과: 5초
-    dio.options.receiveTimeout = 3000; // 응답 시간 초과: 3초
+    dio.options.connectTimeout = 5000 as Duration?; // 연결 시간 초과: 5초
+    dio.options.receiveTimeout = 3000 as Duration?; // 응답 시간 초과: 3초
     dio.options.headers = {
       'Content-Type': 'application/json',
     };

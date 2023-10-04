@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'lecture/ClassRoom.dart';
-import 'lecture/widget/Lecture.dart';
+import 'lecture/Lecture.dart';
 import 'lecture/widget/Comment.dart';
 void main(){
   runApp(const DongGi());
