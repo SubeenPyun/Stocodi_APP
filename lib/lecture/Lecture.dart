@@ -11,16 +11,14 @@ class Lecture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Column(
-          children: [
-            VideoScreenActivity(),
-            Expanded(
-              child: LectureTab(),
-            ),
-          ],
-        ),
+    return const Scaffold(
+      body: Column(
+        children: [
+          VideoScreenActivity(),
+          Expanded(
+            child: LectureTab(),
+          ),
+        ],
       ),
     );
   }
