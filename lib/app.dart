@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/home.dart';
 import 'package:stocodi_app/invest/screens/invest_experiment.dart';
 import 'package:stocodi_app/lecture/ClassRoom.dart';
 import 'package:stocodi_app/lecture/widget/VideoScreenActivity.dart';
@@ -25,7 +26,7 @@ class _AppScreenState extends State<AppScreen> {
   }
 
   final List<Widget> _pages = [
-    Container(),
+    Home(),
     const ClassRoom(),
     const InvestExperiment(),
     const Lecture(),

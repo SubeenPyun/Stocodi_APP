@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
-void main() {
-  runApp(Main2());
-}
-
-class Main2 extends StatefulWidget{
+class Home extends StatefulWidget{
   @override
-  State<Main2> createState() => _Main2State();
+  State<Home> createState() => _HomeState();
 }
 
-class _Main2State extends State<Main2> {
+class _HomeState extends State<Home> {
   final _valueList=['유의 포트폴리오 1', '유의 포트폴리오 2'];
   var _selectedValue='유의 포트폴리오 1';
   Map<String, int> price={'유의 포트폴리오 1':10000, '유의 포트폴리오 2':20000};
@@ -19,7 +14,6 @@ class _Main2State extends State<Main2> {
   var f = NumberFormat('###,###,###,###');
 
   late List<_ChartData> data;
-  late TooltipBehavior _tooltip;
 
   @override
   void initState() {
@@ -30,7 +24,6 @@ class _Main2State extends State<Main2> {
       _ChartData('BRZ', 6.4),
       _ChartData('IND', 14)
     ];
-    _tooltip = TooltipBehavior(enable: true);
     super.initState();
   }
 
