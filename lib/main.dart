@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'stocodi_api_test.dart';
-import 'DongGiTestPage.dart';
+import 'package:stocodi_app/screens/init_screens/signup.dart';
+import 'package:stocodi_app/screens/init_screens/splash_screen.dart';
+import 'app.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,45 +12,25 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(), // 앱의 첫 화면을 설정
-    );
+        home: FutureBuilder(
+      future:
+          Future.delayed(const Duration(seconds: 3), () => "Intro Completed."),
+      builder: (context, snapshot) {
+        return AnimatedSwitcher(
+            duration: const Duration(milliseconds: 1000),
+            child: _splashLoadingWidget(snapshot));
+      },
+    ));
+  }
+
+  Widget _splashLoadingWidget(AsyncSnapshot<Object?> snapshot) {
+    if (snapshot.hasError) {
+      return const Text("Error!!");
+    } else if (snapshot.hasData) {
+      return const Signup();
+    } else {
+      return const Splash_Screen();
+    }
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('홈 화면'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                // 첫 번째 버튼을 누르면 두 번째 화면으로 이동
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignUp()),
-                );
-              },
-              child: Text('api test'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // 첫 번째 버튼을 누르면 두 번째 화면으로 이동
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DongGi()),
-                );
-              },
-              child: Text('DongGiTestPage'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
