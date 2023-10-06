@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/retrofit/HttpDTO/Login.dart';
 import 'package:stocodi_app/retrofit/HttpDTO/Register.dart';
-import 'retrofit/HttpService.dart';
+import 'HttpService.dart';
 
 void main() {
   runApp(const SignUp());
@@ -12,26 +12,27 @@ class SignUp extends StatelessWidget {
 
   Future<void> _signUp() async {
     final data = Register(
-      "oz@naver.com",
+      "oz1@naver.com",
       "1234",
       "김동기",
-      'oz',
+      "oz",
       "2000-01-11",
-      'M',
-      "IT",
+      'MALE',
+      ["IT"],
     );
     final loginData = Login(
-      'oz@naver.com',
-      '1234'
+        'a@naver.com',
+        '11'
     );
 
     try {
       // AuthenticationManager 인스턴스 생성 및 사용
       final authenticationManager = AuthenticationManager();
       /*await authenticationManager.nickNameExist();*/
-      await authenticationManager.signUp(data);
+      /*await authenticationManager.signUp(data);*/
       await authenticationManager.nickNameExist('예리미양');
-      /*await authenticationManager.login(loginData);*/
+      await authenticationManager.login(loginData);
+      await authenticationManager.logOut();
     } catch (e) {
       // 오류 처리
       print('오류 발생: $e');
@@ -45,9 +46,19 @@ class SignUp extends StatelessWidget {
         title: Text('API Example'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: _signUp, // 함수 자체를 할당합니다.
-          child: const Text('Call API'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: _signUp, // 첫 번째 버튼에 할당된 함수
+              child: const Text('Call API 1'),
+            ),
+            SizedBox(height: 20), // 버튼 사이에 간격 추가
+            /*ElevatedButton(
+              onPressed: _anotherFunction, // 두 번째 버튼에 할당된 함수
+              child: const Text('Call API 2'),
+            ),*/
+          ],
         ),
       ),
     );

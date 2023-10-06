@@ -4,6 +4,11 @@ import 'package:stocodi_app/invest/screens/invest_experiment.dart';
 import 'package:stocodi_app/lecture/ClassRoom.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
 
+import 'DongGiTestPage.dart';
+import 'chart/a.dart';
+import 'chart/b.dart';
+import 'chart/c.dart';
+import 'chart/charttest.dart';
 import 'lecture/Lecture.dart';
 
 class AppScreen extends StatefulWidget {
@@ -25,11 +30,11 @@ class _AppScreenState extends State<AppScreen> {
   }
 
   final List<Widget> _pages = [
-    Home(),
+    MyAppc(),
     const ClassRoom(),
-    const InvestExperiment(),
-    Lecture(),
-    Container(),
+    const DongGi(),
+    MyAppb(),
+    MyAppa(),
   ];
 
   BottomNavigationBarItem _bottomNavigationBarItem(String iconName, String label){

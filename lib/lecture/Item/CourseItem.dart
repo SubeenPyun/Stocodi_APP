@@ -43,7 +43,6 @@ class CourseItem extends StatelessWidget {
                   ],
                 ),
               ),
-
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(

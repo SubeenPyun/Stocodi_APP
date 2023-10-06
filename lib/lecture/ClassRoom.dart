@@ -31,19 +31,9 @@ class ClassRoom extends StatelessWidget {
               height: 400,
               child: ClassRoomLecture(),
             ),
-            Container(
-              color: Colors.white,
-              child: ListView(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                children: [
-                  CourseItem(courseTitle: '실시간 인기강의', courseList: courseList),
-                  CourseItem(courseTitle: 'Course1', courseList: courseList),
-                  CourseItem(courseTitle: 'Course2', courseList: courseList),
-                  // Add more CourseItem widgets as needed
-                ],
-              ),
-            ),
+            CourseItem(courseTitle: '실시간 인기강의', courseList: courseList),
+            CourseItem(courseTitle: 'Course1', courseList: courseList),
+            CourseItem(courseTitle: 'Course2', courseList: courseList),
           ],
         ),
       ),
