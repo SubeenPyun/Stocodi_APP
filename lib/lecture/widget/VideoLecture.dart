@@ -8,7 +8,7 @@ class VideoLecture extends StatelessWidget {
       margin: const EdgeInsets.fromLTRB(0, 0, 0, 12),
       padding: const EdgeInsets.fromLTRB(0, 217, 0, 0),
       width: double.infinity,
-      height: 220,
+      height: MediaQuery.of(context).size.height* 0.3,
       decoration: const BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,

@@ -28,7 +28,7 @@ class VideoCard extends StatelessWidget {
     final nicknameStyle = isNarrowScreen ? textTheme.displayMedium : textTheme.displayMedium; // 너비에 따른 스타일 조정
     final dateAndViewsStyle = isNarrowScreen ? textTheme.displaySmall : textTheme.displaySmall; // 너비에 따른 스타일 조정
     double imageWidth = isNarrowScreen ? 160.0 : 200.0;
-    double imageHeight = isNarrowScreen ? 90.0 : 112.5;
+    double imageHeight = isNarrowScreen ? 100.0 : 125;
 
     return GestureDetector(
       onTap: () {
