@@ -6,7 +6,6 @@ void main() {
   runApp(const Comment());
 }
 
-
 class Comment extends StatelessWidget {
   const Comment({super.key});
 
@@ -22,21 +21,27 @@ class Comment extends StatelessWidget {
               child: MyComment(imageUrl: 'assets/kakao.jpg'),
             ),
             Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.zero, // 여기에 패딩을 제거합니다.
-                shrinkWrap: true,
-                itemCount: 15,
-                itemBuilder: (context, index) {
-                  return CommentItem(
-                    name: 'Name $index',
-                    profileImage: 'assets/kakao.jpg',
-                    text: 'Your comment text here',
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final isNarrowScreen = constraints.maxWidth < 600; // 예시 너비 (조정 가능)
+
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    itemCount: 15,
+                    itemBuilder: (context, index) {
+                      return CommentItem(
+                        name: 'Name $index',
+                        profileImage: 'assets/kakao.jpg',
+                        text: 'Your comment text here',
+                      );
+                    },
                   );
                 },
               ),
             ),
           ],
-        )
+        ),
       ),
     );
   }

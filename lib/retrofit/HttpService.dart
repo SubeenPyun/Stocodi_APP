@@ -8,12 +8,10 @@ final MyHttpResult _httpResult = MyHttpResult(); // MyHttpResult 인스턴스 �
 class AuthenticationManager {
   final ApiService _apiService = ApiService();
 
-
   Future<void> login(Login loginData) async {
     try {
       // ApiService의 login 메서드 호출
       final response = await _apiService.login(loginData);
-
       final responseData = response.data['response'];
       final accessToken = responseData['access_token'];
       final refreshToken = responseData['refresh_token'];

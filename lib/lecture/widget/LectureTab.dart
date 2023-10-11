@@ -85,27 +85,30 @@ class TabItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isNarrowScreen = screenWidth < 600;
+    final baseWidth = isNarrowScreen ? 40.0 : 40.0 * (screenWidth / 600); // 600보다 작을 때의 기본 너비 또는 비율에 따른 너비
+    final baseHeight = isNarrowScreen ? 26.0 : 26.0 * (screenWidth / 600); // 600보다 작을 때의 기본 높이 또는 비율에 따른 높이
+
     return Row(
-      mainAxisSize: MainAxisSize.min, // Row 크기를 자식 위젯 크기에 맞게 조절
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(text, style: textTheme.displayLarge?.copyWith(
-            color: isSelected ? theme.primaryColor : theme.unselectedWidgetColor,
-          ),
-        ),
+          color: isSelected ? theme.primaryColor : theme.unselectedWidgetColor,
+        )),
         Container(
-          width: 40.0,
-          height: 26.0,
+          width: baseWidth,
+          height: baseHeight,
           margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
           decoration: BoxDecoration(
             color: isSelected ? theme.canvasColor : const Color(0xFFF5F7F9),
             borderRadius: BorderRadius.circular(100.0),
           ),
-          child: Center( // Center 위젯을 이 위치로 이동
+          child: Center(
             child: Text(count, style: textTheme.displaySmall?.copyWith(
               color: isSelected ? theme.primaryColor : theme.unselectedWidgetColor,
-            ),
-            ),
+            )),
           ),
         ),
       ],

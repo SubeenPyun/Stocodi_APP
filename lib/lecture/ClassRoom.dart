@@ -11,6 +11,9 @@ class ClassRoom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isNarrowScreen = screenWidth < 600; // 예시 너비 (조정 가능)
     return Scaffold(
       appBar: AppBar(
         backgroundColor: theme.backgroundColor,
@@ -27,8 +30,8 @@ class ClassRoom extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 400,
+            SizedBox(
+              height: screenHeight * 0.37,
               child: ClassRoomLecture(),
             ),
             CourseItem(courseTitle: '실시간 인기강의', courseList: courseList),

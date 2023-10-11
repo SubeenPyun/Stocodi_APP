@@ -9,21 +9,11 @@ void main() {
 class MyAppa extends StatelessWidget {
   const MyAppa({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -41,11 +31,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late List<ChartSampleData> _chartData;
+  late List<num> _minMax;
   late TrackballBehavior _trackballBehavior;
 
   @override
   void initState() {
     _chartData = getChartData();
+    _minMax = getMinMax(_chartData);
     _trackballBehavior = TrackballBehavior(
         enable: true, activationMode: ActivationMode.singleTap);
     super.initState();
@@ -57,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Scaffold(
             body: SfCartesianChart(
               title: ChartTitle(text: 'AAPL - 2016'),
-              legend: Legend(isVisible: true),
+              /*legend: Legend(isVisible: true, position : LegendPosition.right),*/
               trackballBehavior: _trackballBehavior,
               series: <CandleSeries>[
                 CandleSeries<ChartSampleData, DateTime>(
@@ -73,13 +65,16 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
 
               primaryXAxis: DateTimeAxis(
-                  dateFormat: DateFormat.MMM(),
-                  majorGridLines: MajorGridLines(width: 0)),
+                dateFormat: DateFormat("MM"),  // "MM" 형식은 월만 표시
+                majorGridLines: MajorGridLines(width: 0),
+              ),
               primaryYAxis: NumericAxis(
-                  minimum: 70,
-                  maximum: 130,
-                  interval: 10,
-                  numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0)),
+                minimum: _minMax.first - 5,  // 최솟값 - 10
+                maximum: _minMax[1] + 5,
+                interval: 10,
+                numberFormat: NumberFormat.simpleCurrency(decimalDigits: 3),
+                opposedPosition: true,  // y축을 오른쪽에 배치
+              ),
             )));
   }
 
@@ -393,6 +388,26 @@ class _MyHomePageState extends State<MyHomePage> {
           close: 115.82),
     ];
   }
+}
+
+List<num> getMinMax(List<ChartSampleData> data) {
+  if (data.isEmpty) {
+    return [0, 0];  // 데이터가 비어있을 경우 기본값을 반환
+  }
+
+  num min = data[0].low ?? double.infinity;  // 초기값을 무한대로 설정
+  num max = data[0].high ?? double.negativeInfinity; // 초기값을 음의 무한대로 설정
+
+  for (final item in data) {
+    if (item.low != null && item.low! < min) {
+      min = item.low!;  // 최솟값 갱신
+    }
+    if (item.high != null && item.high! > max) {
+      max = item.high!;  // 최댓값 갱신
+    }
+  }
+
+  return [min, max];
 }
 
 class ChartSampleData {
