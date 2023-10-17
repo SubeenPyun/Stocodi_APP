@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../theme/app_theme.dart';
+import '../../../theme/app_theme.dart';
 
-class InterestInvestItem extends StatelessWidget {
+class InterestItem extends StatelessWidget {
   ThemeData theme = AppTheme.appTheme;
 
   final String image;
@@ -11,7 +11,7 @@ class InterestInvestItem extends StatelessWidget {
   final double percentage;
   final VoidCallback onPressed;
 
-  InterestInvestItem({
+  InterestItem({
     required this.image,
     required this.title,
     required this.price,

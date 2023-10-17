@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:stocodi_app/invest/item/transaction_log_item.dart';
+import 'package:stocodi_app/invest/transaction_log/item/transaction_log_item.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../theme/app_theme.dart';
-import '../../widgets/custom_appbar.dart';
-import '../../utils.dart';
-import '../../widgets/round_square_container.dart';
+import '../theme/app_theme.dart';
+import '../widgets/custom_appbar.dart';
+import '../utils.dart';
+import '../widgets/round_square_container.dart';
 
 final ThemeData theme = AppTheme.appTheme;
 
@@ -40,57 +40,67 @@ class _TransactionLogState extends State<TransactionLog> {
   }
 
   Widget _buildTableCalendarSection(BuildContext context){
-    return RoundSquareContainer(
-      width : MediaQuery.of(context).size.width,
-      height: 440,
-      child: TableCalendar<Event>(
-        locale: 'ko_KR',
-        focusedDay: _focusedDay,
-        firstDay: kFirstDay,
-        lastDay: kLastDay,
-        headerStyle: HeaderStyle(
-          headerMargin: EdgeInsets.only(bottom: 30),
-          leftChevronVisible: false,
-          rightChevronVisible: false,
-          formatButtonVisible: false,
-          titleTextStyle: theme.textTheme.titleMedium!,
-          titleTextFormatter: (date, locale){
-            return '${DateFormat.M(locale).format(date)}, ${DateFormat.y(locale).format(date)}';
-          },
-        ),
-        selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-        rangeStartDay: _rangeStart,
-        rangeEndDay: _rangeEnd,
-        calendarFormat: _calendarFormat,
-        rangeSelectionMode: _rangeSelectionMode,
-        eventLoader: _getEventsForDay,
-        startingDayOfWeek: StartingDayOfWeek.monday,
-        calendarStyle: CalendarStyle(
-          outsideDaysVisible: false,
-          canMarkersOverflow: false,
-          markersAutoAligned: true,
-          markersMaxCount: 4, // 이벤트 개수와 점 개수 다르게 + 최대 점 개수 2개로 수정 필요
-          markerDecoration: BoxDecoration(
-            color: Colors.red, // 이벤트 내용에 따라 수정 필요
-            shape: BoxShape.circle,
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        double deviceWidth = MediaQuery.of(context).size.width;
+        double widthRatio = 342 / 390;
+        double containerWidth = deviceWidth * widthRatio;
+        double heightRatio = 485/342;
+        double containerHeight = containerWidth*heightRatio;
+
+        return RoundSquareContainer(
+          width : MediaQuery.of(context).size.width,
+          height: containerHeight,
+          child: TableCalendar<Event>(
+            locale: 'ko_KR',
+            focusedDay: _focusedDay,
+            firstDay: kFirstDay,
+            lastDay: kLastDay,
+            headerStyle: HeaderStyle(
+              headerMargin: EdgeInsets.only(bottom: 30),
+              leftChevronVisible: false,
+              rightChevronVisible: false,
+              formatButtonVisible: false,
+              titleTextStyle: theme.textTheme.titleMedium!,
+              titleTextFormatter: (date, locale){
+                return '${DateFormat.M(locale).format(date)}, ${DateFormat.y(locale).format(date)}';
+              },
+            ),
+            selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+            rangeStartDay: _rangeStart,
+            rangeEndDay: _rangeEnd,
+            calendarFormat: _calendarFormat,
+            rangeSelectionMode: _rangeSelectionMode,
+            eventLoader: _getEventsForDay,
+            startingDayOfWeek: StartingDayOfWeek.monday,
+            calendarStyle: CalendarStyle(
+              outsideDaysVisible: false,
+              canMarkersOverflow: false,
+              markersAutoAligned: true,
+              markersMaxCount: 4, // 이벤트 개수와 점 개수 다르게 + 최대 점 개수 2개로 수정 필요
+              markerDecoration: BoxDecoration(
+                color: Colors.red, // 이벤트 내용에 따라 수정 필요
+                shape: BoxShape.circle,
+              ),
+              isTodayHighlighted: true,
+              todayTextStyle: theme.textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w700,color: theme.primaryColor),
+              todayDecoration: BoxDecoration(
+                color: Colors.white
+              ),
+              selectedTextStyle: theme.textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w700,color: Colors.white),
+              selectedDecoration: BoxDecoration(
+                color: theme.primaryColor,
+                shape: BoxShape.circle,
+              ),
+            ),
+            onDaySelected: _onDaySelected,
+            onRangeSelected: _onRangeSelected,
+            onPageChanged: (focusedDay) {
+              _focusedDay = focusedDay;
+            },
           ),
-          isTodayHighlighted: true,
-          todayTextStyle: theme.textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w700,color: theme.primaryColor),
-          todayDecoration: BoxDecoration(
-            color: Colors.white
-          ),
-          selectedTextStyle: theme.textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w700,color: Colors.white),
-          selectedDecoration: BoxDecoration(
-            color: theme.primaryColor,
-            shape: BoxShape.circle,
-          ),
-        ),
-        onDaySelected: _onDaySelected,
-        onRangeSelected: _onRangeSelected,
-        onPageChanged: (focusedDay) {
-          _focusedDay = focusedDay;
-        },
-      ),
+        );
+      }
     );
   }
 
@@ -112,21 +122,16 @@ class _TransactionLogState extends State<TransactionLog> {
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        double remainingHeight = constraints.maxHeight;
-        if (_selectedEvents.value.length > 0) {
-          // 이벤트가 있는 경우, 이벤트 항목 높이 + 추가 여백 (90은 임의로 선택한 높이입니다)
+        double containerHeight = MediaQuery.of(context).size.height;
+        double remainingHeight = containerHeight * 0.24; // 내부 이미지의 폭을 조절
+
+        if (_selectedEvents.value.length > 1) {
           remainingHeight = _selectedEvents.value.length * 90 + 90;
         }
 
         return RoundSquareContainer(
-          width: MediaQuery
-              .of(context)
-              .size
-              .width,
-          height: _selectedEvents.value.length == 0 ? MediaQuery
-              .of(context)
-              .size
-              .height - 400 : _selectedEvents.value.length * 90 + 90,
+          width: MediaQuery.of(context).size.width,
+          height: remainingHeight,
           child: Column(
             children: [
               Container(
@@ -176,14 +181,11 @@ class _TransactionLogState extends State<TransactionLog> {
                     itemBuilder: (context, index) {
                       switch (index) {
                         case 0:
-                          return buildTransactionLogItem("apple", "애플", 10,
-                              124000);
+                          return buildTransactionLogItem("apple", "애플", 10, 124000);
                         case 1:
-                          return buildTransactionLogItem("teslr", "테슬라", 10,
-                              124000);
+                          return buildTransactionLogItem("teslr", "테슬라", 10, 124000);
                         case 2:
-                          return buildTransactionLogItem("ecopro", "에코프로", 10,
-                              -124000);
+                          return buildTransactionLogItem("ecopro", "에코프로", 10, -124000);
                         default:
                           return SizedBox.shrink();
                       }
