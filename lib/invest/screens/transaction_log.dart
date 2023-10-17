@@ -87,13 +87,6 @@ class _TransactionLogState extends State<TransactionLog> {
         ),
         onDaySelected: _onDaySelected,
         onRangeSelected: _onRangeSelected,
-        onFormatChanged: (format) {
-          if (_calendarFormat != format) {
-            setState(() {
-              _calendarFormat = format;
-            });
-          }
-        },
         onPageChanged: (focusedDay) {
           _focusedDay = focusedDay;
         },
@@ -117,74 +110,94 @@ class _TransactionLogState extends State<TransactionLog> {
       ? "${_selectedDay!.month}월 ${_selectedDay!.day}일"
       : "날짜를 선택하세요"; // 선택한 날짜를 표시
 
-    return RoundSquareContainer(
-        width: MediaQuery.of(context).size.width,
-        height: _selectedEvents.value.length * 90 + 90,
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(bottom: 20),
-              alignment: Alignment.centerLeft,
-              child: Row(
-                children: [
-                  Text(
-                    formattedSelectedDate,
-                    textAlign: TextAlign.left,
-                    style: theme.textTheme.titleMedium,
-                  ),
-                  SizedBox(width: 6), // 숫자와의 간격 조절
-                  ValueListenableBuilder<List<Event>>(
-                    valueListenable: _selectedEvents,
-                    builder: (context, value, _) {
-                      int eventCount = value.length;
-                      return Stack(
-                        children: [
-                          Container(
-                            width: 26, // 동그란 원의 지름
-                            height: 26, // 동그란 원의 지름
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Color(0xffE7FBF3), // 원의 색상
-                            ),
-                            child: Center(
-                              child: Text(
-                                eventCount.toString(),
-                                style: theme.textTheme.titleSmall?.copyWith(color: theme.primaryColor),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        double remainingHeight = constraints.maxHeight;
+        if (_selectedEvents.value.length > 0) {
+          // 이벤트가 있는 경우, 이벤트 항목 높이 + 추가 여백 (90은 임의로 선택한 높이입니다)
+          remainingHeight = _selectedEvents.value.length * 90 + 90;
+        }
+
+        return RoundSquareContainer(
+          width: MediaQuery
+              .of(context)
+              .size
+              .width,
+          height: _selectedEvents.value.length == 0 ? MediaQuery
+              .of(context)
+              .size
+              .height - 400 : _selectedEvents.value.length * 90 + 90,
+          child: Column(
+            children: [
+              Container(
+                margin: EdgeInsets.only(bottom: 20),
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    Text(
+                      formattedSelectedDate,
+                      textAlign: TextAlign.left,
+                      style: theme.textTheme.titleMedium,
+                    ),
+                    SizedBox(width: 6), // 숫자와의 간격 조절
+                    ValueListenableBuilder<List<Event>>(
+                      valueListenable: _selectedEvents,
+                      builder: (context, value, _) {
+                        int eventCount = value.length;
+                        return Stack(
+                          children: [
+                            Container(
+                              width: 26, // 동그란 원의 지름
+                              height: 26, // 동그란 원의 지름
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color(0xffE7FBF3), // 원의 색상
+                              ),
+                              child: Center(
+                                child: Text(
+                                  eventCount.toString(),
+                                  style: theme.textTheme.titleSmall?.copyWith(
+                                      color: theme.primaryColor),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ],
+                          ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-            ValueListenableBuilder<List<Event>>(
-              valueListenable: _selectedEvents,
-              builder: (context, value, _) {
-                return ListView.builder(
-                  itemCount: value.length,
-                  itemBuilder: (context, index) {
-                    switch (index) {
-                      case 0:
-                        return buildTransactionLogItem("apple", "애플", 10, 124000);
-                      case 1:
-                        return buildTransactionLogItem("teslr", "테슬라", 10, 124000);
-                      case 2:
-                        return buildTransactionLogItem("ecopro", "에코프로", 10, -124000);
-                      default:
-                        return SizedBox.shrink();
-                    }
-                  },
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                );
-              },
-            ),
-          ],
-        ),
-      );
+              ValueListenableBuilder<List<Event>>(
+                valueListenable: _selectedEvents,
+                builder: (context, value, _) {
+                  return ListView.builder(
+                    itemCount: value.length,
+                    itemBuilder: (context, index) {
+                      switch (index) {
+                        case 0:
+                          return buildTransactionLogItem("apple", "애플", 10,
+                              124000);
+                        case 1:
+                          return buildTransactionLogItem("teslr", "테슬라", 10,
+                              124000);
+                        case 2:
+                          return buildTransactionLogItem("ecopro", "에코프로", 10,
+                              -124000);
+                        default:
+                          return SizedBox.shrink();
+                      }
+                    },
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                  );
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   List<Event> _getEventsForDay(DateTime day) {
