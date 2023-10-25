@@ -27,7 +27,10 @@ class InvestExperiment extends StatelessWidget {
         child: Column(
           children: [
             PortfolioSection(),
-            InterestItemsList(investmentItems: investmentItems),
+            InterestItemsList(
+              investmentItems: investmentItems,
+              context: context,
+            ),
           ],
         ),
       ),
