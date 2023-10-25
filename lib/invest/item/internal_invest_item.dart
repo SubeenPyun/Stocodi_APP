@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../theme/app_theme.dart';
 
-class InterestInvestItem extends StatelessWidget {
+class InternalInvestItem extends StatelessWidget {
   ThemeData theme = AppTheme.appTheme;
 
   final String image;
   final String title;
-  final int price;
+  final int totalprice;
   final double percentage;
-  final VoidCallback onPressed;
+  final int profit;
+  final int numOfItem;
 
-  InterestInvestItem({
+  InternalInvestItem({
     required this.image,
     required this.title,
-    required this.price,
+    required this.totalprice,
     required this.percentage,
-    required this.onPressed,
+    required this.profit,
+    required this.numOfItem,
   });
 
   @override
@@ -41,32 +43,34 @@ class InterestInvestItem extends StatelessWidget {
                 style: theme.textTheme.titleSmall,
               ),
               SizedBox(height: 2),
-              Row(
-                children: [
-                  Text(
-                    "${format.format(price)}원",
-                    style: TextStyle(height: 1, fontSize: 14),
-                  ),
-                  SizedBox(width: 4),
-                  Text(
-                    (percentage > 0 ? "+" : "") + "${(percentage)}%",
-                    style: TextStyle(
-                      height: 1,
-                      fontSize: 14,
-                      color: percentage > 0 ? Color(0xffF6465D) : Color(0xff4496F7),
-                    ),
-                  ),
-                ],
+              Text(
+                "${numOfItem} 주",
+                style: TextStyle(
+                  height: 1,
+                  fontSize: 14,
+                ),
               ),
-
             ],
           ),
           Spacer(),
-          IconButton(
-            icon: Icon(Icons.favorite), // 하트 버튼
-            color: theme.primaryColor,
-            onPressed: onPressed,
-          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                "${format.format(totalprice)}원",
+                style: TextStyle(height: 1, fontSize: 14),
+              ),
+              SizedBox(width: 4),
+              Text(
+                (percentage > 0 ? "+" : "") + "${(percentage)}%",
+                style: TextStyle(
+                  height: 1,
+                  fontSize: 14,
+                  color: percentage > 0 ? Color(0xffF6465D) : Color(0xff4496F7),
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );

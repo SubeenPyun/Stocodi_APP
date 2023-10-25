@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/sign_up/signup_email_enter.dart';
+import 'package:stocodi_app/transaction/screens/transcation_main.dart';
 import 'package:stocodi_app/widgets/longbtn.dart';
 
 class Signup extends StatefulWidget {
@@ -16,7 +17,13 @@ class _SignupState extends State<Signup> {
       home: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
-          padding: const EdgeInsets.fromLTRB(32, 131, 32, 0),
+          padding: EdgeInsets.fromLTRB(
+            MediaQuery.of(context).size.width * 0.08,
+            MediaQuery.of(context).padding.top +
+                MediaQuery.of(context).size.height * 0.14,
+            MediaQuery.of(context).size.width * 0.08,
+            MediaQuery.of(context).size.height * 0.03,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -51,48 +58,69 @@ class _SignupState extends State<Signup> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              const SizedBox(
-                height: 80,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.089,
               ),
-              const LongButton(
+              LongButton(
                 frontboxsize: 28,
                 imgName: 'google_login.png',
                 text: '구글 계정으로 시작하기',
                 borderColor: Color(0xFFEBEBEB),
                 textColor: Color(0xFF767676),
+                height: MediaQuery.of(context).size.height * 0.0627,
+                imgsize: MediaQuery.of(context).size.width * 0.0615,
+                betweensize: MediaQuery.of(context).size.width * 0.0307,
               ),
               const SizedBox(
                 height: 16,
               ),
-              const LongButton(
+              LongButton(
                 frontboxsize: 22,
                 imgName: 'naver_login.png',
                 text: '네이버 계정으로 시작하기',
                 borderColor: Color(0xFFEBEBEB),
                 textColor: Color(0xFF767676),
+                height: MediaQuery.of(context).size.height * 0.0627,
+                imgsize: MediaQuery.of(context).size.width * 0.0615,
+                betweensize: MediaQuery.of(context).size.width * 0.0307,
               ),
               const SizedBox(
                 height: 16,
               ),
-              const LongButton(
+              LongButton(
                 frontboxsize: 22,
                 imgName: 'kakao_login.png',
                 text: '카카오 계정으로 시작하기',
                 borderColor: Color(0xFFEBEBEB),
                 textColor: Color(0xFF767676),
+                height: MediaQuery.of(context).size.height * 0.0627,
+                imgsize: MediaQuery.of(context).size.width * 0.0615,
+                betweensize: MediaQuery.of(context).size.width * 0.0307,
               ),
               const SizedBox(
                 height: 16,
               ),
-              const LongButton(
-                frontboxsize: 22,
-                imgName: 'email_login.png',
-                text: '이메일 계정으로 시작하기',
-                borderColor: Color(0xFFEBEBEB),
-                textColor: Color(0xFF767676),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          //여기 수정 예정. 로그인 페이지로 바로 가야함
+                          builder: (context) => const TransactionMain()));
+                },
+                child: LongButton(
+                  frontboxsize: 22,
+                  imgName: 'email_login.png',
+                  text: '이메일 계정으로 시작하기',
+                  borderColor: Color(0xFFEBEBEB),
+                  textColor: Color(0xFF767676),
+                  height: MediaQuery.of(context).size.height * 0.0627,
+                  imgsize: MediaQuery.of(context).size.width * 0.0615,
+                  betweensize: MediaQuery.of(context).size.width * 0.0307,
+                ),
               ),
-              const SizedBox(
-                height: 32,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.036,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

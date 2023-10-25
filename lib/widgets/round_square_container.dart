@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class RoundSquareContainer extends StatelessWidget{
+class RoundSquareContainer extends StatelessWidget {
   final double width; // 가로 크기를 설정할 변수
   final double height; // 세로 크기를 설정할 변수
   final Widget child;
 
   RoundSquareContainer({
+    super.key,
     this.width = 200.0,
     this.height = 200.0,
     required this.child,
