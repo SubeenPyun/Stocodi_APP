@@ -7,6 +7,8 @@ class TextEditBtn extends StatefulWidget {
   final double betweenboxsize;
   final TextInputType inputtype;
   final bool nosee;
+  final double height;
+  final double imgsize;
 
   const TextEditBtn({
     required this.betweenboxsize,
@@ -15,6 +17,8 @@ class TextEditBtn extends StatefulWidget {
     required this.frontboxsize,
     required this.inputtype,
     required this.nosee,
+    required this.height,
+    required this.imgsize,
     Key? key,
   }) : super(key: key);
   @override
@@ -30,7 +34,7 @@ class _TextEditBtnState extends State<TextEditBtn> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 56,
+      height: widget.height,
       decoration: BoxDecoration(
         border: Border.all(
           color: ctnColor,
@@ -49,14 +53,14 @@ class _TextEditBtnState extends State<TextEditBtn> {
             child: isTyping
                 ? Image.asset(
                     'assets/images/green_${widget.imgName}.png',
-                    width: 24,
-                    height: 24,
+                    width: widget.imgsize,
+                    height: widget.imgsize,
                     fit: BoxFit.fill,
                   )
                 : Image.asset(
                     'assets/images/gray_${widget.imgName}.png',
-                    width: 24,
-                    height: 24,
+                    width: widget.imgsize,
+                    height: widget.imgsize,
                     fit: BoxFit.fill,
                   ),
           ),

@@ -21,7 +21,12 @@ class _SignDoneState extends State<SignDone> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(32, 62, 32, 0),
+        padding: EdgeInsets.fromLTRB(
+            MediaQuery.of(context).size.width * 0.08,
+            MediaQuery.of(context).padding.top +
+                MediaQuery.of(context).size.height * 0.02,
+            MediaQuery.of(context).size.width * 0.08,
+            MediaQuery.of(context).size.height * 0.03),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,13 +36,13 @@ class _SignDoneState extends State<SignDone> {
               },
               child: Image.asset(
                 'assets/images/back_toggle.png',
-                width: 10,
-                height: 20,
+                width: MediaQuery.of(context).size.width * 0.025,
+                height: MediaQuery.of(context).size.height * 0.022,
                 fit: BoxFit.fill,
               ),
             ),
-            const SizedBox(
-              height: 50,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.055,
             ),
             const Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -71,8 +76,8 @@ class _SignDoneState extends State<SignDone> {
                 fontFamily: 'Pretendard Variable',
               ),
             ),
-            const SizedBox(
-              height: 6,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.0067,
             ),
             const Text(
               '회원가입이 완료되었습니다.',
@@ -92,22 +97,22 @@ class _SignDoneState extends State<SignDone> {
                 fontFamily: 'Pretendard Variable',
               ),
             ),
-            const SizedBox(
-              height: 70,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.078,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
                   'assets/images/fire.png',
-                  width: 240,
-                  height: 240,
+                  width: MediaQuery.of(context).size.width * 0.615,
+                  height: MediaQuery.of(context).size.width * 0.615,
                   fit: BoxFit.fill,
                 ),
               ],
             ),
-            const SizedBox(
-              height: 182,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.203,
             ),
             GestureDetector(
               onTap: () {
@@ -115,7 +120,10 @@ class _SignDoneState extends State<SignDone> {
                     context, //여기도 다시 수정해야 함
                     MaterialPageRoute(builder: (context) => Login()));
               },
-              child: const GreenLongBtn(text: '메인으로'),
+              child: GreenLongBtn(
+                text: '메인으로',
+                height: MediaQuery.of(context).size.height * 0.067,
+              ),
             ),
           ],
         ),

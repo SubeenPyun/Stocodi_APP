@@ -21,7 +21,13 @@ class _SignupPwdState extends State<SignupPwd> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(32, 62, 32, 0),
+        padding: EdgeInsets.fromLTRB(
+          MediaQuery.of(context).size.width * 0.08,
+          MediaQuery.of(context).padding.top +
+              MediaQuery.of(context).size.height * 0.02,
+          MediaQuery.of(context).size.width * 0.08,
+          MediaQuery.of(context).size.height * 0.03,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,13 +37,13 @@ class _SignupPwdState extends State<SignupPwd> {
               },
               child: Image.asset(
                 'assets/images/back_toggle.png',
-                width: 10,
-                height: 20,
+                width: MediaQuery.of(context).size.width * 0.025,
+                height: MediaQuery.of(context).size.height * 0.022,
                 fit: BoxFit.fill,
               ),
             ),
-            const SizedBox(
-              height: 50,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.056,
             ),
             const Text(
               '이메일로 시작하기',
@@ -48,19 +54,21 @@ class _SignupPwdState extends State<SignupPwd> {
                 fontFamily: 'Pretendard Variable',
               ),
             ),
-            const SizedBox(
-              height: 32,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.035,
             ),
-            const TextEditBtn(
+            TextEditBtn(
               inputtype: TextInputType.text,
               frontboxsize: 22,
               imgName: 'lock',
               text: '비밀번호를 입력해주세요',
               nosee: true,
               betweenboxsize: 6,
+              height: MediaQuery.of(context).size.height * 0.0627,
+              imgsize: MediaQuery.of(context).size.width * 0.0615,
             ),
-            const SizedBox(
-              height: 16,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.017,
             ),
             const GraySimilarEdit(
               frontboxsize: 22,
@@ -71,8 +79,8 @@ class _SignupPwdState extends State<SignupPwd> {
               boxColor: Color(0xFFEBEBEB),
               textColor: Color(0xFFBDBDBD),
             ),
-            const SizedBox(
-              height: 420,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.47,
             ),
             GestureDetector(
               onTap: () {
@@ -81,7 +89,10 @@ class _SignupPwdState extends State<SignupPwd> {
                     MaterialPageRoute(
                         builder: (context) => const SignDetail()));
               },
-              child: const GreenLongBtn(text: '다음으로'),
+              child: GreenLongBtn(
+                text: '다음으로',
+                height: MediaQuery.of(context).size.height * 0.067,
+              ),
             ),
           ],
         ),

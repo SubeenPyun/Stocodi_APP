@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 class InterestBox extends StatefulWidget {
   final String imgName;
   final String text;
+  final double length; //한 상자의 길이
+  final double howmuch; //그림과 텍스트 사이 공간
   const InterestBox({
     required this.imgName,
     required this.text,
+    required this.length,
+    required this.howmuch,
     super.key,
   });
 
@@ -34,8 +38,8 @@ class _InterestBoxState extends State<InterestBox> {
     return GestureDetector(
       onTap: btnClick,
       child: Container(
-        height: 96,
-        width: 96,
+        height: widget.length,
+        width: widget.length,
         decoration: BoxDecoration(
           border: Border.all(
             color: borderColor,
@@ -49,12 +53,12 @@ class _InterestBoxState extends State<InterestBox> {
           children: [
             Image.asset(
               'assets/images/$imgColor${widget.imgName}.png',
-              width: 32,
-              height: 32,
+              width: widget.length / 3,
+              height: widget.length / 3,
               fit: BoxFit.fill,
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: widget.howmuch,
             ),
             Text(
               widget.text,

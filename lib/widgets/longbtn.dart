@@ -6,6 +6,9 @@ class LongButton extends StatelessWidget {
   final String text;
   final Color borderColor;
   final Color textColor;
+  final double height;
+  final double imgsize;
+  final double betweensize;
 
   const LongButton({
     super.key,
@@ -14,13 +17,16 @@ class LongButton extends StatelessWidget {
     required this.text,
     required this.borderColor,
     required this.textColor,
+    required this.height,
+    required this.imgsize,
+    required this.betweensize,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       //width: 326,
-      height: 56,
+      height: height,
       decoration: BoxDecoration(
         border: Border.all(
           color: borderColor,
@@ -37,12 +43,12 @@ class LongButton extends StatelessWidget {
           ),
           Image.asset(
             'assets/images/$imgName',
-            width: 24,
-            height: 24,
+            width: imgsize,
+            height: imgsize,
             fit: BoxFit.fill,
           ),
-          const SizedBox(
-            width: 12,
+          SizedBox(
+            width: betweensize,
           ),
           Text(
             text,
