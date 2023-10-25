@@ -24,6 +24,7 @@ class Comment extends StatelessWidget {
             Expanded(
               child: ListView.builder(
                 padding: EdgeInsets.zero, // 여기에 패딩을 제거합니다.
+                shrinkWrap: true,
                 itemCount: 15,
                 itemBuilder: (context, index) {
                   return CommentItem(

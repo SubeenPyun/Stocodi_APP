@@ -71,7 +71,6 @@ class _LectureTabState extends State<LectureTab> with SingleTickerProviderStateM
   }
 }
 
-
 class TabItem extends StatelessWidget {
   final String text;
   final String count;

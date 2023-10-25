@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:stocodi_app/home.dart';
 import 'package:stocodi_app/invest/invest_experiment.dart';
 import 'package:stocodi_app/lecture/ClassRoom.dart';
+import 'package:stocodi_app/lecture/widget/Comment.dart';
 import 'package:stocodi_app/lecture/widget/VideoScreenActivity.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
 
 import 'lecture/Lecture.dart';
+import 'lecture/tt.dart';
 
 class AppScreen extends StatefulWidget {
   const AppScreen({Key? key}) : super(key: key);
@@ -29,7 +31,7 @@ class _AppScreenState extends State<AppScreen> {
     Home(),
     const ClassRoom(),
     const InvestExperiment(),
-    const Lecture(),
+    const Comment(),
     Container(),
   ];
 

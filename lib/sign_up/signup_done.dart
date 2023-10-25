@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/login/login.dart';
 import 'package:stocodi_app/sign_up/interests.dart';
 import 'package:stocodi_app/widgets/green_longbtn.dart';
 import 'package:stocodi_app/widgets/textEditBtn.dart';
@@ -112,7 +113,7 @@ class _SignDoneState extends State<SignDone> {
               onTap: () {
                 Navigator.push(
                     context, //여기도 다시 수정해야 함
-                    MaterialPageRoute(builder: (context) => const Interest()));
+                    MaterialPageRoute(builder: (context) => Login()));
               },
               child: const GreenLongBtn(text: '메인으로'),
             ),

@@ -14,6 +14,7 @@ class NextVideo extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: ListView.builder(
+          shrinkWrap: true,
           itemCount: 10, // 예시로 10개의 동영상을 표시
           itemBuilder: (context, index) {
             return VideoCard(

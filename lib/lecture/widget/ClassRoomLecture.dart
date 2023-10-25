@@ -32,18 +32,6 @@ class _LectureSliderState extends State<LectureSlider> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: theme.backgroundColor,
-      appBar: AppBar(
-        backgroundColor: theme.backgroundColor,
-        title: Text('강의실', style: textTheme.displayLarge),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.menu, color: Color(0xff191919)),
-            onPressed: () {
-              //기능
-            },
-          ),
-        ],
-      ),
       body: SizedBox(
         height: 350,
         child: Column(

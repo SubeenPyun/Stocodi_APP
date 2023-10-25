@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:stocodi_app/app.dart';
 import '../home.dart';
 import '../widgets/inputField.dart';
+import 'package:stocodi_app/app.dart';
 
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -85,7 +88,8 @@ class _LoginState extends State<Login> {
                                   child: Checkbox(
                                     checkColor: Colors.white,
                                     activeColor: Color(0xFF9EB2AC),
-                                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                    materialTapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
                                     value: _isChecked,
                                     onChanged: (value) {
                                       setState(() {
@@ -103,19 +107,23 @@ class _LoginState extends State<Login> {
                                 ),
                                 Text(
                                   "아이디 저장",
-                                  style: TextStyle(color: Color(0xFF9EB2AC), fontSize: 14),
+                                  style: TextStyle(
+                                      color: Color(0xFF9EB2AC), fontSize: 14),
                                 ),
                               ],
                             ),
                           ),
                           Text(
                             "아이디/비밀번호 찾기",
-                            style: TextStyle(color: Color(0xFF9EB2AC), fontSize: 14),
+                            style: TextStyle(
+                                color: Color(0xFF9EB2AC), fontSize: 14),
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 45,),
+                    SizedBox(
+                      height: 45,
+                    ),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.push(
@@ -124,8 +132,10 @@ class _LoginState extends State<Login> {
                         );
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Color(0xFF0ECB81)),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        backgroundColor:
+                            MaterialStateProperty.all(Color(0xFF0ECB81)),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
@@ -134,21 +144,24 @@ class _LoginState extends State<Login> {
                       ),
                       child: Container(
                         width: double.infinity,
-                        height:60,
+                        height: 60,
                         decoration: BoxDecoration(
                           color: Color(0xFF0ECB81),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("로그인",
+                            Text(
+                              "로그인",
                               style: TextStyle(fontSize: 16),
                             ),
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(height: 45,),
+                    SizedBox(
+                      height: 45,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -210,7 +223,8 @@ class _LoginState extends State<Login> {
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(color: Color(0xFFEBEBEB)),
                               image: DecorationImage(
-                                image: AssetImage("assets/images/KakaoTalk.png"),
+                                image:
+                                    AssetImage("assets/images/KakaoTalk.png"),
                               ),
                             ),
                           ),
@@ -224,10 +238,13 @@ class _LoginState extends State<Login> {
                         children: [
                           Text("아직 계정이 없다면"),
                           SizedBox(width: 7),
-                          Text("회원가입", style: TextStyle(
-                            color: Color(0xFF0ECB81),
-                            decoration: TextDecoration.underline,
-                          ),),
+                          Text(
+                            "회원가입",
+                            style: TextStyle(
+                              color: Color(0xFF0ECB81),
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
                         ],
                       ),
                     ),
