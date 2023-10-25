@@ -41,8 +41,7 @@ class VideoDetails extends StatelessWidget {
               children: [
                 Container(
                   margin: const EdgeInsets.only(right: 10),
-                  width: 32,
-                  height: 32,
+                  width: 32, height: 32,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                     image: const DecorationImage(
