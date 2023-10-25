@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/app.dart';
 import '../home.dart';
 import '../widgets/inputField.dart';
 import 'package:stocodi_app/app.dart';
@@ -168,8 +169,7 @@ class _LoginState extends State<Login> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => AppScreen()),
+                              MaterialPageRoute(builder: (context) => AppScreen()),
                             );
                           },
                           child: Container(
@@ -190,8 +190,7 @@ class _LoginState extends State<Login> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => AppScreen()),
+                              MaterialPageRoute(builder: (context) => AppScreen()),
                             );
                           },
                           child: Container(
@@ -212,8 +211,7 @@ class _LoginState extends State<Login> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => AppScreen()),
+                              MaterialPageRoute(builder: (context) => AppScreen()),
                             );
                           },
                           child: Container(

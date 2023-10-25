@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/home.dart';
-import 'package:stocodi_app/invest/screens/invest_experiment.dart';
+import 'package:stocodi_app/invest/invest_experiment.dart';
 import 'package:stocodi_app/lecture/ClassRoom.dart';
 import 'package:stocodi_app/lecture/widget/Comment.dart';
 import 'package:stocodi_app/lecture/widget/VideoScreenActivity.dart';
