@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
 class MyComment extends StatefulWidget {
   final String imageUrl;
 
-  const MyComment({Key? key, required this.imageUrl}) : super(key: key); // imageUrl을 생성자 매개 변수로 받음
+  const MyComment({Key? key, required this.imageUrl}) : super(key: key);
 
   @override
   _MyCommentState createState() => _MyCommentState();
@@ -21,7 +22,7 @@ class _MyCommentState extends State<MyComment> {
           children: [
             CircleAvatar(
               radius: 20,
-              backgroundImage: AssetImage(widget.imageUrl), // 프로필 이미지를 widget.imageUrl로 설정
+              backgroundImage: AssetImage(widget.imageUrl),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -30,17 +31,18 @@ class _MyCommentState extends State<MyComment> {
                 decoration: const InputDecoration(
                   hintText: '댓글을 입력하세요...',
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF0ECB81)),
+                    borderSide: BorderSide(color: const Color(0xFF0ECB81)),
                   ),
                 ),
-                cursorColor: const Color(0xFF0ECB81), // 커서 색상을 설정합니다.
+                cursorColor: const Color(0xFF0ECB81),
+                maxLines: null, // 여러 줄 텍스트 입력 가능
               ),
             ),
             const SizedBox(width: 16),
             ElevatedButton(
               onPressed: _submitComment,
               style: ElevatedButton.styleFrom(
-                primary: const Color(0xFF0ECB81), // 버튼의 색상을 지정합니다.
+                primary: const Color(0xFF0ECB81),
               ),
               child: const Text('입력'),
             ),

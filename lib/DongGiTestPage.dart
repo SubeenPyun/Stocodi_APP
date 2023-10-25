@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/retrofit/stocodi_api_test.dart';
 import 'lecture/ClassRoom.dart';
 import 'lecture/Lecture.dart';
 import 'lecture/widget/Comment.dart';
@@ -46,6 +47,15 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               child: const Text('LectureActivity'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context)=> SignUp()),
+                );
+              },
+              child: const Text('API'),
             ),
             ElevatedButton(
               onPressed: () {

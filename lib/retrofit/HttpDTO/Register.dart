@@ -11,7 +11,7 @@ class Register {
   final String nickname;
   final String birth_date;
   final String gender;
-  final String interest_categories;
+  final List<String> interest_categories;
 
 
   Register(this.email, this.password, this.name, this.nickname, this.birth_date,

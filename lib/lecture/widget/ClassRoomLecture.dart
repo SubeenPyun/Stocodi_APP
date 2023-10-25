@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/theme/ClassRoomLectureTheme.dart';
 import 'package:stocodi_app/lecture/data/PredefinedClassRoomData.dart';
+
 final theme = ClassRoomLectureTheme.getAppTheme();
 final textTheme = theme.textTheme;
+
 class ClassRoomLecture extends StatelessWidget {
   const ClassRoomLecture({super.key});
 
@@ -22,18 +24,22 @@ class LectureSlider extends StatefulWidget {
 }
 
 class _LectureSliderState extends State<LectureSlider> {
-
-
   int currentIndex = 0;
-
-
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isNarrowScreen = screenWidth < 600; // 예시 너비 (조정 가능)
+
+    final containerMargin = isNarrowScreen
+        ? const EdgeInsets.fromLTRB(10, 10, 10, 10)
+        : const EdgeInsets.fromLTRB(25, 20, 25, 20); // 너비에 따른 마진 조정
+    final containerBorderRadius = isNarrowScreen ? BorderRadius.circular(10) : BorderRadius.circular(20); // 너비에 따른 BorderRadius 조정
+
     return Scaffold(
       backgroundColor: theme.backgroundColor,
       body: SizedBox(
-        height: 350,
+        height: isNarrowScreen ? 350 : 550, // 너비에 따른 높이 조정
         child: Column(
           children: [
             Expanded(
@@ -41,13 +47,13 @@ class _LectureSliderState extends State<LectureSlider> {
                 itemCount: images.length,
                 itemBuilder: (context, index) {
                   return Container(
-                    margin: const EdgeInsets.fromLTRB(25, 20, 25, 20), // Adjust the values as needed
+                    margin: containerMargin,
                     width: double.infinity,
                     height: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: containerBorderRadius,
                       image: DecorationImage(
-                        image: AssetImage(images[index]), // Load image from assets
+                        image: AssetImage(images[index]),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -60,7 +66,6 @@ class _LectureSliderState extends State<LectureSlider> {
                 },
               ),
             ),
-            /*const SizedBox(height: 20.0),*/
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(images.length, (index) {
