@@ -3,7 +3,6 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/invest/item/internal_invest_item.dart';
 import 'package:stocodi_app/invest/item/foreign_invest_item.dart';
-import 'package:stocodi_app/invest/screens/portfolio.dart';
 import 'package:stocodi_app/widgets/custom_appbar.dart';
 import 'package:pie_chart/pie_chart.dart';
 

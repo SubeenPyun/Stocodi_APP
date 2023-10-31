@@ -3,14 +3,9 @@ import 'package:stocodi_app/home.dart';
 import 'package:stocodi_app/invest/invest_experiment.dart';
 import 'package:stocodi_app/lecture/ClassRoom.dart';
 import 'package:stocodi_app/lecture/widget/Comment.dart';
-import 'package:stocodi_app/lecture/widget/VideoScreenActivity.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
-import 'DongGiTestPage.dart';
-import 'chart/a.dart';
-import 'chart/b.dart';
-import 'chart/c.dart';
-import 'lecture/ClassRoom.dart';
-import 'lecture/widget/ClassRoomLecture.dart';
+
+import 'invest/screens/holding_items.dart';
 
 class AppScreen extends StatefulWidget {
   const AppScreen({Key? key}) : super(key: key);
@@ -31,11 +26,11 @@ class _AppScreenState extends State<AppScreen> {
   }
 
   final List<Widget> _pages = [
-    MyAppc(),
-    ClassRoom(),
-    const DongGi(),
-    MyAppb(),
-    MyAppa(),
+    Home(),
+    const ClassRoom(),
+    const InvestExperiment(),
+    const Comment(),
+    const HoldingItem(),
   ];
 
   BottomNavigationBarItem _bottomNavigationBarItem(String iconName, String label){
