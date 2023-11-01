@@ -32,7 +32,7 @@ class SignUp extends StatelessWidget {
       /*await authenticationManager.signUp(data);*/
       await authenticationManager.nickNameExist('예리미양');
       await authenticationManager.login(loginData);
-      await authenticationManager.logOut();
+      await authenticationManager.logOut(); // jwt 받아서 로그아웃
     } catch (e) {
       // 오류 처리
       print('오류 발생: $e');

@@ -3,7 +3,6 @@ import 'package:stocodi_app/invest/sellbuy/widget/sell_buy_buttons.dart';
 import 'package:stocodi_app/invest/sellbuy/widget/stock_custom_appbar.dart';
 import 'package:stocodi_app/invest/sellbuy/widget/stock_info.dart';
 import 'package:stocodi_app/invest/sellbuy/widget/stock_tab_bar.dart';
-import 'package:stocodi_app/widgets/custom_appbar.dart';
 
 class SellBuy extends StatefulWidget{
   final StockInfo stockInfo;

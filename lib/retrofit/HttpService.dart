@@ -42,8 +42,6 @@ class AuthenticationManager {
     }
   }
 
-
-
   Future<void> signUp(Register data) async{
     try {
       final response = await _apiService.signUp(data);

@@ -17,34 +17,36 @@ class Chart extends StatelessWidget {
 
     return Column(
       children: [
-        SfCartesianChart(
-          trackballBehavior: TrackballBehavior(
-            enable: true,
-            activationMode: ActivationMode.singleTap,
-          ),
-          series: <CandleSeries>[
-            CandleSeries<ChartData, DateTime>(
-              dataSource: getChartData(),
-              xValueMapper: (ChartData sales, _) => sales.x,
-              lowValueMapper: (ChartData sales, _) => sales.low,
-              highValueMapper: (ChartData sales, _) => sales.high,
-              openValueMapper: (ChartData sales, _) => sales.open,
-              closeValueMapper: (ChartData sales, _) => sales.close,
-              bearColor: bearColor, // 하락색
-              bullColor: bullColor, // 상승색
+        Expanded(
+          child: SfCartesianChart(
+            trackballBehavior: TrackballBehavior(
+              enable: true,
+              activationMode: ActivationMode.singleTap,
             ),
-          ],
-          primaryXAxis: DateTimeAxis(
-            isVisible: false, // x축 숨기기
-            dateFormat: DateFormat("MM"),
-            majorGridLines: MajorGridLines(width: 0),
-          ),
-          primaryYAxis: NumericAxis(
-            minimum: getMinMax(getChartData()).first - 5,
-            maximum: getMinMax(getChartData())[1] + 5,
-            interval: 10,
-            numberFormat: NumberFormat.simpleCurrency(decimalDigits: 3),
-            opposedPosition: true,
+            series: <CandleSeries>[
+              CandleSeries<ChartData, DateTime>(
+                dataSource: getChartData(),
+                xValueMapper: (ChartData sales, _) => sales.x,
+                lowValueMapper: (ChartData sales, _) => sales.low,
+                highValueMapper: (ChartData sales, _) => sales.high,
+                openValueMapper: (ChartData sales, _) => sales.open,
+                closeValueMapper: (ChartData sales, _) => sales.close,
+                bearColor: bearColor, // 하락색
+                bullColor: bullColor, // 상승색
+              ),
+            ],
+            primaryXAxis: DateTimeAxis(
+              isVisible: false, // x축 숨기기
+              dateFormat: DateFormat("MM"),
+              majorGridLines: MajorGridLines(width: 0),
+            ),
+            primaryYAxis: NumericAxis(
+              minimum: getMinMax(getChartData()).first - 5,
+              maximum: getMinMax(getChartData())[1] + 5,
+              interval: 10,
+              numberFormat: NumberFormat.simpleCurrency(decimalDigits: 3),
+              opposedPosition: true,
+            ),
           ),
         ),
         Container(
