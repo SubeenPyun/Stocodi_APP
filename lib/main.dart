@@ -5,7 +5,8 @@ import 'package:stocodi_app/sign_up/splash_screen.dart';
 import 'app.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-import 'chart/ChartDetail.dart';
+import 'chart/StockChartQuote.dart';
+import 'chart/widget/ChartDetail.dart';
 import 'chart/charttest.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: ChartDetail()
+        home: StockChartQuote()
     );
   }
 }

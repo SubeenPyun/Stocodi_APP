@@ -1,15 +1,17 @@
 class ChartData {
-  ChartData({
-    this.x,
-    this.open,
-    this.close,
-    this.low,
-    this.high,
-  });
+  final DateTime x;
+  final double open;
+  final double high;
+  final double low;
+  final double close;
+  final double volume;
 
-  final DateTime? x;
-  final num? open;
-  final num? close;
-  final num? low;
-  final num? high;
+  ChartData({
+    required this.x,
+    required this.open,
+    required this.high,
+    required this.low,
+    required this.close,
+    required this.volume,
+  });
 }
