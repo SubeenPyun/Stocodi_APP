@@ -29,7 +29,7 @@ class CourseCardItem extends StatelessWidget {
           ),
         );
       },
-      child: Container(
+      /*child: Container(
         width: cardWidth, height: cardHeight,
         margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
         child: Column(
@@ -50,7 +50,32 @@ class CourseCardItem extends StatelessWidget {
             Text(courseDescription, style: textTheme.displaySmall, maxLines: 1, overflow: TextOverflow.ellipsis),
           ],
         ),
-      ),
+      ),*/
+      child: IntrinsicHeight(
+        child: Container(
+          width: cardWidth,
+          // height: cardHeight, 이 부분을 제거
+          margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: cardWidth, height: cardHeight * 0.7,// 이 부분을 제거
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: AssetImage(courseImage),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 5),
+              Text(courseTitle, style: textTheme.displayMedium, maxLines: 1, overflow: TextOverflow.ellipsis),
+              Text(courseDescription, style: textTheme.displaySmall, maxLines: 1, overflow: TextOverflow.ellipsis),
+            ],
+          ),
+        ),
+      )
     );
   }
 }
