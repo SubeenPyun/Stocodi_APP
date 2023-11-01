@@ -5,6 +5,7 @@ import 'package:stocodi_app/lecture/ClassRoom.dart';
 import 'package:stocodi_app/lecture/widget/Comment.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
 
+import 'chart/ChartDetail.dart';
 import 'invest/screens/holding_items.dart';
 
 class AppScreen extends StatefulWidget {
@@ -29,7 +30,7 @@ class _AppScreenState extends State<AppScreen> {
     Home(),
     const ClassRoom(),
     const InvestExperiment(),
-    const Comment(),
+    ChartDetail(),
     const HoldingItem(),
   ];
 
