@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/sign_up/signup_password.dart';
 import 'package:stocodi_app/widgets/green_longbtn.dart';
+import 'package:stocodi_app/widgets/inputField.dart';
 import 'package:stocodi_app/widgets/textEditBtn.dart';
 
 class SignEmail extends StatefulWidget {
@@ -56,15 +57,11 @@ class _SignEmailState extends State<SignEmail> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.0358,
             ),
-            TextEditBtn(
-              nosee: false,
-              inputtype: TextInputType.emailAddress,
-              frontboxsize: 22,
-              imgName: 'email',
-              text: '이메일 주소를 입력해주세요',
-              betweenboxsize: 6,
-              height: MediaQuery.of(context).size.height * 0.0627,
-              imgsize: MediaQuery.of(context).size.width * 0.0615,
+            InputField(
+              focus: true,
+              image: Icon(Icons.mail, size: 20),
+              text: "이메일 주소를 입력해주세요",
+              obscure: false,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.55,
