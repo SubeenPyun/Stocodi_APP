@@ -2,23 +2,21 @@ import 'package:flutter/material.dart';
 
 class TextEditBtn extends StatefulWidget {
   final double frontboxsize;
-  final String imgName;
   final String text;
   final double betweenboxsize;
   final TextInputType inputtype;
   final bool nosee;
   final double height;
-  final double imgsize;
+  final IconData icon;
 
   const TextEditBtn({
+    required this.icon,
     required this.betweenboxsize,
-    required this.imgName,
     required this.text,
     required this.frontboxsize,
     required this.inputtype,
     required this.nosee,
     required this.height,
-    required this.imgsize,
     Key? key,
   }) : super(key: key);
   @override
@@ -51,17 +49,15 @@ class _TextEditBtnState extends State<TextEditBtn> {
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
             child: isTyping
-                ? Image.asset(
-                    'assets/images/green_${widget.imgName}.png',
-                    width: widget.imgsize,
-                    height: widget.imgsize,
-                    fit: BoxFit.fill,
+                ? Icon(
+                    widget.icon,
+                    color: Color(0xFF0ECB81),
+                    size: 24,
                   )
-                : Image.asset(
-                    'assets/images/gray_${widget.imgName}.png',
-                    width: widget.imgsize,
-                    height: widget.imgsize,
-                    fit: BoxFit.fill,
+                : Icon(
+                    widget.icon,
+                    color: Color(0xFFBEBEBE),
+                    size: 24,
                   ),
           ),
           SizedBox(

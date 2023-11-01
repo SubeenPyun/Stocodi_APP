@@ -14,8 +14,8 @@ class Splash_Screen extends StatelessWidget {
             children: [
               Image.asset(
                 'assets/images/stocodi_splash.png',
-                width: MediaQuery.of(context).size.width * 0.4908,
-                height: MediaQuery.of(context).size.height * 0.06718,
+                width: 192,
+                height: 60,
                 fit: BoxFit.fill,
               ),
               SizedBox(

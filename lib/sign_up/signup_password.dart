@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stocodi_app/sign_up/signup_deatil.dart';
 import 'package:stocodi_app/widgets/gray_editTextSimilar.dart';
 import 'package:stocodi_app/widgets/green_longbtn.dart';
+import 'package:stocodi_app/widgets/inputField.dart';
 import 'package:stocodi_app/widgets/textEditBtn.dart';
 
 class SignupPwd extends StatefulWidget {
@@ -60,12 +61,11 @@ class _SignupPwdState extends State<SignupPwd> {
             TextEditBtn(
               inputtype: TextInputType.text,
               frontboxsize: 22,
-              imgName: 'lock',
+              icon: Icons.lock,
               text: '비밀번호를 입력해주세요',
               nosee: true,
               betweenboxsize: 6,
               height: MediaQuery.of(context).size.height * 0.0627,
-              imgsize: MediaQuery.of(context).size.width * 0.0615,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.017,

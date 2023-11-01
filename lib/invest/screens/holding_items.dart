@@ -3,7 +3,6 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/invest/item/internal_invest_item.dart';
 import 'package:stocodi_app/invest/item/foreign_invest_item.dart';
-import 'package:stocodi_app/invest/screens/portfolio.dart';
 import 'package:stocodi_app/widgets/custom_appbar.dart';
 import 'package:pie_chart/pie_chart.dart';
 
@@ -12,15 +11,16 @@ import '../../widgets/round_square_container.dart';
 
 final ThemeData theme = AppTheme.appTheme;
 
-class HoldingItem extends StatefulWidget{
+class HoldingItem extends StatefulWidget {
   const HoldingItem({Key? key}) : super(key: key);
 
   @override
   _HoldingState createState() => _HoldingState();
 }
 
-Container _internalWidget(BuildContext context){
-  Widget buildInternalItem(String image, String title, int totalprice, double percentage, int profit, int numOfItem) {
+Container _internalWidget(BuildContext context) {
+  Widget buildInternalItem(String image, String title, int totalprice,
+      double percentage, int profit, int numOfItem) {
     return InternalInvestItem(
       image: image,
       title: title,
@@ -30,26 +30,22 @@ Container _internalWidget(BuildContext context){
       numOfItem: numOfItem,
     );
   }
+
   return Container(
     child: ListView.builder(
       itemCount: 5,
-      itemBuilder: (context, index){
+      itemBuilder: (context, index) {
         switch (index) {
           case 0:
-            return buildInternalItem(
-                "apple", "애플", 237816, 3.6, 478000, 21);
+            return buildInternalItem("apple", "애플", 237816, 3.6, 478000, 21);
           case 1:
-            return buildInternalItem(
-                "teslr", "테슬라", 331672, -1.1, 478000, 6);
+            return buildInternalItem("teslr", "테슬라", 331672, -1.1, 478000, 6);
           case 2:
-            return buildInternalItem(
-                "ecopro", "에코프로", 1021000, 1.4, 478000, 6);
+            return buildInternalItem("ecopro", "에코프로", 1021000, 1.4, 478000, 6);
           case 3:
-            return buildInternalItem(
-                "posco", "포스코DX", 60700, 3.2, 478000, 6);
+            return buildInternalItem("posco", "포스코DX", 60700, 3.2, 478000, 6);
           case 4:
-            return buildInternalItem(
-                "sm", "에스엠", 132000, 1.3, 478000, 6);
+            return buildInternalItem("sm", "에스엠", 132000, 1.3, 478000, 6);
           default:
             return SizedBox.shrink();
         }
@@ -58,8 +54,9 @@ Container _internalWidget(BuildContext context){
   );
 }
 
-Container _foreignWidget(BuildContext context){
-  Widget buildForeignItem(String image, String title, int totalprice, double percentage, int profit, int numOfItem) {
+Container _foreignWidget(BuildContext context) {
+  Widget buildForeignItem(String image, String title, int totalprice,
+      double percentage, int profit, int numOfItem) {
     return ForeignInvestItem(
       image: image,
       title: title,
@@ -69,20 +66,18 @@ Container _foreignWidget(BuildContext context){
       numOfItem: numOfItem,
     );
   }
+
   return Container(
     child: ListView.builder(
       itemCount: 3,
-      itemBuilder: (context, index){
+      itemBuilder: (context, index) {
         switch (index) {
           case 0:
-            return buildForeignItem(
-                "apple", "애플", 237816, 3.6, 478000, 21);
+            return buildForeignItem("apple", "애플", 237816, 3.6, 478000, 21);
           case 1:
-            return buildForeignItem(
-                "teslr", "테슬라", 331672, -1.1, 478000, 6);
+            return buildForeignItem("teslr", "테슬라", 331672, -1.1, 478000, 6);
           case 2:
-            return buildForeignItem(
-                "ecopro", "에코프로", 1021000, 1.4, 478000, 6);
+            return buildForeignItem("ecopro", "에코프로", 1021000, 1.4, 478000, 6);
           default:
             return SizedBox.shrink();
         }
@@ -91,7 +86,7 @@ Container _foreignWidget(BuildContext context){
   );
 }
 
-PieChart _pieChart(BuildContext context){
+PieChart _pieChart(BuildContext context) {
   Map<String, double> dataMap = {
     "Flutter": 5,
     "React": 3,
@@ -99,7 +94,7 @@ PieChart _pieChart(BuildContext context){
     "Ionic": 2,
   };
 
-  List<Color> colorList=[
+  List<Color> colorList = [
     Color(0xFFF25840),
     Color(0xFFFF7F50),
     Color(0xFFFED749),
@@ -140,14 +135,15 @@ PieChart _pieChart(BuildContext context){
   );
 }
 
-Container _bodyWidget(BuildContext context){
+Container _bodyWidget(BuildContext context) {
   return Container(
-    color: theme.backgroundColor,
+    color: theme.colorScheme.background,
     padding: EdgeInsets.all(20),
     child: Column(
       children: [
-        RoundSquareContainer( // 포트폴리오
-          width : MediaQuery.of(context).size.width,
+        RoundSquareContainer(
+          // 포트폴리오
+          width: MediaQuery.of(context).size.width,
           height: 400,
           child: Column(
             children: [
@@ -163,8 +159,8 @@ Container _bodyWidget(BuildContext context){
   );
 }
 
-
-class _HoldingState extends State<HoldingItem> with SingleTickerProviderStateMixin{
+class _HoldingState extends State<HoldingItem>
+    with SingleTickerProviderStateMixin {
   late TabController tabController = TabController(
     length: 2,
     vsync: this,
@@ -187,7 +183,7 @@ class _HoldingState extends State<HoldingItem> with SingleTickerProviderStateMix
         appBar: CustomAppBar(
           preferredHeight: 64,
           title: "보유종목",
-          onSearchPressed: (){},
+          onSearchPressed: () {},
           showSearchIcon: true, // searchIcon 보이게
         ),
         body: Column(
@@ -195,10 +191,10 @@ class _HoldingState extends State<HoldingItem> with SingleTickerProviderStateMix
             _bodyWidget(context),
             Expanded(
               child: Container(
-                color: theme.backgroundColor,
+                color: theme.colorScheme.background,
                 padding: EdgeInsets.all(20),
                 child: RoundSquareContainer(
-                  width : MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width,
                   //height: MediaQuery.of(context).size.height-500,
                   child: DefaultTabController(
                     length: 2,
@@ -226,7 +222,8 @@ class _HoldingState extends State<HoldingItem> with SingleTickerProviderStateMix
                             child: TabBarView(
                               controller: tabController,
                               children: [
-                                _internalWidget(context), // "국내" 탭에 _internalWidget를 배치
+                                _internalWidget(
+                                    context), // "국내" 탭에 _internalWidget를 배치
                                 // "해외" 탭의 내용을 추가
                                 _foreignWidget(context),
                               ],
