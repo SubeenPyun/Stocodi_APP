@@ -20,9 +20,9 @@ class StockInfo extends StatelessWidget {
     final NumberFormat currencyFormat = NumberFormat.currency(locale: 'ko_KR', symbol: '');
 
     return Container(
+      padding: EdgeInsets.only(left: 14, bottom: 20),
       width: double.infinity,
       child: Container(
-        padding: EdgeInsets.only(left: 14),
         child: Column(
           mainAxisSize: MainAxisSize.min, // 내부 내용물의 크기에 따라 조절
           crossAxisAlignment: CrossAxisAlignment.start,

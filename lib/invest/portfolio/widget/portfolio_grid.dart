@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stocodi_app/invest/portfolio/item/grid_item.dart';
 import 'package:stocodi_app/invest/portfolio/widget/grid_common.dart';
 import 'package:stocodi_app/invest/portfolio/widget/grid_transaction_history.dart';
+import 'package:stocodi_app/invest/sellbuy/widget/stock_tab_bar.dart';
 
 import '../../transaction_log.dart';
 
