@@ -15,11 +15,11 @@ class AppScreen extends StatefulWidget {
 }
 
 class _AppScreenState extends State<AppScreen> {
+
   ThemeData theme = AppTheme.appTheme;
 
   int _currentPageIndex = 0;
 
-  @override
   void initState() {
     super.initState();
     _currentPageIndex = 0;
@@ -33,8 +33,7 @@ class _AppScreenState extends State<AppScreen> {
     const HoldingItem(),
   ];
 
-  BottomNavigationBarItem _bottomNavigationBarItem(
-      String iconName, String label) {
+  BottomNavigationBarItem _bottomNavigationBarItem(String iconName, String label){
     return BottomNavigationBarItem(
       icon: Padding(
         padding: const EdgeInsets.only(bottom: 1),
@@ -44,7 +43,7 @@ class _AppScreenState extends State<AppScreen> {
           fit: BoxFit.fill,
         ),
       ),
-      activeIcon: Padding(
+      activeIcon:  Padding(
         padding: const EdgeInsets.only(bottom: 1),
         child: Image.asset(
           "assets/icon/${iconName}_on.png",
@@ -63,27 +62,27 @@ class _AppScreenState extends State<AppScreen> {
         color: Colors.black,
       ),
       type: BottomNavigationBarType.fixed,
-      onTap: (int index) {
+      onTap: (int index){
         //print(index);
         setState(() {
           _currentPageIndex = index;
         });
       },
       currentIndex: _currentPageIndex,
-      items: [
-        _bottomNavigationBarItem("home", "홈"),
-        _bottomNavigationBarItem("lecture", "강의"),
-        _bottomNavigationBarItem("invest", "투자실험"),
-        _bottomNavigationBarItem("column", "칼럼"),
-        _bottomNavigationBarItem("more", "더보기"),
-      ],
+        items: [
+          _bottomNavigationBarItem("home","홈"),
+          _bottomNavigationBarItem("lecture","강의"),
+          _bottomNavigationBarItem("invest","투자실험"),
+          _bottomNavigationBarItem("column","칼럼"),
+          _bottomNavigationBarItem("more","더보기"),
+        ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.colorScheme.background,
+      backgroundColor: theme.backgroundColor,
       body: _pages[_currentPageIndex],
       bottomNavigationBar: _bottomNavigationBarwidget(),
     );

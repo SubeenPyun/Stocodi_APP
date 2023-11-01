@@ -4,6 +4,7 @@ class SellBuyButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(top: 15),
       width: double.infinity,
       height: 56,
       child: Row(
