@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/invest/sellbuy/widget/price_column_list.dart';
 
+import '../../../chart/widget/Chart.dart';
+
 class StockTabBar extends StatefulWidget {
   final double currentPrice;
 
@@ -60,7 +62,7 @@ class _StockTabBarState extends State<StockTabBar> with SingleTickerProviderStat
           body: TabBarView(
             controller: _tabController,
             children: [
-              Container(color: Colors.blue,), // 차트 탭에 해당하는 위젯
+              Chart(), // 차트 탭에 해당하는 위젯
               PriceColumnList(currentPrice: widget.currentPrice), // 호가 탭에 해당하는 위젯
             ],
           ),
