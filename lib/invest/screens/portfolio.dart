@@ -353,7 +353,7 @@ class _PortfolioState extends State<Portfolio> {
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         children: [
-          _buildGridContainer("보유종목", "grid1", HoldingItem()),
+          _buildGridContainer("보유종목", "grid1", HoldingItem() ),
           _buildGridContainer1("거래내역"),
           _buildGridContainer("거래일지", "grid3", TransactionLog()),
           _buildGridContainer("배당금", "grid4", null),
