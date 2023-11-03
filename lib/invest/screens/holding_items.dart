@@ -415,7 +415,7 @@ class _HoldingState extends State<HoldingItem>
                                 fontSize: 16,
                               ),
                               tabs: const [
-                                Tab(text: "해외",),
+                                Tab(text: "국내",),
                                 Tab(text: "해외", ),
                               ],
                             ),

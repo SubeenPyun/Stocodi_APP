@@ -106,7 +106,7 @@ class _SignupState extends State<Signup> {
                       context,
                       MaterialPageRoute(
                           //여기 수정 예정. 로그인 페이지로 바로 가야함
-                          builder: (context) => const TransactionMain()));
+                          builder: (context) => Container()));
                 },
                 child: LongButton(
                   frontboxsize: 22,

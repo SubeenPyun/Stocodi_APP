@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:stocodi_app/home.dart';
 import 'package:stocodi_app/invest/invest_experiment.dart';
 import 'package:stocodi_app/lecture/ClassRoom.dart';
-import 'package:stocodi_app/lecture/widget/Comment.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
 
-import 'invest/screens/holding_items.dart';
 
 class AppScreen extends StatefulWidget {
   const AppScreen({Key? key}) : super(key: key);
@@ -20,6 +18,7 @@ class _AppScreenState extends State<AppScreen> {
 
   int _currentPageIndex = 0;
 
+  @override
   void initState() {
     super.initState();
     _currentPageIndex = 0;
@@ -29,8 +28,8 @@ class _AppScreenState extends State<AppScreen> {
     Home(),
     const ClassRoom(),
     const InvestExperiment(),
-    const Comment(),
-    const HoldingItem(),
+    Container(),
+    Container(),
   ];
 
   BottomNavigationBarItem _bottomNavigationBarItem(String iconName, String label){
