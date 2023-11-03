@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stocodi_app/invest/portfolio/item/grid_item.dart';
 import 'package:stocodi_app/invest/portfolio/widget/grid_common.dart';
 import 'package:stocodi_app/invest/portfolio/widget/grid_transaction_history.dart';
+import 'package:stocodi_app/invest/screens/holding_items.dart';
 import 'package:stocodi_app/invest/sellbuy/widget/stock_tab_bar.dart';
 
 import '../../transaction_log.dart';
@@ -21,7 +22,7 @@ class PortfolioGrid extends StatelessWidget{
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         children: [
-          GridItem(context: context, title: "보유종목", childWidget: GridCommon(title: '보유종목',image: 'grid1'), destinationPage: null,),
+          GridItem(context: context, title: "보유종목", childWidget: GridCommon(title: '보유종목',image: 'grid1'), destinationPage: HoldingItem(),),
           GridItem(context: context, title: "거래내역", childWidget: GridTransactionHistory(reservation: 2,thisMonth: 32), destinationPage: null,),
           GridItem(context: context, title: "거래일지", childWidget: GridCommon(title: '거래일지',image: 'grid3'), destinationPage: TransactionLog(),),
           GridItem(context: context, title: "배당금", childWidget: GridCommon(title: '배당금',image: 'grid4'), destinationPage: null,),

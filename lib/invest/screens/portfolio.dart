@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/invest/screens/transaction_log.dart';
+import '../transaction_log.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
 
 import '../../widgets/custom_appbar.dart';
@@ -353,7 +353,7 @@ class _PortfolioState extends State<Portfolio> {
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
         children: [
-          _buildGridContainer("보유종목", "grid1", HoldingItem() ),
+          _buildGridContainer("보유종목", "grid1", HoldingItem()),
           _buildGridContainer1("거래내역"),
           _buildGridContainer("거래일지", "grid3", TransactionLog()),
           _buildGridContainer("배당금", "grid4", null),
