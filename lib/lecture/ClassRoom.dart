@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/lecture/widget/ClassRoomLecture.dart';
 import '../theme/ClassRoomLectureTheme.dart';
-import 'Item/CourseItem.dart';
+import 'Item/CourseListItem.dart';
 import 'package:stocodi_app/lecture/data/PredefinedClassRoomData.dart';
 
 final theme = ClassRoomLectureTheme.getAppTheme();
@@ -11,6 +11,7 @@ class ClassRoom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: theme.backgroundColor,
@@ -27,23 +28,14 @@ class ClassRoom extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 400,
+            SizedBox(
+              height: screenHeight * 0.37,
+              width: MediaQuery.of(context).size.width,
               child: ClassRoomLecture(),
             ),
-            Container(
-              color: Colors.white,
-              child: ListView(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                children: [
-                  CourseItem(courseTitle: '실시간 인기강의', courseList: courseList),
-                  CourseItem(courseTitle: 'Course1', courseList: courseList),
-                  CourseItem(courseTitle: 'Course2', courseList: courseList),
-                  // Add more CourseItem widgets as needed
-                ],
-              ),
-            ),
+            CourseItem(courseTitle: '실시간 인기강의', courseList: courseList),
+            CourseItem(courseTitle: 'Course1', courseList: courseList),
+            CourseItem(courseTitle: 'Course2', courseList: courseList),
           ],
         ),
       ),

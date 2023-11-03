@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../invest/screens/invest_experiment.dart';
+import '../invest/invest_experiment.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isSub;
@@ -22,10 +22,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: !isSub ? false : true,
-      iconTheme: IconThemeData(
-        size: 30,
-        color: Colors.black
-      ),
+      iconTheme: IconThemeData(size: 30, color: Colors.black),
       toolbarHeight: preferredHeight,
       title: Text(
         title,

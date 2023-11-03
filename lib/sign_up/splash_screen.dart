@@ -14,12 +14,12 @@ class Splash_Screen extends StatelessWidget {
             children: [
               Image.asset(
                 'assets/images/stocodi_splash.png',
-                width: 191.43,
+                width: 192,
                 height: 60,
                 fit: BoxFit.fill,
               ),
-              const SizedBox(
-                height: 20,
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.022,
               ),
               RichText(
                 text: const TextSpan(children: <TextSpan>[

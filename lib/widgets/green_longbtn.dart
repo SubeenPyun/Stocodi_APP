@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 
 class GreenLongBtn extends StatelessWidget {
   final String text;
+  final double height;
   const GreenLongBtn({
     required this.text,
+    required this.height,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: height,
       decoration: BoxDecoration(
         color: const Color(0xFF0ECB81),
         borderRadius: BorderRadius.circular(16),

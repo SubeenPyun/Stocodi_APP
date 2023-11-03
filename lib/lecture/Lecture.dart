@@ -11,15 +11,30 @@ class Lecture extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Column(
-        children: [
-          VideoScreenActivity(),
-          Expanded(
-            child: LectureTab(),
-          ),
-        ],
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      body: ListView.builder(
+        padding: EdgeInsets.zero,
+        itemCount: 1,
+        itemBuilder: (BuildContext outerContext, int outerIndex) {
+          return Column(
+            children: [
+              VideoScreenActivity(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(
+                    height: screenHeight * 0.5,
+                    child: LectureTab(),
+                  ),
+                ],
+              ),
+            ],
+          );
+        },
       ),
     );
   }
 }
+

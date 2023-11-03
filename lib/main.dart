@@ -7,6 +7,8 @@ import 'package:stocodi_app/sign_up/splash_screen.dart';
 import 'app.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+import 'invest/screens/holding_items.dart';
+
 void main() {
   runApp(MyApp());
 }

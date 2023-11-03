@@ -1,5 +1,4 @@
 import 'package:stocodi_app/retrofit/HttpResult.dart';
-
 import 'HttpDTO/Login.dart';
 import 'HttpDTO/Register.dart';
 import 'ServiceInterface.dart';
@@ -13,9 +12,24 @@ class AuthenticationManager {
     try {
       // ApiService의 login 메서드 호출
       final response = await _apiService.login(loginData);
+      final responseData = response.data['response'];
+      final accessToken = responseData['access_token'];
+      final refreshToken = responseData['refresh_token'];
+      await _apiService.storage.write(key: 'access_token', value: accessToken);
+      await _apiService.storage.write(key: 'refresh_token', value: refreshToken);
       _httpResult.PrintResult(response, '로그인');
+
     } catch (e) {
       print('로그인 오류: $e');
+    }
+  }
+
+  Future<void> logOut() async{
+    try {
+      final response = await _apiService.logOut();
+      _httpResult.PrintResult(response, '로그 아웃');
+    } catch (e) {
+      print('로그 아웃 오류: $e');
     }
   }
 
@@ -27,8 +41,6 @@ class AuthenticationManager {
       print('닉네임 중복 체크 오류: $e');
     }
   }
-
-
 
   Future<void> signUp(Register data) async{
     try {

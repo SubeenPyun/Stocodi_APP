@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/lecture/data/CourseData.dart';
 import 'package:stocodi_app/theme/ClassRoomTheme.dart';
-
-import '../Lecture.dart';
+import 'CourseCardItem.dart';
 
 final theme = ClassRoomTheme.getAppTheme();
 final textTheme = theme.textTheme;
@@ -11,11 +10,7 @@ class CourseItem extends StatelessWidget {
   final String courseTitle;
   final List<CourseData> courseList;
 
-  const CourseItem({
-    Key? key,
-    required this.courseTitle,
-    required this.courseList,
-  }) : super(key: key);
+  const CourseItem({Key? key, required this.courseTitle, required this.courseList,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +25,7 @@ class CourseItem extends StatelessWidget {
                 width: double.infinity,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min, // This makes the Row "shrink-wrapped" to its content
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
@@ -43,12 +39,11 @@ class CourseItem extends StatelessWidget {
                   ],
                 ),
               ),
-
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: courseList.map((courseData) {
-                    return CourseCard(
+                    return CourseCardItem(
                       courseTitle: courseData.title,
                       courseDescription: courseData.description,
                       courseImage: courseData.imagePath,
@@ -59,54 +54,6 @@ class CourseItem extends StatelessWidget {
             ],
           ),
         ],
-      ),
-    );
-  }
-}
-
-
-class CourseCard extends StatelessWidget {
-  final String courseTitle;
-  final String courseDescription;
-  final String courseImage;
-
-  const CourseCard({
-    Key? key, required this.courseTitle, required this.courseDescription, required this.courseImage,}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // CourseCard 클릭 시 VideoScreenActivity로 이동
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => const Lecture(),
-          ),
-        );
-      },
-      child: Container(
-        width: 200,
-        height: 165,
-        margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, // 텍스트를 왼쪽으로 정렬
-          children: [
-            Container(
-              width: 200,
-              height: 112,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  image: AssetImage(courseImage),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            const SizedBox(height: 5), // 이미지와 텍스트 사이의 공간을 조절
-            Text(courseTitle, style: textTheme.displayMedium),
-            Text(courseDescription, style: textTheme.displaySmall),
-          ],
-        ),
       ),
     );
   }

@@ -20,7 +20,13 @@ class _SignDetailState extends State<SignDetail> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(32, 62, 32, 0),
+        padding: EdgeInsets.fromLTRB(
+          MediaQuery.of(context).size.width * 0.08,
+          MediaQuery.of(context).padding.top +
+              MediaQuery.of(context).size.height * 0.02,
+          MediaQuery.of(context).size.width * 0.08,
+          MediaQuery.of(context).size.height * 0.03,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -30,13 +36,13 @@ class _SignDetailState extends State<SignDetail> {
               },
               child: Image.asset(
                 'assets/images/back_toggle.png',
-                width: 10,
-                height: 20,
+                width: MediaQuery.of(context).size.width * 0.025,
+                height: MediaQuery.of(context).size.height * 0.022,
                 fit: BoxFit.fill,
               ),
             ),
-            const SizedBox(
-              height: 50,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.056,
             ),
             const Text(
               '거의 다 왔어요!',
@@ -47,59 +53,66 @@ class _SignDetailState extends State<SignDetail> {
                 fontFamily: 'Pretendard Variable',
               ),
             ),
-            const SizedBox(
-              height: 33,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.036,
             ),
-            const TextEditBtn(
+            TextEditBtn(
               nosee: false,
               inputtype: TextInputType.name,
               frontboxsize: 22,
-              imgName: 'person',
+              icon: Icons.person,
               text: '이름을 입력해주세요',
               betweenboxsize: 6,
+              height: MediaQuery.of(context).size.height * 0.0627,
             ),
-            const SizedBox(
-              height: 16,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.017,
             ),
-            const TextEditBtn(
+            TextEditBtn(
               nosee: false,
               inputtype: TextInputType.name,
               frontboxsize: 22,
-              imgName: 'nick',
+              icon: Icons.person,
               text: '사용할 닉네임을 입력해주세요',
               betweenboxsize: 6,
+              height: MediaQuery.of(context).size.height * 0.0627,
             ),
-            const SizedBox(
-              height: 16,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.017,
             ),
-            const TextEditBtn(
+            TextEditBtn(
               nosee: false,
               inputtype: TextInputType.number,
               frontboxsize: 22,
-              imgName: 'birth',
+              icon: Icons.calendar_month,
               text: '생년월일을 입력해주세요 (8자리)',
               betweenboxsize: 6,
+              height: MediaQuery.of(context).size.height * 0.0627,
             ),
-            const SizedBox(
-              height: 16,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.017,
             ),
-            const TextEditBtn(
+            TextEditBtn(
               nosee: false,
               inputtype: TextInputType.phone,
               frontboxsize: 22,
-              imgName: 'phone',
+              icon: Icons.phone_android,
               text: '휴대폰 번호를 입력해주세요 (숫자만 입력)',
               betweenboxsize: 6,
+              height: MediaQuery.of(context).size.height * 0.0627,
             ),
-            const SizedBox(
-              height: 274,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.306,
             ),
             GestureDetector(
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const Interest()));
               },
-              child: const GreenLongBtn(text: '다음으로'),
+              child: GreenLongBtn(
+                text: '다음으로',
+                height: MediaQuery.of(context).size.height * 0.067,
+              ),
             ),
           ],
         ),

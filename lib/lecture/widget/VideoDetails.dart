@@ -17,10 +17,7 @@ class VideoDetails extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.only(bottom: 16),
-            child: Text(
-              '초보 주식투자자들이 흔히 하는 실수 박곰희 1부',
-              style: textTheme.displayLarge,
-            ),
+            child: Text('초보 주식투자자들이 흔히 하는 실수 박곰희 1부', style: textTheme.displayLarge,),
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,8 +41,7 @@ class VideoDetails extends StatelessWidget {
               children: [
                 Container(
                   margin: const EdgeInsets.only(right: 10),
-                  width: 32,
-                  height: 32,
+                  width: 32, height: 32,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                     image: const DecorationImage(
