@@ -4,7 +4,7 @@ abstract class HttpResult<T> {
   void fail(Object error, String functionName);
 }
 
-class MyHttpResult<T> implements HttpResult<T> {
+class PrintHttpResult<T> implements HttpResult<T> {
   static const int appFailStatusCode = 400; // 예시로 400으로 설정
 
   @override
@@ -39,4 +39,3 @@ class MyHttpResult<T> implements HttpResult<T> {
     }
   }
 }
-

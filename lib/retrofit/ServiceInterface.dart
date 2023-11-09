@@ -36,7 +36,6 @@ class ApiService {
       final refreshToken = responseData['refresh_token'];
       await storage.write(key: 'access_token', value: accessToken);
       await storage.write(key: 'refresh_token', value: refreshToken);
-
       // 토큰 저장
       return response;
     } catch (e) {
