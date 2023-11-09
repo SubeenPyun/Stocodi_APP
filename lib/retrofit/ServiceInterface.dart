@@ -31,6 +31,12 @@ class ApiService {
   Future<Response> login(Login data) async {
     try {
       final response = await dio.post('/auth/login', data: data.toJson());
+      final responseData = response.data['response'];
+      final accessToken = responseData['access_token'];
+      final refreshToken = responseData['refresh_token'];
+      await storage.write(key: 'access_token', value: accessToken);
+      await storage.write(key: 'refresh_token', value: refreshToken);
+
       // 토큰 저장
       return response;
     } catch (e) {
