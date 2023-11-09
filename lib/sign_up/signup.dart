@@ -61,15 +61,24 @@ class _SignupState extends State<Signup> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.089,
               ),
-              LongButton(
-                frontboxsize: 22,
-                imgName: 'google_login.png',
-                text: '구글 계정으로 시작하기',
-                borderColor: Color(0xFFEBEBEB),
-                textColor: Color(0xFF767676),
-                height: MediaQuery.of(context).size.height * 0.0627,
-                imgsize: 24,
-                betweensize: 12,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          //동기야!! 여기에 넣으면 됨!
+                          builder: (context) => const SignEmail()));
+                },
+                child: LongButton(
+                  frontboxsize: 22,
+                  imgName: 'google_login.png',
+                  text: '구글 계정으로 시작하기',
+                  borderColor: Color(0xFFEBEBEB),
+                  textColor: Color(0xFF767676),
+                  height: MediaQuery.of(context).size.height * 0.0627,
+                  imgsize: 24,
+                  betweensize: 12,
+                ),
               ),
               const SizedBox(
                 height: 16,
