@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/retrofit/HttpDTO/Login.dart';
-import 'package:stocodi_app/retrofit/HttpDTO/Register.dart';
-import 'HttpResult.dart';
 import 'HttpService.dart';
+import 'httpdto/predefined_data_dto.dart';
 
 void main() {
   runApp(const SignUp());
@@ -12,27 +10,13 @@ class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
 
   Future<void> _signUp() async {
-    final data = Register(
-      "oz@naver.com",
-      "1234",
-      "김동기",
-      "oz9911",
-      "2000-01-11",
-      'MALE',
-      ["IT"],
-    );
-    final loginData = Login(
-        "oz@naver.com",
-        "1234"
-    );
 
     try {
       // AuthenticationManager 인스턴스 생성 및 사용
       final authenticationManager = AuthenticationManager();
-      //await authenticationManager.signUp(data);
-      var nicnkameResult = await authenticationManager.nickNameExist('oz9911');
-      print(nicnkameResult);
-      await authenticationManager.login(loginData);
+      //await authenticationManager.signUp(signupData);
+      var nicnkameResult = await authenticationManager.nickNameExist('oz');
+      var loginResponse = await authenticationManager.login(loginData);
       await authenticationManager.logOut(); // jwt 받아서 로그아웃
     } catch (e) {
       // 오류 처리

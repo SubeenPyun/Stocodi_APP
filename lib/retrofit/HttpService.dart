@@ -1,20 +1,29 @@
+import 'dart:convert';
+
 import 'package:stocodi_app/retrofit/HttpResult.dart';
-import 'HttpDTO/Login.dart';
+import 'package:stocodi_app/retrofit/httpdto/request/auth/members_model.dart';
 import 'HttpDTO/Register.dart';
+import 'HttpDTO/request/auth/login_model.dart';
 import 'ServiceInterface.dart';
+import 'httpdto/response/auth/login_model.dart';
 
 final PrintHttpResult _httpResult = PrintHttpResult(); // MyHttpResult 인스턴스 생성
 
 class AuthenticationManager {
   final ApiService _apiService = ApiService();
 
-  Future<void> login(Login loginData) async {
+  Future<LoginResponse?> login(LoginRequest loginData) async {
     try {
       // ApiService의 login 메서드 호출
       final response = await _apiService.login(loginData);
+      print("nn${response.data['response']}");
+      LoginResponse loginResponse = LoginResponse.fromJson(response.data['response']);
       _httpResult.PrintResult(response, '로그인');
+      return loginResponse;
+
     } catch (e) {
       print('로그인 오류: $e');
+      return null;
     }
   }
 
@@ -38,7 +47,7 @@ class AuthenticationManager {
     }
   }
 
-  Future<void> signUp(Register data) async{
+  Future<void> signUp(MembersRequest data) async{
     try {
       final response = await _apiService.signUp(data);
       _httpResult.PrintResult(response, '회원 가입');

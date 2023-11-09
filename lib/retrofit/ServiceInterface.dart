@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'HttpDTO/Login.dart';
+import 'package:stocodi_app/retrofit/httpdto/request/auth/members_model.dart';
 import 'HttpDTO/Register.dart';
+import 'HttpDTO/request/auth/login_model.dart';
 
 class ApiService {
   final Dio dio = Dio(); // Dio 인스턴스 생성
@@ -28,7 +29,7 @@ class ApiService {
   }*/
 
 
-  Future<Response> login(Login data) async {
+  Future<Response> login(LoginRequest data) async {
     try {
       final response = await dio.post('/auth/login', data: data.toJson());
       final responseData = response.data['response'];
@@ -63,7 +64,7 @@ class ApiService {
   }
 
 
-  Future<Response> signUp(Register data) async {
+  Future<Response> signUp(MembersRequest data) async {
     try {
       final response = await dio.post('/auth/members', data: data.toJson());
       return response;
