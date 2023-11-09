@@ -8,14 +8,25 @@ class ApiService {
   final storage = FlutterSecureStorage();
 
   ApiService() {
-    dio.options.baseUrl =
-        'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
+    //dio.options.baseUrl = 'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
+    dio.options.baseUrl = 'http://10.0.2.2:53001/api/v1';
     dio.options.connectTimeout = Duration(milliseconds: 5000);
     dio.options.receiveTimeout = Duration(milliseconds: 3000);
     dio.options.headers = {
       'Content-Type': 'application/json',
     };
   }
+
+  /*Future<Response> stockSell(StockRequest data) async{
+    try{
+      setToken('access_token');
+      final response = await dio.post('/transactions/sells', data: data.toJson());
+      return response;
+    }catch (e){
+      throw Exception('Failed to sellStock: $e');
+    }
+  }*/
+
 
   Future<Response> login(Login data) async {
     try {
@@ -27,24 +38,25 @@ class ApiService {
     }
   }
 
-  Future<Response> logOut() async {
-    try {
+  Future<Response> logOut() async{
+    try{
       setToken('refresh_token');
       final response = await dio.get('/auth/logout');
       return response;
-    } catch (e) {
+    }catch(e){
       throw Exception('Failed to  logout: $e');
     }
   }
 
-  Future<Response> nickNameExist(String nickname) async {
-    try {
-      final response = await dio.get('/auth/nicknames?nickname=$nickname');
+  Future<Response> nickNameExist(String nickname) async{
+    try{
+      final response = await dio.get('/auth/nicknames?nickname=\$$nickname');
       return response;
-    } catch (e) {
+    }catch(e){
       throw Exception('Failed to check ninickname exists: $e');
     }
   }
+
 
   Future<Response> signUp(Register data) async {
     try {
@@ -54,6 +66,7 @@ class ApiService {
       throw Exception('Failed to signup: $e');
     }
   }
+
 
   void setToken(String token) async {
     final accessToken = await getToken(token);
@@ -68,7 +81,7 @@ class ApiService {
     return await storage.read(key: token);
   }
 
-  /*// API 요청을 보내는 함수
+/*// API 요청을 보내는 함수
   Future<void> sendApiRequest() async {
     final token = await getToken();
     if (token != null) {
