@@ -6,9 +6,9 @@ part 'stock_rank_list.g.dart'; // 현재 파일 이름과 같아야 함!!!
 
 @JsonSerializable()
 class StockRankList {
-  final List<StockRank> stockRankList;
+  final List<StockRank> stock_rank_list;
 
-  StockRankList(this.stockRankList);
+  StockRankList(this.stock_rank_list);
 
   Map<String, dynamic> toJson() => _$StockRankListToJson(this);
 

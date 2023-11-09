@@ -8,16 +8,16 @@ part of 'stock_rank.dart';
 
 StockRank _$StockRankFromJson(Map<String, dynamic> json) => StockRank(
       json['rank'] as int,
-      json['stockCode'] as String,
-      json['stockName'] as String,
-      json['currentPrice'] as int,
+      json['stock_code'] as String,
+      json['stock_name'] as String,
+      json['current_price'] as int,
       json['volume'] as int,
     );
 
 Map<String, dynamic> _$StockRankToJson(StockRank instance) => <String, dynamic>{
       'rank': instance.rank,
-      'stockCode': instance.stockCode,
-      'stockName': instance.stockName,
-      'currentPrice': instance.currentPrice,
+      'stock_code': instance.stock_code,
+      'stock_name': instance.stock_name,
+      'current_price': instance.current_price,
       'volume': instance.volume,
     };

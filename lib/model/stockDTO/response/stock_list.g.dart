@@ -7,11 +7,11 @@ part of 'stock_list.dart';
 // **************************************************************************
 
 StockList _$StockListFromJson(Map<String, dynamic> json) => StockList(
-      (json['stockList'] as List<dynamic>)
+      (json['stock_list'] as List<dynamic>)
           .map((e) => Stock.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$StockListToJson(StockList instance) => <String, dynamic>{
-      'stockList': instance.stockList,
+      'stock_list': instance.stock_list,
     };

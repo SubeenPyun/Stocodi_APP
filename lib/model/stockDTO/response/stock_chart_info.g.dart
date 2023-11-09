@@ -8,24 +8,24 @@ part of 'stock_chart_info.dart';
 
 StockChartInfo _$StockChartInfoFromJson(Map<String, dynamic> json) =>
     StockChartInfo(
-      json['stockName'] as String,
-      json['firstPrice'] as int,
-      json['highPrice'] as int,
-      json['lowPrice'] as int,
-      json['lastPrice'] as int,
+      json['stock_name'] as String,
+      json['first_price'] as int,
+      json['high_price'] as int,
+      json['low_price'] as int,
+      json['last_price'] as int,
       json['volume'] as int,
-      json['tradingValue'] as int,
-      (json['fluctuationRate'] as num).toDouble(),
+      json['trading_value'] as int,
+      (json['fluctuation_rate'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$StockChartInfoToJson(StockChartInfo instance) =>
     <String, dynamic>{
-      'stockName': instance.stockName,
-      'firstPrice': instance.firstPrice,
-      'highPrice': instance.highPrice,
-      'lowPrice': instance.lowPrice,
-      'lastPrice': instance.lastPrice,
+      'stock_name': instance.stock_name,
+      'first_price': instance.first_price,
+      'high_price': instance.high_price,
+      'low_price': instance.low_price,
+      'last_price': instance.last_price,
       'volume': instance.volume,
-      'tradingValue': instance.tradingValue,
-      'fluctuationRate': instance.fluctuationRate,
+      'trading_value': instance.trading_value,
+      'fluctuation_rate': instance.fluctuation_rate,
     };

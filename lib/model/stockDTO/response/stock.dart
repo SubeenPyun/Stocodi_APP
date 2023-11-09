@@ -5,11 +5,11 @@ part 'stock.g.dart'; // 현재 파일 이름과 같아야 함!!!
 
 @JsonSerializable()
 class Stock{
-  final String stockCode;
-  final String stockName;
+  final String stock_code;
+  final String stock_name;
 
 
-  Stock(this.stockCode, this.stockName);
+  Stock(this.stock_code, this.stock_name);
 
   Map<String, dynamic> toJson() => _$StockToJson(this);
 

@@ -5,18 +5,24 @@ part 'stock_chart_info.g.dart'; // 현재 파일 이름과 같아야 함!!!
 
 @JsonSerializable()
 class StockChartInfo {
-  final String stockName;
-  final int firstPrice;
-  final int highPrice;
-  final int lowPrice;
-  final int lastPrice;
+  final String stock_name;
+  final int first_price;
+  final int high_price;
+  final int low_price;
+  final int last_price;
   final int volume;
-  final int tradingValue;
-  final double fluctuationRate;
+  final int trading_value;
+  final double fluctuation_rate;
 
-
-  StockChartInfo(this.stockName, this.firstPrice, this.highPrice, this.lowPrice,
-      this.lastPrice, this.volume, this.tradingValue, this.fluctuationRate);
+  StockChartInfo(
+      this.stock_name,
+      this.first_price,
+      this.high_price,
+      this.low_price,
+      this.last_price,
+      this.volume,
+      this.trading_value,
+      this.fluctuation_rate);
 
   Map<String, dynamic> toJson() => _$StockChartInfoToJson(this);
 

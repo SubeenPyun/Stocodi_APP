@@ -7,10 +7,10 @@ part of 'change_stock.dart';
 // **************************************************************************
 
 ChangeStock _$ChangeStockFromJson(Map<String, dynamic> json) => ChangeStock(
-      json['stockName'] as String,
+      json['stock_name'] as String,
     );
 
 Map<String, dynamic> _$ChangeStockToJson(ChangeStock instance) =>
     <String, dynamic>{
-      'stockName': instance.stockName,
+      'stock_name': instance.stock_name,
     };
