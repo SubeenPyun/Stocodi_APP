@@ -3,6 +3,8 @@ import 'package:stocodi_app/sign_up/signup_email_enter.dart';
 import 'package:stocodi_app/transaction/screens/transcation_main.dart';
 import 'package:stocodi_app/widgets/longbtn.dart';
 
+import '../DongGiTestPage.dart';
+
 class Signup extends StatefulWidget {
   const Signup({super.key});
 
@@ -149,7 +151,7 @@ class _SignupState extends State<Signup> {
                           context,
                           MaterialPageRoute(
                               //여기 수정 예정. 로그인 페이지로 바로 가야함
-                              builder: (context) => const SignEmail()));
+                              builder: (context) => DongGi()));
                     },
                     child: const Text(
                       '로그인',

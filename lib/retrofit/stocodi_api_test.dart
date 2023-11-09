@@ -12,25 +12,24 @@ class SignUp extends StatelessWidget {
 
   Future<void> _signUp() async {
     final data = Register(
-      "oz1@naver.com",
+      "oz@naver.com",
       "1234",
       "김동기",
-      "oz",
+      "oz9911",
       "2000-01-11",
       'MALE',
       ["IT"],
     );
     final loginData = Login(
-        'a@naver.com',
-        '11'
+        "oz@naver.com",
+        "1234"
     );
 
     try {
       // AuthenticationManager 인스턴스 생성 및 사용
       final authenticationManager = AuthenticationManager();
-      /*await authenticationManager.nickNameExist();*/
       /*await authenticationManager.signUp(data);*/
-      await authenticationManager.nickNameExist('예리미양');
+      await authenticationManager.nickNameExist('oz9911');
       await authenticationManager.login(loginData);
       await authenticationManager.logOut(); // jwt 받아서 로그아웃
     } catch (e) {
