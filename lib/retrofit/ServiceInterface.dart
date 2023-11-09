@@ -8,7 +8,8 @@ class ApiService {
   final storage = FlutterSecureStorage();
 
   ApiService() {
-    dio.options.baseUrl = 'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
+    dio.options.baseUrl =
+        'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
     dio.options.connectTimeout = Duration(milliseconds: 5000);
     dio.options.receiveTimeout = Duration(milliseconds: 3000);
     dio.options.headers = {
@@ -26,25 +27,24 @@ class ApiService {
     }
   }
 
-  Future<Response> logOut() async{
-    try{
+  Future<Response> logOut() async {
+    try {
       setToken('refresh_token');
       final response = await dio.get('/auth/logout');
       return response;
-    }catch(e){
+    } catch (e) {
       throw Exception('Failed to  logout: $e');
     }
   }
-  
-  Future<Response> nickNameExist(String nickname) async{
-    try{
+
+  Future<Response> nickNameExist(String nickname) async {
+    try {
       final response = await dio.get('/auth/nicknames?nickname=$nickname');
       return response;
-    }catch(e){
+    } catch (e) {
       throw Exception('Failed to check ninickname exists: $e');
     }
   }
-
 
   Future<Response> signUp(Register data) async {
     try {
@@ -54,7 +54,6 @@ class ApiService {
       throw Exception('Failed to signup: $e');
     }
   }
-
 
   void setToken(String token) async {
     final accessToken = await getToken(token);
