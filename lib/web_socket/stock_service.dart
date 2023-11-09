@@ -6,7 +6,8 @@ class StockService {
   final storage = FlutterSecureStorage();
 
   StockService() {
-    dio.options.baseUrl = 'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
+    // dio.options.baseUrl = 'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
+    dio.options.baseUrl = 'http://10.0.2.2:53001/api/v1'; // localhost 에뮬레이터 URL
     dio.options.connectTimeout = Duration(milliseconds: 5000);
     dio.options.receiveTimeout = Duration(milliseconds: 3000);
     dio.options.headers = {
@@ -17,6 +18,15 @@ class StockService {
   Future<Response> checkSocketConnection() async {
     try {
       final response = await dio.get('/socket');
+      return response;
+    } catch (e) {
+      throw Exception('Failed to check socket connection: $e');
+    }
+  }
+
+  Future<Response> changeStock() async {
+    try {
+      final response = await dio.post('/socket', data: data.toJson());
       return response;
     } catch (e) {
       throw Exception('Failed to check socket connection: $e');
