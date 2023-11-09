@@ -8,7 +8,8 @@ class ApiService {
   final storage = FlutterSecureStorage();
 
   ApiService() {
-    dio.options.baseUrl = 'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
+    // dio.options.baseUrl = 'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
+    dio.options.baseUrl = 'http://10.0.2.2:53001/api/v1'; // API 기본 URL로 변경
     dio.options.connectTimeout = Duration(milliseconds: 5000);
     dio.options.receiveTimeout = Duration(milliseconds: 3000);
     dio.options.headers = {
