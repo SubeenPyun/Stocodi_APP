@@ -63,6 +63,22 @@ void newTokenStatusCheck(int statusCode) {
     showToast('계정 토큰 재발급 실패 (Refresh Token Cookie 없음).');
   }
 }
+void stockSellStatusCheck(int statusCode) {
+  if(statusCode == 400){
+    showToast('주식 판매 실패');
+  }
+}
+void makePortfolioStatusCheck(int statusCode) {
+  if(statusCode == 400){
+    showToast('계좌 생성 실패');
+  }
+}
+void getPortfolioStatusCheck(int statusCode) {
+  if(statusCode == 404){
+    showToast('get portfolio 정보 불일치');
+  }
+}
+
 
 void showToast(String message) {
   print(message);

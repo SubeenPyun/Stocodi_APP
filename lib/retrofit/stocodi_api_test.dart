@@ -20,8 +20,10 @@ class SignUp extends StatelessWidget {
       var loginResponse = await authenticationManager.login(loginData);
 
 
-      var accountInfoResponse = await authenticationManager.accountInfo();
-      await authenticationManager.newToken();
+      //var accountInfoResponse = await authenticationManager.accountInfo();
+      //await authenticationManager.newToken();
+      //await authenticationManager.makePortfolio(portfolioData);
+      await authenticationManager.getPortfolio();
       await authenticationManager.logOut(); // jwt 받아서 로그아웃
     } catch (e) {
       // 오류 처리

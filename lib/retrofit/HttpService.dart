@@ -1,9 +1,11 @@
 import 'package:stocodi_app/retrofit/httpdto/request/auth/members_model.dart';
+import 'package:stocodi_app/retrofit/httpdto/request/transactions/accounts_model.dart';
 import 'package:stocodi_app/retrofit/httpdto/response/auth/account_model.dart';
 
 import 'HttpDTO/request/auth/login_model.dart';
 import 'ServiceInterface.dart';
 import 'httpdto/response/auth/login_model.dart';
+import 'httpdto/response/transactions/portfolios_model.dart';
 
 
 
@@ -80,7 +82,38 @@ class AuthenticationManager {
     }
   }
 
+  //주식 구매 판매
+  /*Future<bool> stockSell() async{
+    try {
+      final response = await _apiService.stockSell();
+      return true;
+    } catch (e) {
+      print('주식 판매 오류: $e');
+      return false;
+    }
+  }*/
+  Future<bool> makePortfolio(PortfolioRequest data) async {
+    try {
+      final response = await _apiService.makePortfolio(data);
+      return true;
+    } catch (e) {
+      print('계좌 생성 오류: $e');
+      return false;
+    }
+  }
 
-
-
+  Future<List<GetPortfolioResponse>?> getPortfolio() async {
+    try {
+      final response = await _apiService.getPortfolio();
+      List<GetPortfolioResponse> portfolioResponses = (response.data['response'] as List)
+          .map((json) => GetPortfolioResponse.fromJson(json))
+          .toList();
+      return portfolioResponses;
+      /*String firstAccountName = portfolioResponses[0].account.account_name;
+      print(firstAccountName);*/
+    } catch (e) {
+      print('계좌 조회 오류: $e');
+      return null;
+    }
+  }
 }

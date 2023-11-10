@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:stocodi_app/retrofit/httpdto/request/auth/members_model.dart';
 import 'HttpDTO/request/auth/login_model.dart';
 import 'HttpResult.dart';
+import 'httpdto/request/transactions/accounts_model.dart';
 
 class ApiService {
   final Dio dio = Dio(); // Dio 인스턴스 생성
@@ -17,16 +18,8 @@ class ApiService {
     dio.options.connectTimeout = Duration(milliseconds: 5000);
     dio.options.receiveTimeout = Duration(milliseconds: 3000);
   }
-  /*Future<Response> stockSell(StockRequest data) async{
-    try{
-      setToken('access_token');
-      final response = await dio.post('/transactions/sells', data: data.toJson());
-      return response;
-    }catch (e){
-      throw Exception('Failed to sellStock: $e');
-    }
-  }*/
 
+  //회원 정보 관련
   Future<Response> signUp(MembersRequest data) async {
     try {
       setHeader();
@@ -153,5 +146,42 @@ class ApiService {
     final refreshToken = responseData['refresh_token'];
     await storage.write(key: 'access_token', value: accessToken);
     await storage.write(key: 'refresh_token', value: refreshToken);
+  }
+
+
+  //주식 구매 판매
+  /*Future<Response> stockSell() async {
+    try {
+      setHeader();
+      await setCookie();
+      final response = await dio.post('/transactions/sells');
+      _httpResult.success(response.data["response"], '주식 판매');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '주식 판매',stockSellStatusCheck);
+      throw Exception('Failed to stock sell: $e');
+    }
+  }*/
+  Future<Response> makePortfolio(PortfolioRequest data) async {
+    try {
+      await setToken('access_token');
+      final response = await dio.post('/accounts', data: data.toJson());
+      _httpResult.success(response.data["response"], '포트폴리오 생성');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '포트폴리오 생성',makePortfolioStatusCheck);
+      throw Exception('Failed to make portfolio: $e');
+    }
+  }
+  Future<Response> getPortfolio() async {
+    try {
+      await setToken('access_token');
+      final response = await dio.get('/portfolios');
+      _httpResult.success(response.data["response"], '포트폴리오 조회');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '포트폴리오 조회',getPortfolioStatusCheck);
+      throw Exception('Failed to get portfolio: $e');
+    }
   }
 }
