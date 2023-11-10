@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:stocodi_app/retrofit/httpdto/request/auth/members_model.dart';
@@ -14,12 +16,7 @@ class ApiService {
     dio.options.baseUrl = 'http://10.0.2.2:53001/api/v1';
     dio.options.connectTimeout = Duration(milliseconds: 5000);
     dio.options.receiveTimeout = Duration(milliseconds: 3000);
-    dio.options.headers = {
-      'Content-Type': 'application/json',
-    };
   }
-
-
   /*Future<Response> stockSell(StockRequest data) async{
     try{
       setToken('access_token');
@@ -32,6 +29,7 @@ class ApiService {
 
   Future<Response> signUp(MembersRequest data) async {
     try {
+      setHeader();
       final response = await dio.post('/auth/members', data: data.toJson());
       _httpResult.success(response, '회원 가입');
       return response;
@@ -43,6 +41,7 @@ class ApiService {
 
   Future<Response> nickNameExist(String nickname) async{
     try{
+      setHeader();
       final response = await dio.get('/auth/nicknames?nickname=$nickname');
       _httpResult.success(response, '닉네임 중복 체크');
       return response;
@@ -54,6 +53,7 @@ class ApiService {
 
   Future<Response> emailExist(String email) async{
     try{
+      setHeader();
       final response = await dio.get('/auth/email?email=$email');
       _httpResult.success(response, '이메일 중복 체크');
       return response;
@@ -65,12 +65,10 @@ class ApiService {
 
   Future<Response> login(LoginRequest data) async {
     try {
+      setHeader();
       final response = await dio.post('/auth/login', data: data.toJson());
-      final responseData = response.data['response'];
-      final accessToken = responseData['access_token'];
-      final refreshToken = responseData['refresh_token'];
-      await storage.write(key: 'access_token', value: accessToken);
-      await storage.write(key: 'refresh_token', value: refreshToken);
+      writeToken(response);
+      await setCookie();
       _httpResult.success(response.data["response"], '로그인');
       return response;
     } catch (e) {
@@ -81,7 +79,6 @@ class ApiService {
 
   Future<Response> accountInfo() async {
     try {
-
       await setToken('access_token');
       final response = await dio.get('/members');
       _httpResult.success(response.data["response"], '계정 정보 조회');
@@ -104,8 +101,25 @@ class ApiService {
     }
   }
 
+  Future<Response> newToken() async {
+    try {
+      setHeader();
+      final response = await dio.post('/auth/reissue-token');
+      await writeToken(response);
+      await setCookie();
+      _httpResult.success(response.data["response"], '토큰 갱신');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '토큰 갱신',newTokenStatusCheck);
+      throw Exception('Failed to login: $e');
+    }
+  }
 
-
+  void setHeader(){
+    dio.options.headers = {
+      'Content-Type': 'application/json',
+    };
+  }
 
   Future<void> setToken(String token) async {
     final accessToken = await getToken(token);
@@ -115,31 +129,29 @@ class ApiService {
     };
   }
 
-  // 저장된 토큰을 가져오는 함수
   Future<String?> getToken(String token) async {
     return await storage.read(key: token);
   }
 
-/*// API 요청을 보내는 함수
-  Future<void> sendApiRequest() async {
-    final token = await getToken();
-    if (token != null) {
-      final url = 'https://example.com/api/resource';
+  Future<void> setCookie() async {
+    var accessTokens = await storage.read(key: 'access_token');
+    var refreshTokens = await storage.read(key: 'refresh_token');
+    var accessCookie = Cookie('member_access_token', accessTokens!);
+    var refreshCookie = Cookie('member_refresh_token', refreshTokens!);
+    // Interceptor를 사용하여 쿠키를 요청 헤더에 추가
+    dio.interceptors.add(InterceptorsWrapper(
+      onRequest: (options, handler) {
+        options.headers['Cookie'] = "${accessCookie.toString()}; ${refreshCookie.toString()}";
+        return handler.next(options);
+      },
+    ));
+  }
 
-      final response = await http.get(
-        Uri.parse(url),
-        headers: {
-          'Authorization': 'Bearer $token', // 토큰을 헤더에 추가
-        },
-      );
-
-      if (response.statusCode == 200) {
-        // 성공적인 응답 처리
-        print('API 응답: ${response.body}');
-      } else {
-        // 에러 처리
-        print('API 요청 실패: ${response.statusCode}');
-      }
-    }
-  }*/
+  Future<void> writeToken(dynamic response) async {
+    final responseData = response.data['response'];
+    final accessToken = responseData['access_token'];
+    final refreshToken = responseData['refresh_token'];
+    await storage.write(key: 'access_token', value: accessToken);
+    await storage.write(key: 'refresh_token', value: refreshToken);
+  }
 }

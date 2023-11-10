@@ -58,7 +58,11 @@ void accountInfoStatusCheck(int statusCode) {
     showToast('계정 정보 조회 실패');
   }
 }
-
+void newTokenStatusCheck(int statusCode) {
+  if(statusCode == 444){
+    showToast('계정 토큰 재발급 실패 (Refresh Token Cookie 없음).');
+  }
+}
 
 void showToast(String message) {
   print(message);

@@ -32,6 +32,9 @@ dependencies:
     sdk: flutter
   android_intent:
   css_colors:
+  cookie_jar: ^4.0.0
+  path_provider: ^2.0.5
+  dio_cookie_manager: ^3.0.0
   cupertino_icons: ^1.0.2
   fluttertoast: ^8.0.8
   http: ^1.1.0
