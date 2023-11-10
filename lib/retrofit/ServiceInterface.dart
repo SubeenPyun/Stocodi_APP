@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:stocodi_app/retrofit/httpdto/request/auth/members_model.dart';
-import 'HttpDTO/Register.dart';
 import 'HttpDTO/request/auth/login_model.dart';
+import 'HttpResult.dart';
 
 class ApiService {
   final Dio dio = Dio(); // Dio 인스턴스 생성
   final storage = FlutterSecureStorage();
+  final PrintHttpResult _httpResult = PrintHttpResult(); // MyHttpResult 인스턴스 생성
 
   ApiService() {
     //dio.options.baseUrl = 'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
@@ -17,6 +18,7 @@ class ApiService {
       'Content-Type': 'application/json',
     };
   }
+
 
   /*Future<Response> stockSell(StockRequest data) async{
     try{
@@ -37,9 +39,10 @@ class ApiService {
       final refreshToken = responseData['refresh_token'];
       await storage.write(key: 'access_token', value: accessToken);
       await storage.write(key: 'refresh_token', value: refreshToken);
-      // 토큰 저장
+      _httpResult.success(response.data["response"], '로그인');
       return response;
     } catch (e) {
+      _httpResult.fail(e, '로그인',loginStatusWithTask);
       throw Exception('Failed to login: $e');
     }
   }
@@ -56,9 +59,11 @@ class ApiService {
 
   Future<Response> nickNameExist(String nickname) async{
     try{
-      final response = await dio.get('/auth/nicknames?nickname=\$$nickname');
+      final response = await dio.get('/auth/nicknames?nickname=$nickname');
+      _httpResult.success(response, '닉네임 중복 체크');
       return response;
     }catch(e){
+      _httpResult.fail(e,'닉네임 중복 체크',nickNameCheck);
       throw Exception('Failed to check ninickname exists: $e');
     }
   }
@@ -67,8 +72,10 @@ class ApiService {
   Future<Response> signUp(MembersRequest data) async {
     try {
       final response = await dio.post('/auth/members', data: data.toJson());
+      _httpResult.success(response, '회원 가입');
       return response;
     } catch (e) {
+      _httpResult.fail(e,'회원가입');
       throw Exception('Failed to signup: $e');
     }
   }
