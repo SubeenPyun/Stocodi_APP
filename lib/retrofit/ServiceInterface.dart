@@ -30,6 +30,38 @@ class ApiService {
     }
   }*/
 
+  Future<Response> signUp(MembersRequest data) async {
+    try {
+      final response = await dio.post('/auth/members', data: data.toJson());
+      _httpResult.success(response, '회원 가입');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e,'회원가입');
+      throw Exception('Failed to signup: $e');
+    }
+  }
+
+  Future<Response> nickNameExist(String nickname) async{
+    try{
+      final response = await dio.get('/auth/nicknames?nickname=$nickname');
+      _httpResult.success(response, '닉네임 중복 체크');
+      return response;
+    }catch(e){
+      _httpResult.fail(e,'닉네임 중복 체크',nickNameStatusCheck);
+      throw Exception('Failed to check ninickname exists: $e');
+    }
+  }
+
+  Future<Response> emailExist(String email) async{
+    try{
+      final response = await dio.get('/auth/email?email=$email');
+      _httpResult.success(response, '이메일 중복 체크');
+      return response;
+    }catch(e){
+      _httpResult.fail(e,'이메일 중복 체크',emailStatusCheck);
+      throw Exception('Failed to check email exists: $e');
+    }
+  }
 
   Future<Response> login(LoginRequest data) async {
     try {
@@ -42,46 +74,40 @@ class ApiService {
       _httpResult.success(response.data["response"], '로그인');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '로그인',loginStatusWithTask);
+      _httpResult.fail(e, '로그인',loginStatusCheck);
       throw Exception('Failed to login: $e');
+    }
+  }
+
+  Future<Response> accountInfo() async {
+    try {
+
+      await setToken('access_token');
+      final response = await dio.get('/members');
+      _httpResult.success(response.data["response"], '계정 정보 조회');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '계정 정보 조회',accountInfoStatusCheck);
+      throw Exception('Failed to get accountInfo: $e');
     }
   }
 
   Future<Response> logOut() async{
     try{
-      setToken('refresh_token');
+      await setToken('refresh_token');
       final response = await dio.get('/auth/logout');
+      _httpResult.success(response, '로그 아웃');
       return response;
     }catch(e){
+      _httpResult.fail(e, '로그 아웃');
       throw Exception('Failed to  logout: $e');
     }
   }
 
-  Future<Response> nickNameExist(String nickname) async{
-    try{
-      final response = await dio.get('/auth/nicknames?nickname=$nickname');
-      _httpResult.success(response, '닉네임 중복 체크');
-      return response;
-    }catch(e){
-      _httpResult.fail(e,'닉네임 중복 체크',nickNameCheck);
-      throw Exception('Failed to check ninickname exists: $e');
-    }
-  }
 
 
-  Future<Response> signUp(MembersRequest data) async {
-    try {
-      final response = await dio.post('/auth/members', data: data.toJson());
-      _httpResult.success(response, '회원 가입');
-      return response;
-    } catch (e) {
-      _httpResult.fail(e,'회원가입');
-      throw Exception('Failed to signup: $e');
-    }
-  }
 
-
-  void setToken(String token) async {
+  Future<void> setToken(String token) async {
     final accessToken = await getToken(token);
     dio.options.headers = {
       'Content-Type': 'application/json',

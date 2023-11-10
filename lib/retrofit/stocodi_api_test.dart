@@ -16,8 +16,9 @@ class SignUp extends StatelessWidget {
       final authenticationManager = AuthenticationManager();
       /*await authenticationManager.signUp(signupData);*/
       var nicnkameResult = await authenticationManager.nickNameExist('ozoz');
-      //var loginResponse = await authenticationManager.login(loginData);
+      var emailResult = await authenticationManager.emailExist('oz990011@naver.com');
       var loginResponse = await authenticationManager.login(loginData);
+      var accountInfoResponse = await authenticationManager.accountInfo();
       print(loginResponse);
       await authenticationManager.logOut(); // jwt 받아서 로그아웃
     } catch (e) {

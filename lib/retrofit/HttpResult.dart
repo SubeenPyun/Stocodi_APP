@@ -27,10 +27,11 @@ class PrintHttpResult<T> implements HttpResult<T> {
   }
   @override
   void success(T data, String functionName) {
+    print('$functionName 성공: $data');
   }
 }
 
-void loginStatusWithTask(int statusCode) {
+void loginStatusCheck(int statusCode) {
   // statusCode를 활용한 특정 동작 수행
   if(statusCode == 400){
     showToast('비밀번호가 잘못되었습니다.');
@@ -39,14 +40,28 @@ void loginStatusWithTask(int statusCode) {
     showToast('계정이 존재하지 않습니다');
   }
 }
-void nickNameCheck(int statusCode) {
+void nickNameStatusCheck(int statusCode) {
   // statusCode를 활용한 특정 동작 수행
   if(statusCode == 500){
     showToast('이미 존재하는 닉네임 입니다.');
   }
 }
+void emailStatusCheck(int statusCode) {
+  // statusCode를 활용한 특정 동작 수행
+  if(statusCode == 500){
+    showToast('이미 존재하는 이메일 입니다.');
+  }
+}
+void accountInfoStatusCheck(int statusCode) {
+  // statusCode를 활용한 특정 동작 수행
+  if(statusCode == 400){
+    showToast('계정 정보 조회 실패');
+  }
+}
+
 
 void showToast(String message) {
+  print(message);
   Fluttertoast.showToast(
     msg: message,
     toastLength: Toast.LENGTH_SHORT,  // Toast.LENGTH_SHORT 또는 Toast.LENGTH_LONG
