@@ -13,17 +13,16 @@ class AccountInfoResponse {
   final List<String> interest_categories;
   final String role;
 
-  AccountInfoResponse({
-    required this.id,
-    required this.email,
-    required this.password,
-    required this.name,
-    required this.nickname,
-    required this.birth_date,
-    required this.gender,
-    required this.interest_categories,
-    required this.role
-  });
+  AccountInfoResponse(
+      {required this.id,
+      required this.email,
+      required this.password,
+      required this.name,
+      required this.nickname,
+      required this.birth_date,
+      required this.gender,
+      required this.interest_categories,
+      required this.role});
 
   Map<String, dynamic> toJson() => _$AccountInfoResponseToJson(this);
 

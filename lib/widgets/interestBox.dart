@@ -5,38 +5,35 @@ class InterestBox extends StatefulWidget {
   final String text;
   final double length; //한 상자의 길이
   final double howmuch; //그림과 텍스트 사이 공간
+  final bool isSelected; // 새로운 프로퍼티: 선택 여부
+  final VoidCallback onTap; // 새로운 프로퍼티: 탭 이벤트
+
   const InterestBox({
     required this.imgName,
     required this.text,
     required this.length,
     required this.howmuch,
-    super.key,
-  });
+    required this.isSelected,
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<InterestBox> createState() => _InterestBoxState();
 }
 
 class _InterestBoxState extends State<InterestBox> {
-  bool isClicked = false;
-
-  void btnClick() {
-    setState(() {
-      isClicked = !isClicked;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     Color borderColor =
-        isClicked ? const Color(0xFF0ECB81) : const Color(0xFFDBDBDB);
+        widget.isSelected ? const Color(0xFF0ECB81) : const Color(0xFFDBDBDB);
     Color txtColor =
-        isClicked ? const Color(0xFF0ECB81) : const Color(0xFF111111);
-    String imgColor = isClicked ? 'green_' : 'gray_';
-    FontWeight fontw = isClicked ? FontWeight.w500 : FontWeight.w400;
+        widget.isSelected ? const Color(0xFF0ECB81) : const Color(0xFF111111);
+    String imgColor = widget.isSelected ? 'green_' : 'gray_';
+    FontWeight fontw = widget.isSelected ? FontWeight.w500 : FontWeight.w400;
 
     return GestureDetector(
-      onTap: btnClick,
+      onTap: widget.onTap, // 새로운 onTap 콜백 사용
       child: Container(
         height: widget.length,
         width: widget.length,

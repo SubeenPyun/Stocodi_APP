@@ -1,17 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/retrofit/HttpService.dart';
+import 'package:stocodi_app/retrofit/httpdto/request/auth/members_model.dart';
 import 'package:stocodi_app/sign_up/signup_done.dart';
 import 'package:stocodi_app/widgets/green_longbtn.dart';
 import 'package:stocodi_app/widgets/interestBox.dart';
-import 'package:stocodi_app/widgets/textEditBtn.dart';
 
 class Interest extends StatefulWidget {
-  const Interest({super.key});
+  final String enteredEmail;
+  final String enteredPwd;
+  final String enteredName;
+  final String enteredPhone;
+  final String enteredBirth;
+  final String enteredNickName;
+
+  const Interest({
+    Key? key,
+    required this.enteredEmail,
+    required this.enteredPwd,
+    required this.enteredName,
+    required this.enteredPhone,
+    required this.enteredBirth,
+    required this.enteredNickName,
+  }) : super(key: key);
 
   @override
   State<Interest> createState() => _InterestState();
 }
 
 class _InterestState extends State<Interest> {
+  final List<InterestItem> interestItems = [
+    InterestItem('의료', 'medical'),
+    InterestItem('금융', 'money'),
+    InterestItem('IT', 'laptop'),
+    InterestItem('통신서비스', 'chat'),
+    InterestItem('유틸리티', 'util'),
+    InterestItem('에너지', 'energy'),
+    InterestItem('소재', 'material'),
+    InterestItem('산업재', 'material'),
+    InterestItem('경기소비재', 'material'),
+    InterestItem('종목', 'util'),
+    InterestItem('종목', 'util'),
+    InterestItem('종목', 'util'),
+    InterestItem('종목', 'util'),
+    InterestItem('종목', 'util'),
+    InterestItem('종목', 'util'),
+  ];
+
+  List<String> selectedItems = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,11 +55,12 @@ class _InterestState extends State<Interest> {
       backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.fromLTRB(
-            MediaQuery.of(context).size.width * 0.08,
-            MediaQuery.of(context).padding.top +
-                MediaQuery.of(context).size.height * 0.02,
-            MediaQuery.of(context).size.width * 0.08,
-            MediaQuery.of(context).size.height * 0.03),
+          MediaQuery.of(context).size.width * 0.08,
+          MediaQuery.of(context).padding.top +
+              MediaQuery.of(context).size.height * 0.02,
+          MediaQuery.of(context).size.width * 0.08,
+          MediaQuery.of(context).size.height * 0.03,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -70,135 +107,7 @@ class _InterestState extends State<Interest> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InterestBox(
-                          imgName: 'medical',
-                          text: '의료',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        InterestBox(
-                          imgName: 'money',
-                          text: '금융',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        InterestBox(
-                          imgName: 'laptop',
-                          text: 'IT',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InterestBox(
-                          imgName: 'chat',
-                          text: '통신서비스',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        InterestBox(
-                          imgName: 'util',
-                          text: '유틸리티',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        InterestBox(
-                          imgName: 'energy',
-                          text: '에너지',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InterestBox(
-                          imgName: 'material',
-                          text: '소재',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        InterestBox(
-                          imgName: 'material',
-                          text: '산업재',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        InterestBox(
-                          imgName: 'material',
-                          text: '경기소비재',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InterestBox(
-                          imgName: 'material',
-                          text: '소재',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        InterestBox(
-                          imgName: 'material',
-                          text: '산업재',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        InterestBox(
-                          imgName: 'material',
-                          text: '경기소비재',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InterestBox(
-                          imgName: 'util',
-                          text: '종목',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        InterestBox(
-                          imgName: 'util',
-                          text: '종목',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        InterestBox(
-                          imgName: 'util',
-                          text: '종목',
-                          length: MediaQuery.of(context).size.width * 0.24,
-                          howmuch: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                      ],
-                    ),
-                  ],
+                  children: buildInterestRows(),
                 ),
               ),
             ),
@@ -206,9 +115,28 @@ class _InterestState extends State<Interest> {
               height: MediaQuery.of(context).size.height * 0.02,
             ),
             GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const SignDone()));
+              onTap: () async {
+                final authenticationManager = AuthenticationManager();
+
+                // Create a MembersRequest object
+                MembersRequest membersRequest = MembersRequest(
+                  email: widget.enteredEmail,
+                  password: widget.enteredPwd,
+                  name: widget.enteredName,
+                  nickname: widget.enteredNickName,
+                  gender: 'male', // 이부분 ui에 실제 반영안됨!! 다시 수정해야함!
+                  interest_categories: selectedItems,
+                  birth_date: widget.enteredBirth,
+                );
+
+                await authenticationManager.signUp(membersRequest);
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SignDone(),
+                  ),
+                );
               },
               child: GreenLongBtn(
                 text: '다음으로',
@@ -220,4 +148,61 @@ class _InterestState extends State<Interest> {
       ),
     );
   }
+
+  List<Widget> buildInterestRows() {
+    List<Widget> rows = [];
+
+    for (int i = 0; i < interestItems.length; i += 3) {
+      List<Widget> rowChildren = [];
+      for (int j = i; j < i + 3 && j < interestItems.length; j++) {
+        rowChildren.add(
+          InterestBox(
+            imgName: interestItems[j].imgName,
+            text: interestItems[j].text,
+            length: MediaQuery.of(context).size.width * 0.24,
+            howmuch: MediaQuery.of(context).size.height * 0.01,
+            isSelected: interestItems[j].isSelected,
+            onTap: () {
+              // Update selectedItems list based on item selection
+              setState(() {
+                interestItems[j].isSelected = !interestItems[j].isSelected;
+
+                if (interestItems[j].isSelected) {
+                  selectedItems.add(interestItems[j].text);
+                } else {
+                  selectedItems.remove(interestItems[j].text);
+                }
+              });
+            },
+          ),
+        );
+      }
+
+      rows.add(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: rowChildren,
+        ),
+      );
+
+      if (i + 3 < interestItems.length) {
+        rows.add(
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.02,
+          ),
+        );
+      }
+    }
+
+    return rows;
+  }
+}
+
+class InterestItem {
+  final String text;
+  final String imgName;
+  bool isSelected;
+
+  InterestItem(this.text, this.imgName, {bool? isSelected})
+      : isSelected = isSelected ?? false;
 }
