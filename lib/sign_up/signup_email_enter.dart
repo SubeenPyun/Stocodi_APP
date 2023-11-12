@@ -130,7 +130,7 @@ class _SignEmailState extends State<SignEmail> {
 
 bool isEmailValid(String email) {
   final RegExp emailRegex = RegExp(
-    r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$',
+    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
   );
   return emailRegex.hasMatch(email);
 }

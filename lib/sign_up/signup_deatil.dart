@@ -72,6 +72,8 @@ class _SignDetailState extends State<SignDetail> {
         // 닉네임이 이미 존재하는 경우 에러 메시지 표시
         showToast('닉네임이 이미 존재합니다. 다른 닉네임을 입력해주세요.');
       } else {
+        print(
+            '실제 값: email=($widget.enteredEmail), 비밀번호=($widget.enteredPwd), birth=$birth, nick=$nickname');
         // 닉네임이 존재하지 않는 경우 다음 페이지로 이동
         Navigator.push(
           context,

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:stocodi_app/retrofit/httpdto/request/auth/members_model.dart';
-import 'HttpDTO/request/auth/login_model.dart';
+import '../retrofit/httpdto/request/auth/login_model.dart';
 import 'HttpResult.dart';
 import 'httpdto/request/transactions/accounts_model.dart';
 
@@ -27,31 +27,31 @@ class ApiService {
       _httpResult.success(response, '회원 가입');
       return response;
     } catch (e) {
-      _httpResult.fail(e,'회원가입');
+      _httpResult.fail(e, '회원가입');
       throw Exception('Failed to signup: $e');
     }
   }
 
-  Future<Response> nickNameExist(String nickname) async{
-    try{
+  Future<Response> nickNameExist(String nickname) async {
+    try {
       setHeader();
       final response = await dio.get('/auth/nicknames?nickname=$nickname');
       _httpResult.success(response, '닉네임 중복 체크');
       return response;
-    }catch(e){
-      _httpResult.fail(e,'닉네임 중복 체크',nickNameStatusCheck);
+    } catch (e) {
+      _httpResult.fail(e, '닉네임 중복 체크', nickNameStatusCheck);
       throw Exception('Failed to check ninickname exists: $e');
     }
   }
 
-  Future<Response> emailExist(String email) async{
-    try{
+  Future<Response> emailExist(String email) async {
+    try {
       setHeader();
       final response = await dio.get('/auth/email?email=$email');
       _httpResult.success(response, '이메일 중복 체크');
       return response;
-    }catch(e){
-      _httpResult.fail(e,'이메일 중복 체크',emailStatusCheck);
+    } catch (e) {
+      _httpResult.fail(e, '이메일 중복 체크', emailStatusCheck);
       throw Exception('Failed to check email exists: $e');
     }
   }
@@ -65,7 +65,7 @@ class ApiService {
       _httpResult.success(response.data["response"], '로그인');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '로그인',loginStatusCheck);
+      _httpResult.fail(e, '로그인', loginStatusCheck);
       throw Exception('Failed to login: $e');
     }
   }
@@ -77,18 +77,18 @@ class ApiService {
       _httpResult.success(response.data["response"], '계정 정보 조회');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '계정 정보 조회',accountInfoStatusCheck);
+      _httpResult.fail(e, '계정 정보 조회', accountInfoStatusCheck);
       throw Exception('Failed to get accountInfo: $e');
     }
   }
 
-  Future<Response> logOut() async{
-    try{
+  Future<Response> logOut() async {
+    try {
       await setToken('refresh_token');
       final response = await dio.get('/auth/logout');
       _httpResult.success(response, '로그 아웃');
       return response;
-    }catch(e){
+    } catch (e) {
       _httpResult.fail(e, '로그 아웃');
       throw Exception('Failed to  logout: $e');
     }
@@ -97,18 +97,23 @@ class ApiService {
   Future<Response> newToken() async {
     try {
       setHeader();
+      print("제발...");
+
+      await setCookie();
       final response = await dio.post('/auth/reissue-token');
+      print("설마 이것도????????/");
+
       await writeToken(response);
       await setCookie();
       _httpResult.success(response.data["response"], '토큰 갱신');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '토큰 갱신',newTokenStatusCheck);
+      _httpResult.fail(e, '토큰 갱신', newTokenStatusCheck);
       throw Exception('Failed to login: $e');
     }
   }
 
-  void setHeader(){
+  void setHeader() {
     dio.options.headers = {
       'Content-Type': 'application/json',
     };
@@ -134,7 +139,10 @@ class ApiService {
     // Interceptor를 사용하여 쿠키를 요청 헤더에 추가
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) {
-        options.headers['Cookie'] = "${accessCookie.toString()}; ${refreshCookie.toString()}";
+        options.headers['Cookie'] =
+            "${accessCookie.toString()}; ${refreshCookie.toString()}";
+
+        print("왜 호출 안되지?" + options.headers['Cookie']);
         return handler.next(options);
       },
     ));
@@ -147,7 +155,6 @@ class ApiService {
     await storage.write(key: 'access_token', value: accessToken);
     await storage.write(key: 'refresh_token', value: refreshToken);
   }
-
 
   //주식 구매 판매
   /*Future<Response> stockSell() async {
@@ -169,10 +176,11 @@ class ApiService {
       _httpResult.success(response.data["response"], '포트폴리오 생성');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '포트폴리오 생성',makePortfolioStatusCheck);
+      _httpResult.fail(e, '포트폴리오 생성', makePortfolioStatusCheck);
       throw Exception('Failed to make portfolio: $e');
     }
   }
+
   Future<Response> getPortfolio() async {
     try {
       await setToken('access_token');
@@ -180,7 +188,7 @@ class ApiService {
       _httpResult.success(response.data["response"], '포트폴리오 조회');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '포트폴리오 조회',getPortfolioStatusCheck);
+      _httpResult.fail(e, '포트폴리오 조회', getPortfolioStatusCheck);
       throw Exception('Failed to get portfolio: $e');
     }
   }
