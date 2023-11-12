@@ -8,12 +8,11 @@ class LoginResponse {
   final String access_token;
   final String refresh_token;
 
-  LoginResponse({
-    required this.member_id,
-    required this.member_nickname,
-    required this.access_token,
-    required this.refresh_token
-  });
+  LoginResponse(
+      {required this.member_id,
+      required this.member_nickname,
+      required this.access_token,
+      required this.refresh_token});
 
   Map<String, dynamic> toJson() => _$LoginResponseToJson(this);
 

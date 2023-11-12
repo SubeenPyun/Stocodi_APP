@@ -10,7 +10,6 @@ class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
 
   Future<void> _signUp() async {
-
     try {
       // AuthenticationManager 인스턴스 생성 및 사용
       final authenticationManager = AuthenticationManager();
@@ -18,7 +17,6 @@ class SignUp extends StatelessWidget {
       /*var nicnkameResult = await authenticationManager.nickNameExist('ozoz');
       var emailResult = await authenticationManager.emailExist('oz990011@naver.com');*/
       var loginResponse = await authenticationManager.login(loginData);
-
 
       //var accountInfoResponse = await authenticationManager.accountInfo();
       //await authenticationManager.newToken();

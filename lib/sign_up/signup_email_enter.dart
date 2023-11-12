@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:stocodi_app/retrofit/HttpService.dart';
 import 'package:stocodi_app/sign_up/signup_password.dart';
 import 'package:stocodi_app/widgets/green_longbtn.dart';
-import 'package:stocodi_app/widgets/inputField.dart';
-import 'package:stocodi_app/widgets/textEditBtn.dart';
+import 'package:stocodi_app/widgets/new_inputfield.dart';
 
 class SignEmail extends StatefulWidget {
   const SignEmail({super.key});
@@ -12,8 +13,8 @@ class SignEmail extends StatefulWidget {
 }
 
 class _SignEmailState extends State<SignEmail> {
-  bool isTyping = false;
-  TextEditingController emailController = TextEditingController();
+  // 입력된 텍스트를 저장할 변수
+  String enteredTxt = '';
 
   @override
   Widget build(BuildContext context) {
@@ -57,19 +58,63 @@ class _SignEmailState extends State<SignEmail> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.0358,
             ),
-            InputField(
+            // NewInputField 위젯 사용
+            NewInputField(
               focus: true,
               image: Icon(Icons.mail, size: 20),
               text: "이메일 주소를 입력해주세요",
               obscure: false,
+              inputtype: TextInputType.emailAddress,
+              // onTextChanged 콜백을 통해 입력된 텍스트 업데이트
+              onTextChanged: (text) {
+                setState(() {
+                  enteredTxt = text;
+                });
+              },
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.55,
             ),
             GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const SignupPwd()));
+              onTap: () async {
+                final authenticationManager = AuthenticationManager();
+                // 입력된 이메일이 유효한지 확인
+                if (!isEmailValid(enteredTxt)) {
+                  Fluttertoast.showToast(
+                    msg: "유효한 이메일 주소를 입력해주세요.",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0,
+                  );
+                } else {
+                  // 이메일이 이미 존재하는지 확인
+                  bool emailExists =
+                      await authenticationManager.emailExist(enteredTxt);
+
+                  if (!emailExists) {
+                    Fluttertoast.showToast(
+                      msg: "이메일이 이미 존재합니다. 다른 이메일을 입력해주세요.",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SignupPwd(
+                          enteredTxt: enteredTxt,
+                        ),
+                      ),
+                    );
+                  }
+                }
               },
               child: GreenLongBtn(
                 text: '다음으로',
@@ -81,4 +126,11 @@ class _SignEmailState extends State<SignEmail> {
       ),
     );
   }
+}
+
+bool isEmailValid(String email) {
+  final RegExp emailRegex = RegExp(
+    r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$',
+  );
+  return emailRegex.hasMatch(email);
 }

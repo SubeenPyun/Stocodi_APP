@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/sign_up/signup_email_enter.dart';
-import 'package:stocodi_app/transaction/screens/transcation_main.dart';
 import 'package:stocodi_app/widgets/longbtn.dart';
 
 import '../DongGiTestPage.dart';
@@ -63,24 +62,15 @@ class _SignupState extends State<Signup> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.089,
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          //동기야!! 여기에 넣으면 됨!
-                          builder: (context) => const SignEmail()));
-                },
-                child: LongButton(
-                  frontboxsize: 22,
-                  imgName: 'google_login.png',
-                  text: '구글 계정으로 시작하기',
-                  borderColor: Color(0xFFEBEBEB),
-                  textColor: Color(0xFF767676),
-                  height: MediaQuery.of(context).size.height * 0.0627,
-                  imgsize: 24,
-                  betweensize: 12,
-                ),
+              LongButton(
+                frontboxsize: 22,
+                imgName: 'google_login.png',
+                text: '구글 계정으로 시작하기',
+                borderColor: Color(0xFFEBEBEB),
+                textColor: Color(0xFF767676),
+                height: MediaQuery.of(context).size.height * 0.0627,
+                imgsize: 24,
+                betweensize: 12,
               ),
               const SizedBox(
                 height: 16,
@@ -117,7 +107,7 @@ class _SignupState extends State<Signup> {
                       context,
                       MaterialPageRoute(
                           //여기 수정 예정. 로그인 페이지로 바로 가야함
-                          builder: (context) => Container()));
+                          builder: (context) => SignEmail()));
                 },
                 child: LongButton(
                   frontboxsize: 22,
