@@ -8,9 +8,10 @@ import 'app.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'invest/screens/holding_items.dart';
+import 'web_socket/socket_test.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(SocketTest());
 }
 
 class MyApp extends StatelessWidget {

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/invest/item/internal_invest_item.dart';
 import 'package:stocodi_app/invest/item/foreign_invest_item.dart';

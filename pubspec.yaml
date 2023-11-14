@@ -33,7 +33,7 @@ dependencies:
   android_intent:
   css_colors:
   cupertino_icons: ^1.0.2
-  fluttertoast: ^8.0.8
+#  fluttertoast: ^8.0.8
   http: ^1.1.0
   logger: ^2.0.2
   dio: ^5.3.2
