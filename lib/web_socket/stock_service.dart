@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:stocodi_app/model/stockDTO/request/interest_stock.dart';
+import 'package:stocodi_app/model/stockDTO/response/stock_rank.dart';
 
 import '../model/stockDTO/request/change_stock.dart';
 

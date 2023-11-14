@@ -87,9 +87,9 @@ class _TestPageState extends State<TestPage> {
     try {
       // 인증 api 확인
       final authenticationManager = AuthenticationManager();
-      // await authenticationManager.nickNameExist('봉봉'); // 이젠 또 되네
-      // await authenticationManager.signUp(signUpData);
-      // await authenticationManager.nickNameExist('봉봉');
+      await authenticationManager.nickNameExist('봉봉'); // 이젠 또 되네
+      await authenticationManager.signUp(signUpData);
+      await authenticationManager.nickNameExist('봉봉');
       await authenticationManager.login(loginData);
       // await authenticationManager.logOut(); // jwt 받아서 로그아웃
 
