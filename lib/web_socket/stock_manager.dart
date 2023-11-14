@@ -60,4 +60,24 @@ class StockManager {
       print('종목 차트 정보 조회 오류: $e');
     }
   }
+  
+  // 실시간 거래량 순위 Best 5
+  Future<void> getBest5Stock() async {
+    try {
+      final response = await stockService.getBest5Stock();
+      _httpResult.PrintResult(response, '실시간 거래량 순위 Best 5');
+    } catch (e) {
+      print('실시간 거래량 순위 Best 5 오류: $e');
+    }
+  }
+
+  // 종목 검색
+  Future<void> getStockInfo(String key) async {
+    try {
+      final response = await stockService.getStockInfo(key);
+      _httpResult.PrintResult(response, '종목 검색');
+    } catch (e) {
+      print('종목 검색 오류: $e');
+    }
+  }
 }

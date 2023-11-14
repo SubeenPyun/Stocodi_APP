@@ -80,4 +80,26 @@ class StockService {
       throw Exception('Failed to get stock chart info: $e');
     }
   }
+
+  // 실시간 거래량 순위 Best 5
+  Future<Response> getBest5Stock() async {
+    await setAuthorizationHeader();
+    try {
+      final response = await dio.get('/stocks/volume-rank');
+      return response;
+    } catch (e) {
+      throw Exception('Failed to get best5 stock: $e');
+    }
+  }
+
+  // 종목 검색
+  Future<Response> getStockInfo(String key) async {
+    await setAuthorizationHeader();
+    try {
+      final response = await dio.get('/stocks/search?key=$key');
+      return response;
+    } catch (e) {
+      throw Exception('Failed to get stock info: $e');
+    }
+  }
 }

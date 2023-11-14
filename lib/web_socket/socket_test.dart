@@ -87,9 +87,9 @@ class _TestPageState extends State<TestPage> {
     try {
       // 인증 api 확인
       final authenticationManager = AuthenticationManager();
-      // await authenticationManager.nickNameExist('봉봉'); // 이젠 또 되네
-      // await authenticationManager.signUp(signUpData);
-      // await authenticationManager.nickNameExist('봉봉');
+      await authenticationManager.nickNameExist('봉봉'); // 이젠 또 되네
+      await authenticationManager.signUp(signUpData);
+      await authenticationManager.nickNameExist('봉봉');
       await authenticationManager.login(loginData);
       // await authenticationManager.logOut(); // jwt 받아서 로그아웃
 
@@ -103,7 +103,11 @@ class _TestPageState extends State<TestPage> {
       // await stockManager.registerInterestStock(interestData3);
       // await stockManager.registerInterestStock(interestData4);
       // await stockManager.registerInterestStock(interestData5);
-      await stockManager.getBest5InterestStock('test@naver.com');
+      // await stockManager.getBest5InterestStock('test@naver.com');
+
+      // 실시간 API 테스트
+      await stockManager.getBest5Stock();
+      await stockManager.getStockInfo("만호제강");
     } catch (e) {
       // 오류 처리
       print('오류 발생: $e');
