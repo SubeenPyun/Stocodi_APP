@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/home.dart';
+import 'package:stocodi_app/home/home.dart';
 import 'package:stocodi_app/invest/invest_experiment.dart';
 import 'package:stocodi_app/lecture/ClassRoom.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
-
+import 'package:stocodi_app/tmp/tmp_mypage.dart';
 
 class AppScreen extends StatefulWidget {
   const AppScreen({Key? key}) : super(key: key);
@@ -13,7 +13,6 @@ class AppScreen extends StatefulWidget {
 }
 
 class _AppScreenState extends State<AppScreen> {
-
   ThemeData theme = AppTheme.appTheme;
 
   int _currentPageIndex = 0;
@@ -29,10 +28,11 @@ class _AppScreenState extends State<AppScreen> {
     const ClassRoom(),
     const InvestExperiment(),
     Container(),
-    Container(),
+    Tmpmypage(),
   ];
 
-  BottomNavigationBarItem _bottomNavigationBarItem(String iconName, String label){
+  BottomNavigationBarItem _bottomNavigationBarItem(
+      String iconName, String label) {
     return BottomNavigationBarItem(
       icon: Padding(
         padding: const EdgeInsets.only(bottom: 1),
@@ -42,7 +42,7 @@ class _AppScreenState extends State<AppScreen> {
           fit: BoxFit.fill,
         ),
       ),
-      activeIcon:  Padding(
+      activeIcon: Padding(
         padding: const EdgeInsets.only(bottom: 1),
         child: Image.asset(
           "assets/icon/${iconName}_on.png",
@@ -61,27 +61,27 @@ class _AppScreenState extends State<AppScreen> {
         color: Colors.black,
       ),
       type: BottomNavigationBarType.fixed,
-      onTap: (int index){
+      onTap: (int index) {
         //print(index);
         setState(() {
           _currentPageIndex = index;
         });
       },
       currentIndex: _currentPageIndex,
-        items: [
-          _bottomNavigationBarItem("home","홈"),
-          _bottomNavigationBarItem("lecture","강의"),
-          _bottomNavigationBarItem("invest","투자실험"),
-          _bottomNavigationBarItem("column","칼럼"),
-          _bottomNavigationBarItem("more","더보기"),
-        ],
+      items: [
+        _bottomNavigationBarItem("home", "홈"),
+        _bottomNavigationBarItem("lecture", "강의"),
+        _bottomNavigationBarItem("invest", "투자실험"),
+        _bottomNavigationBarItem("column", "칼럼"),
+        _bottomNavigationBarItem("more", "더보기"),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.colorScheme.background,
       body: _pages[_currentPageIndex],
       bottomNavigationBar: _bottomNavigationBarwidget(),
     );

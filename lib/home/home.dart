@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:stocodi_app/widgets/portfoliodialog.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Home extends StatefulWidget {
@@ -10,7 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final _valueList = ['유의 포트폴리오 1', '유의 포트폴리오 2'];
+  final _valueList = ['유의 포트폴리오 1', '유의 포트폴리오 2', '새 포트폴리오 추가  \u{2795}'];
   var _selectedValue = '유의 포트폴리오 1';
   Map<String, int> price = {'유의 포트폴리오 1': 10000, '유의 포트폴리오 2': 20000};
   int? selectedPrice = 0;
@@ -82,12 +83,39 @@ class _HomeState extends State<Home> {
                   color: Color(0xFF0ECB81),
                   child: Column(
                     children: [
-                      Row(children: [
-                        Image.asset(
-                          'assets/images/stocodi.png',
-                          width: 150,
-                        ),
-                      ]),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment
+                            .spaceBetween, // 행 내에서 왼쪽과 오른쪽에 정렬합니다.
+                        children: [
+                          Image.asset(
+                            'assets/images/stocodi.png',
+                            width: 150,
+                          ), // 이미지와 아이콘 사이의 간격을 조정합니다.
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (context) {
+                                      return PortfolioDialog();
+                                    },
+                                  );
+                                },
+                                child: Icon(
+                                  Icons.add, // 플러스 아이콘
+                                  size: 30, // 아이콘 크기
+                                  color: Colors.white, // 아이콘 색상
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ],
                   ),
                 ),

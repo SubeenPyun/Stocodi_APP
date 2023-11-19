@@ -20,10 +20,8 @@ class MyApp extends StatelessWidget {
     try {
       var storedAccessToken =
           await authenticationManager.getToken("access_token");
-      print("토큰~~~$storedAccessToken");
 
       // 저장된 토큰이 있으면 자동 로그인 시도
-      print("여기까지???");
       final success = await authenticationManager.newToken();
 
       if (success) {
@@ -47,7 +45,6 @@ class MyApp extends StatelessWidget {
       }
     } catch (e) {
       // 오류 처리
-      print('자동 로그인 실패: $e');
       // 토큰이 없거나 자동 로그인 실패할 경우 2초 지연 후 Signup 페이지로 이동
       await Future.delayed(const Duration(seconds: 2));
       Navigator.pushReplacement(

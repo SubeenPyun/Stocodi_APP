@@ -97,11 +97,9 @@ class ApiService {
   Future<Response> newToken() async {
     try {
       setHeader();
-      print("제발...");
 
       await setCookie();
       final response = await dio.post('/auth/reissue-token');
-      print("설마 이것도????????/");
 
       await writeToken(response);
       await setCookie();
@@ -141,8 +139,6 @@ class ApiService {
       onRequest: (options, handler) {
         options.headers['Cookie'] =
             "${accessCookie.toString()}; ${refreshCookie.toString()}";
-
-        print("왜 호출 안되지?" + options.headers['Cookie']);
         return handler.next(options);
       },
     ));

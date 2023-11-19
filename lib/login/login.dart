@@ -6,7 +6,7 @@ import 'package:stocodi_app/retrofit/HttpService.dart';
 import 'package:stocodi_app/sign_up/signup.dart';
 import 'package:stocodi_app/widgets/green_longbtn.dart';
 import 'package:stocodi_app/widgets/new_inputfield.dart';
-import '../home.dart';
+import '../home/home.dart';
 import '../retrofit/httpdto/request/auth/login_model.dart';
 import 'package:stocodi_app/app.dart';
 
