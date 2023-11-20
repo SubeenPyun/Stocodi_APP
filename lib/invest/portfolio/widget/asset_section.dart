@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/invest/portfolio/widget/portfolio_chart.dart';
+import 'package:stocodi_app/invest/portfolio/widget/portfolio_bar_chart.dart';
+import 'package:stocodi_app/invest/portfolio/widget/portfolio_line_chart.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
 import 'package:stocodi_app/widgets/round_square_container.dart';
 
@@ -63,8 +64,8 @@ class _AssetSectionState extends State<AssetSection> {
             padding: EdgeInsets.all(7),
             height: 222,
             child: widget.showEarnings
-                ? PortfolioChart(touchedValue: widget.touchedValue)
-                : SizedBox.shrink(), // 그래프가 보이지 않는 경우 빈 SizedBox 반환
+                ? PortfolioLineChart(touchedValue: widget.touchedValue)
+                : PortfolioBarChart(touchedValue: widget.touchedValue), // 그래프가 보이지 않는 경우 빈 SizedBox 반환
           ),
           SizedBox(height: 30),
           Container(
