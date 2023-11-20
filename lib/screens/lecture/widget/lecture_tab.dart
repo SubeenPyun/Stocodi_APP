@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/lecture/widget/Comment.dart';
-import 'package:stocodi_app/lecture/widget/NextVideo.dart';
-import 'package:stocodi_app/theme/TabTheme.dart';
+import '../../../theme/AppTheme.dart';
+import 'comment.dart';
+import 'next_video.dart';
 
 void main() {
   runApp(const LectureTab());

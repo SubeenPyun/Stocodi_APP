@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/invest/portfolio/widget/portfolio_bar_chart.dart';
-import 'package:stocodi_app/invest/portfolio/widget/portfolio_line_chart.dart';
+import 'package:stocodi_app/screens/invest/portfolio/widget/portfolio_bar_chart.dart';
+import 'package:stocodi_app/screens/invest/portfolio/widget/portfolio_line_chart.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
 import 'package:stocodi_app/widgets/round_square_container.dart';
 

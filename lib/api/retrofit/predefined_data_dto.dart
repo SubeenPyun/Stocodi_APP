@@ -1,7 +1,7 @@
-import 'package:stocodi_app/retrofit/httpdto/request/auth/login_model.dart';
-import 'package:stocodi_app/retrofit/httpdto/request/auth/members_model.dart';
-import 'package:stocodi_app/retrofit/httpdto/request/transactions/accounts_model.dart';
-import 'package:stocodi_app/retrofit/httpdto/request/transactions/purchases_model.dart';
+
+import '../../model/auth/request/login_model.dart';
+import '../../model/auth/request/members_model.dart';
+import '../../model/portfolio/request/accounts_model.dart';
 
 final signupData = MembersRequest(
   email: 'oz9911@naver.com',

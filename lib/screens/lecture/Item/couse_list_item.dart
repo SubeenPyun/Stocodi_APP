@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/lecture/data/CourseData.dart';
-import 'package:stocodi_app/theme/ClassRoomTheme.dart';
-import 'CourseCardItem.dart';
+import '../../../theme/class_room_theme.dart';
+import '../data/course_data.dart';
+import 'course_card_item.dart';
 
 final theme = ClassRoomTheme.getAppTheme();
 final textTheme = theme.textTheme;

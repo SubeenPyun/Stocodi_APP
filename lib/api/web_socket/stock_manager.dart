@@ -1,9 +1,8 @@
 import 'package:dio/src/response.dart' as dioResponse;
-import 'package:stocodi_app/retrofit/HttpResult.dart';
-import 'package:stocodi_app/web_socket/stock_service.dart';
-
-import '../model/stockDTO/request/change_stock.dart';
-import '../model/stockDTO/request/interest_stock.dart';
+import 'package:stocodi_app/API/web_socket/stock_service.dart';
+import 'package:stocodi_app/api/web_socket/stock_http_result.dart';
+import '../../model/stock/request/change_stock.dart';
+import '../../model/stock/request/interest_stock.dart';
 
 final MyHttpResult _httpResult = MyHttpResult(); // MyHttpResult 인스턴스 생성
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../theme/app_theme.dart';
+import '../../../theme/app_theme.dart';
+
 
 class ForeignInvestItem extends StatelessWidget {
   ThemeData theme = AppTheme.appTheme;

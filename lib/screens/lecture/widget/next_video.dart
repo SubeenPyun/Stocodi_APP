@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/lecture/Item/NextVideoItem.dart';
+import '../Item/next_video_item.dart';
 
 void main() {
   runApp(const NextVideo());

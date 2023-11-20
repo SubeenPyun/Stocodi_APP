@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'course_data.dart';
 
-import 'CourseData.dart';
 List<String> images = List.generate(5, (index) => 'assets/kakao.jpg');
 
 final unselected = Container(

@@ -1,11 +1,10 @@
-import 'package:stocodi_app/retrofit/httpdto/response/portfolio/portfolio_response.dart';
-import 'package:stocodi_app/retrofit/httpdto/request/auth/members_model.dart';
-import 'package:stocodi_app/retrofit/httpdto/request/transactions/accounts_model.dart';
-import 'package:stocodi_app/retrofit/httpdto/response/auth/account_model.dart';
-import 'package:stocodi_app/retrofit/httpdto/request/auth/login_model.dart';
-import 'ServiceInterface.dart';
-import 'httpdto/response/auth/login_model.dart';
-import 'httpdto/response/transactions/portfolios_model.dart';
+import '../../model/auth/request/login_model.dart';
+import '../../model/auth/request/members_model.dart';
+import '../../model/auth/response/account_model.dart';
+import '../../model/auth/response/login_model.dart';
+import '../../model/portfolio/request/accounts_model.dart';
+import '../../model/portfolio/response/portfolio_response.dart';
+import 'auth_service.dart';
 
 class AuthenticationManager {
   final ApiService _apiService = ApiService();

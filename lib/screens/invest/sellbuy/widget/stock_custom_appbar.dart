@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../theme/app_theme.dart';
+import '../../../../theme/app_theme.dart';
 
 class StockCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double preferredHeight;

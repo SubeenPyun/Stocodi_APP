@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/theme/LectureVideoTheme.dart';
+import '../../../theme/lecture_video_theme.dart';
 
 final theme = LectureVideoTheme.getAppTheme();
 final textTheme = theme.textTheme;

@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:stocodi_app/model/stockDTO/request/interest_stock.dart';
 
-import '../model/stockDTO/request/change_stock.dart';
+import '../../model/stock/request/change_stock.dart';
+import '../../model/stock/request/interest_stock.dart';
 
 class StockService {
   final Dio dio = Dio(); // Dio 인스턴스 생성

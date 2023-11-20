@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/login/login.dart';
-import 'package:stocodi_app/sign_up/signup_email_enter.dart';
-import 'package:stocodi_app/widgets/longbtn.dart';
+import 'package:stocodi_app/screens/sign_up/signup_email_enter.dart';
+import '../../widgets/long_btn.dart';
+import '../login/login.dart';
 
-import '../DongGiTestPage.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});

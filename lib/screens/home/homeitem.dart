@@ -1,4 +1,6 @@
-import '../retrofit/HttpService.dart';
+
+
+import '../../API/retrofit/auth_manager.dart';
 
 class UpdatePortfolio {
   List<String> valueList = [];

@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/invest/portfolio/item/grid_item.dart';
-import 'package:stocodi_app/invest/portfolio/widget/grid_common.dart';
-import 'package:stocodi_app/invest/portfolio/widget/grid_transaction_history.dart';
-import 'package:stocodi_app/invest/sellbuy/widget/stock_tab_bar.dart';
-
 import '../../../transaction/screens/transcation_main.dart';
-import '../../../transaction/transaction_info.dart';
 import '../../screens/holding_items.dart';
 import '../../transaction_log.dart';
+import '../item/grid_item.dart';
+import 'grid_common.dart';
+import 'grid_transaction_history.dart';
 
 class PortfolioGrid extends StatelessWidget{
   const PortfolioGrid({super.key});

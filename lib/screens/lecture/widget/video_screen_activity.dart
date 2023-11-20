@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/lecture/widget/VideoDetails.dart';
-import 'package:stocodi_app/lecture/widget/VideoLecture.dart';
+import 'package:stocodi_app/screens/lecture/widget/video_lecture.dart';
+import '../Test/figmatoflutterTest.dart';
+
 class VideoScreenActivity extends StatelessWidget {
   const VideoScreenActivity({Key? key}) : super(key: key);
 

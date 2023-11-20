@@ -1,16 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/model/stockDTO/request/change_stock.dart';
-import 'package:stocodi_app/model/stockDTO/request/interest_stock.dart';
-import 'package:stocodi_app/model/stockDTO/socket_connect.dart';
-import 'package:stocodi_app/web_socket/stock_manager.dart';
-import 'package:web_socket_channel/io.dart';
+import 'package:stocodi_app/API/web_socket/stock_manager.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-
-import '../retrofit/HttpDTO/Login.dart';
-import '../retrofit/HttpDTO/Register.dart';
-import '../retrofit/HttpService.dart';
+import '../../model/auth/request/login_model.dart';
+import '../../model/auth/request/members_model.dart';
+import '../../model/stock/request/change_stock.dart';
+import '../../model/stock/request/interest_stock.dart';
+import '../../model/stock/socket_connect.dart';
+import '../retrofit/auth_manager.dart';
 
 void main() => runApp(const SocketTest());
 
@@ -95,19 +92,19 @@ class _TestPageState extends State<TestPage> {
       '001080'
     );
 
-    final signUpData = Register(
-      "test@naver.com",
-      "1234",
-      "편수빈",
-      "봉봉",
-      "2001-07-03",
-      'FEMALE',
-      ["IT"],
+    final signUpData = MembersRequest(
+      email: "test@naver.com",
+      password: "1234",
+      name: "편수빈",
+      nickname: "봉봉",
+      birth_date: "2001-07-03",
+      gender: 'FEMALE',
+      interest_categories: ["IT"],
     );
 
-    final loginData = Login(
-        'test@naver.com',
-        '1234'
+    final loginData = LoginRequest(
+        email: 'test@naver.com',
+        password: '1234'
     );
 
     try {

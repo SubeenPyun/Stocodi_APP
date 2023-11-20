@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/chart/widget/ChartDetail.dart';
-import 'package:stocodi_app/chart/widget/ChartNameColumn.dart';
-import 'package:stocodi_app/chart/widget/PriceContainer.dart';
+import 'package:stocodi_app/screens/chart/widget/ChartDetail.dart';
+import 'package:stocodi_app/screens/chart/widget/ChartNameColumn.dart';
+import 'package:stocodi_app/screens/chart/widget/PriceContainer.dart';
 
 void main() {
   runApp(StockChartQuote());

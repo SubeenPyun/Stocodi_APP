@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:stocodi_app/home/homeitem.dart';
-import 'package:stocodi_app/widgets/portfoliodialog.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import '../../widgets/portfolio_dialog.dart';
+import 'homeitem.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

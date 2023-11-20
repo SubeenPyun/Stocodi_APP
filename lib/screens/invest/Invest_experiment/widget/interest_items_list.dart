@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/invest/Invest_experiment/data/interest_item_data.dart';
-import 'package:stocodi_app/invest/Invest_experiment/item/interest_item.dart';
-import 'package:stocodi_app/invest/sell_buy.dart';
-import 'package:stocodi_app/invest/sellbuy/widget/stock_info.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
-import '../../../widgets/round_square_container.dart';
+import '../../../../widgets/round_square_container.dart';
+import '../../sell_buy.dart';
+import '../../sellbuy/widget/stock_info.dart';
+import '../data/interest_item_data.dart';
+import '../item/interest_item.dart';
 
 class InterestItemsList extends StatelessWidget {
   final ThemeData theme = AppTheme.appTheme;

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:stocodi_app/login/login.dart';
-import 'package:stocodi_app/retrofit/HttpService.dart';
-import 'package:stocodi_app/widgets/green_longbtn.dart';
-import 'package:stocodi_app/widgets/longbtn.dart';
-import 'package:stocodi_app/widgets/portfoliodialog.dart';
+import '../../API/retrofit/auth_manager.dart';
+import '../../widgets/long_btn.dart';
+import '../../widgets/portfolio_dialog.dart';
+import '../login/login.dart';
 
 class Tmpmypage extends StatefulWidget {
   const Tmpmypage({super.key});

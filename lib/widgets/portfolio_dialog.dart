@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/retrofit/HttpService.dart';
-import 'package:stocodi_app/retrofit/httpdto/request/transactions/accounts_model.dart';
-import 'package:stocodi_app/retrofit/httpdto/request/transactions/purchases_model.dart';
-import 'package:stocodi_app/widgets/green_longbtn.dart';
+import '../API/retrofit/auth_manager.dart';
+import '../model/portfolio/request/accounts_model.dart';
+import 'green_long_btn.dart';
 
 class PortfolioDialog extends StatefulWidget {
   const PortfolioDialog({Key? key}) : super(key: key);

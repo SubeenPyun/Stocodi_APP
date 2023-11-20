@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../theme/ClassRoomTheme.dart';
-import '../Lecture.dart';
+import '../../../theme/class_room_theme.dart';
+import '../lecture.dart';
 
 final theme = ClassRoomTheme.getAppTheme();
 final textTheme = theme.textTheme;

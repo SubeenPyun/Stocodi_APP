@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/transaction/item/done_transaction_item.dart';
-import 'package:stocodi_app/transaction/item/reservation_item.dart';
+import '../item/done_transaction_item.dart';
 
 class DoneTransactionLog extends StatelessWidget {
   const DoneTransactionLog({super.key});

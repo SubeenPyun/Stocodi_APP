@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/retrofit/HttpService.dart';
-import 'package:stocodi_app/retrofit/httpdto/request/auth/members_model.dart';
-import 'package:stocodi_app/sign_up/signup_done.dart';
-import 'package:stocodi_app/widgets/green_longbtn.dart';
-import 'package:stocodi_app/widgets/interestBox.dart';
+import 'package:stocodi_app/screens/sign_up/signup_done.dart';
+import '../../API/retrofit/auth_manager.dart';
+import '../../model/auth/request/members_model.dart';
+import '../../widgets/green_long_btn.dart';
+import '../../widgets/interest_Box.dart';
 
 class Interest extends StatefulWidget {
   final String enteredEmail;

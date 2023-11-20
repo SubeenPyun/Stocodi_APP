@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/home/home.dart';
-import 'package:stocodi_app/invest/invest_experiment.dart';
-import 'package:stocodi_app/lecture/ClassRoom.dart';
-import 'package:stocodi_app/theme/app_theme.dart';
-import 'package:stocodi_app/tmp/tmp_mypage.dart';
+import 'package:stocodi_app/screens/tmp/tmp_mypage.dart';
+import '../theme/app_theme.dart';
+import 'home/home.dart';
+import 'invest/invest_experiment.dart';
+import 'lecture/classroom.dart';
 
 class AppScreen extends StatefulWidget {
   const AppScreen({Key? key}) : super(key: key);

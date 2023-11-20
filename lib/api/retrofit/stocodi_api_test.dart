@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'HttpService.dart';
-import 'httpdto/predefined_data_dto.dart';
+import 'package:stocodi_app/API/retrofit/predefined_data_dto.dart';
+
+import 'auth_manager.dart';
 
 void main() {
   runApp(const SignUp());

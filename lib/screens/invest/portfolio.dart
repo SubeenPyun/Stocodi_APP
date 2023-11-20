@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/invest/portfolio/widget/asset_section.dart';
-import 'package:stocodi_app/invest/portfolio/widget/portfolio_grid.dart';
-import 'package:stocodi_app/invest/portfolio/widget/portfolio_header.dart';
-import 'package:stocodi_app/invest/transaction_log.dart';
-import 'package:stocodi_app/theme/app_theme.dart';
-import '../widgets/custom_appbar.dart';
-import '../widgets/round_square_container.dart';
+import 'package:stocodi_app/screens/invest/portfolio/widget/asset_section.dart';
+import 'package:stocodi_app/screens/invest/portfolio/widget/portfolio_grid.dart';
+import 'package:stocodi_app/screens/invest/portfolio/widget/portfolio_header.dart';
+import '../../../../theme/app_theme.dart';
+import '../../widgets/custom_appbar.dart';
 
 class Portfolio extends StatefulWidget {
   const Portfolio({Key? key}) : super(key: key);

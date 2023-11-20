@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/theme/transaction_theme.dart';
-import 'package:stocodi_app/transaction/transaction_info.dart';
 import 'package:stocodi_app/widgets/custom_appbar.dart';
+import '../transaction_info.dart';
 
 void main() {
   runApp(const TransactionMain());

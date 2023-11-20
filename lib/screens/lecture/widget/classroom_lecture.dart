@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/theme/ClassRoomLectureTheme.dart';
-import 'package:stocodi_app/lecture/data/PredefinedClassRoomData.dart';
+import '../../../theme/class_room_lecture_theme.dart';
+import '../data/predefined_classroom_data.dart';
 
 final theme = ClassRoomLectureTheme.getAppTheme();
 final textTheme = theme.textTheme;

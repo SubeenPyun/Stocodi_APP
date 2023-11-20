@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:stocodi_app/app.dart';
-import 'package:stocodi_app/retrofit/HttpService.dart';
-import 'package:stocodi_app/sign_up/signup.dart';
-import 'package:stocodi_app/widgets/green_longbtn.dart';
-import 'package:stocodi_app/widgets/new_inputfield.dart';
-import '../home/home.dart';
-import '../retrofit/httpdto/request/auth/login_model.dart';
-import 'package:stocodi_app/app.dart';
+
+import '../../API/retrofit/auth_manager.dart';
+import '../../model/auth/request/login_model.dart';
+import '../../widgets/green_long_btn.dart';
+import '../../widgets/new_input_field.dart';
+import '../app.dart';
+import '../sign_up/signup.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});

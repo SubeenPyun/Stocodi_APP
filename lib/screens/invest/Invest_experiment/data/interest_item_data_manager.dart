@@ -1,4 +1,4 @@
-import 'package:stocodi_app/invest/Invest_experiment/data/interest_item_data.dart';
+import 'interest_item_data.dart';
 
 class InterestItemDataManager {
   static List<InterestItemData> investmentItems = [

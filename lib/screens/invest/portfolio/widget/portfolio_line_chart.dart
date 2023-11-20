@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:stocodi_app/invest/portfolio/data/titles_data.dart';
+import '../data/titles_data.dart';
 
 class PortfolioLineChart extends StatefulWidget {
   double touchedValue;

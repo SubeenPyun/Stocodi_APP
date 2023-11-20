@@ -1,12 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/retrofit/HttpService.dart';
-import 'package:stocodi_app/sign_up/signup.dart';
-
-import 'package:stocodi_app/sign_up/splash_screen.dart';
-import 'app.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:stocodi_app/screens/app.dart';
+import 'package:stocodi_app/screens/sign_up/signup.dart';
+import 'package:stocodi_app/screens/sign_up/splash_screen.dart';
+import 'API/retrofit/auth_manager.dart';
 
 void main() {
   initializeDateFormatting().then((_) => runApp(MyApp()));

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:stocodi_app/retrofit/HttpService.dart';
-import 'package:stocodi_app/sign_up/interests.dart';
-import 'package:stocodi_app/widgets/green_longbtn.dart';
-import 'package:stocodi_app/widgets/new_inputfield.dart';
+import '../../API/retrofit/auth_manager.dart';
+import '../../widgets/green_long_btn.dart';
+import '../../widgets/new_input_field.dart';
+import 'interests.dart';
 
 class SignDetail extends StatefulWidget {
   final String enteredEmail;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:stocodi_app/invest/portfolio/data/portfolio_data.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
 import 'package:stocodi_app/widgets/round_square_container.dart';
+import '../data/portfolio_data.dart';
 
 class PortfolioHeader extends StatefulWidget {
   PortfolioHeader({super.key});

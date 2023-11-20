@@ -1,8 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/invest/sellbuy/item/price_column_item.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
+import '../item/price_column_item.dart';
 
 class PriceColumnList extends StatefulWidget {
   final double currentPrice;

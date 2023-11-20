@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/invest/portfolio.dart';
-import '../../../theme/app_theme.dart';
-import '../../../widgets/round_square_container.dart';
+
+import '../../../../theme/app_theme.dart';
+import '../../../../widgets/round_square_container.dart';
+import '../../portfolio.dart';
 
 class PortfolioSection extends StatelessWidget {
 

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/lecture/Item/CommentItem.dart';
-import 'package:stocodi_app/lecture/widget/MyComment.dart';
-import 'package:stocodi_app/transaction/item/reservation_item.dart';
+import '../item/reservation_item.dart';
 
 class ReservationLog extends StatelessWidget {
   const ReservationLog({super.key});

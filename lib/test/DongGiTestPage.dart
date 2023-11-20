@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/retrofit/stocodi_api_test.dart';
-import 'lecture/ClassRoom.dart';
-import 'lecture/Lecture.dart';
-import 'lecture/widget/Comment.dart';
+import '../API/retrofit/stocodi_api_test.dart';
+import '../screens/lecture/classroom.dart';
+import '../screens/lecture/lecture.dart';
+import '../screens/lecture/widget/comment.dart';
+
 void main(){
   runApp(const DongGi());
 }

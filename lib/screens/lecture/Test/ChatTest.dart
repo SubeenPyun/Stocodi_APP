@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../Item/CommentItem.dart';
+import '../Item/comment_item.dart';
 //https://duzi077.tistory.com/301
 void main() => runApp(FriendlychatApp());
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/theme/TabTheme.dart';
+import '../../../theme/AppTheme.dart';
 
 void main() {
   runApp(const TabBarDemo());

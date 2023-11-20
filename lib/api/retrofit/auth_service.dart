@@ -2,10 +2,11 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:stocodi_app/retrofit/httpdto/request/auth/members_model.dart';
-import '../retrofit/httpdto/request/auth/login_model.dart';
-import 'HttpResult.dart';
-import 'httpdto/request/transactions/accounts_model.dart';
+
+import '../../model/auth/request/login_model.dart';
+import '../../model/auth/request/members_model.dart';
+import '../../model/portfolio/request/accounts_model.dart';
+import 'http_result.dart';
 
 class ApiService {
   final Dio dio = Dio(); // Dio 인스턴스 생성

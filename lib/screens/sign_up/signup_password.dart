@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:stocodi_app/sign_up/signup_deatil.dart';
-import 'package:stocodi_app/widgets/gray_editTextSimilar.dart';
-import 'package:stocodi_app/widgets/green_longbtn.dart';
-import 'package:stocodi_app/widgets/new_inputfield.dart';
+import 'package:stocodi_app/screens/sign_up/signup_deatil.dart';
+import '../../widgets/gray_similar_edit.dart';
+import '../../widgets/green_long_btn.dart';
+import '../../widgets/new_input_field.dart';
 
 class SignupPwd extends StatefulWidget {
   final String enteredTxt;

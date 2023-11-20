@@ -1,8 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
-import '../../request/portfolio/account/account_model.dart';
-import '../../request/portfolio/history/history_model.dart';
-import '../../request/portfolio/stock_holding/stock_holding_model.dart';
-import '../../request/portfolio/stock_holding/stock_holding_rate_model.dart';
+import '../request/account/account_model.dart';
+import '../request/history/history_model.dart';
+import '../request/stock_holding/stock_holding_model.dart';
+import '../request/stock_holding/stock_holding_rate_model.dart';
+
 part "portfolio_response.g.dart";
 
 @JsonSerializable()
