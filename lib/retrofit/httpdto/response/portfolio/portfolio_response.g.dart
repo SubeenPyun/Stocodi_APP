@@ -8,15 +8,16 @@ part of 'portfolio_response.dart';
 
 PortfoiloResponse _$PortfoiloResponseFromJson(Map<String, dynamic> json) =>
     PortfoiloResponse(
-      AccountModel.fromJson(json['account'] as Map<String, dynamic>),
-      (json['histories'] as List<dynamic>)
+      account: AccountModel.fromJson(json['account'] as Map<String, dynamic>),
+      histories: (json['histories'] as List<dynamic>)
           .map((e) => HistoryModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      (json['stock_holdings'] as List<dynamic>)
+      stock_holdings: (json['stock_holdings'] as List<dynamic>)
           .map((e) => StockHoldingModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      (json['stock_holding_rates'] as List<dynamic>)
-          .map((e) => StockHoldingRateModel.fromJson(e as Map<String, dynamic>))
+      stock_holding_rates: (json['stock_holding_rates'] as List<dynamic>?)
+          ?.map(
+              (e) => StockHoldingRateModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

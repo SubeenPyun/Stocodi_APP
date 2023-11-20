@@ -1,3 +1,4 @@
+import 'package:stocodi_app/retrofit/httpdto/response/portfolio/portfolio_response.dart';
 import 'package:stocodi_app/retrofit/httpdto/request/auth/members_model.dart';
 import 'package:stocodi_app/retrofit/httpdto/request/transactions/accounts_model.dart';
 import 'package:stocodi_app/retrofit/httpdto/response/auth/account_model.dart';
@@ -115,18 +116,18 @@ class AuthenticationManager {
     }
   }
 
-  Future<List<GetPortfolioResponse>?> getPortfolio() async {
+  Future<List<PortfoiloResponse>?> getPortfolio() async {
     try {
       final response = await _apiService.getPortfolio();
-      List<GetPortfolioResponse> portfolioResponses =
+      List<PortfoiloResponse> portfolioResponses =
           (response.data['response'] as List)
-              .map((json) => GetPortfolioResponse.fromJson(json))
+              .map((json) => PortfoiloResponse.fromJson(json))
               .toList();
       return portfolioResponses;
       /*String firstAccountName = portfolioResponses[0].account.account_name;
       print(firstAccountName);*/
     } catch (e) {
-      print('계좌 조회 오류: $e');
+      print('포트폴리오 조회 오류: $e');
       return null;
     }
   }

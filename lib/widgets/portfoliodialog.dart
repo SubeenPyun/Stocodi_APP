@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/retrofit/HttpService.dart';
+import 'package:stocodi_app/retrofit/httpdto/request/transactions/accounts_model.dart';
+import 'package:stocodi_app/retrofit/httpdto/request/transactions/purchases_model.dart';
 import 'package:stocodi_app/widgets/green_longbtn.dart';
 
 class PortfolioDialog extends StatefulWidget {
@@ -109,7 +112,7 @@ class _PortfolioDialogState extends State<PortfolioDialog> {
       ),
       actions: <Widget>[
         GestureDetector(
-          onTap: () {
+          onTap: () async {
             if (portfolioName.isEmpty && selectedFunds.isEmpty) {
               // 포트폴리오 이름이나 자금 설정이 비어있는 경우
               showDialog(
@@ -169,6 +172,20 @@ class _PortfolioDialogState extends State<PortfolioDialog> {
               // 포트폴리오 이름과 자금 설정이 입력된 경우
               print('포트폴리오 이름: $portfolioName');
               print('선택된 자금: $selectedFunds');
+
+              int selectedmoney;
+              if (selectedFunds == '1천만원') {
+                selectedmoney = 10000000;
+              } else if (selectedFunds == '3천만원') {
+                selectedmoney = 30000000;
+              } else {
+                selectedmoney = 50000000;
+              }
+              var authenticationManager = AuthenticationManager();
+              var portfolioData = PortfolioRequest(
+                  account_name: portfolioName, initial_cash: selectedmoney);
+
+              await authenticationManager.makePortfolio(portfolioData);
               Navigator.of(context).pop(); // 다이얼로그 닫기
             }
           },
