@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:stocodi_app/invest/portfolio/data/titles_data.dart';
 
-class PortfolioChart extends StatefulWidget {
+class PortfolioLineChart extends StatefulWidget {
   double touchedValue;
 
-  PortfolioChart({super.key, required this.touchedValue});
+  PortfolioLineChart({super.key, required this.touchedValue});
 
   @override
-  _PortfolioChartState createState() => _PortfolioChartState();
+  _PortfolioLineChartState createState() => _PortfolioLineChartState();
 }
 
-class _PortfolioChartState extends State<PortfolioChart> {
+class _PortfolioLineChartState extends State<PortfolioLineChart> {
   LineChartBarData _buildLineChartBarData() {
     return LineChartBarData(
       spots: [
