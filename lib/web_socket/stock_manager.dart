@@ -1,3 +1,4 @@
+import 'package:dio/src/response.dart' as dioResponse;
 import 'package:stocodi_app/retrofit/HttpResult.dart';
 import 'package:stocodi_app/web_socket/stock_service.dart';
 
@@ -10,15 +11,16 @@ class StockManager {
   final StockService stockService = StockService();
 
   // 소켓 연결 체크
-  Future<void> checkSocketConnection() async {
+  Future<dioResponse.Response?> checkSocketConnection() async {
     try {
       // ApiService의 checkSocketConnection 메서드 호출
       final response = await stockService.checkSocketConnection();
       _httpResult.PrintResult(response, '소켓 연결 체크');
-
+      return response;
     } catch (e) {
       print('소켓 연결 체크 오류: $e');
     }
+    return null;
   }
 
   // 실시간 주식 변경
