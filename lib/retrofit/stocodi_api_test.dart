@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/retrofit/HttpDTO/Login.dart';
-import 'package:stocodi_app/retrofit/HttpDTO/Register.dart';
 import 'HttpService.dart';
+import 'httpdto/predefined_data_dto.dart';
 
 void main() {
   runApp(const SignUp());
@@ -11,27 +10,18 @@ class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
 
   Future<void> _signUp() async {
-    final data = Register(
-      "oz1@naver.com",
-      "1234",
-      "김동기",
-      "oz",
-      "2000-01-11",
-      'MALE',
-      ["IT"],
-    );
-    final loginData = Login(
-        'a@naver.com',
-        '11'
-    );
-
     try {
       // AuthenticationManager 인스턴스 생성 및 사용
       final authenticationManager = AuthenticationManager();
-      /*await authenticationManager.nickNameExist();*/
-      /*await authenticationManager.signUp(data);*/
-      await authenticationManager.nickNameExist('예리미양');
-      await authenticationManager.login(loginData);
+      /*await authenticationManager.signUp(signupData);*/
+      /*var nicnkameResult = await authenticationManager.nickNameExist('ozoz');
+      var emailResult = await authenticationManager.emailExist('oz990011@naver.com');*/
+      var loginResponse = await authenticationManager.login(loginData);
+
+      //var accountInfoResponse = await authenticationManager.accountInfo();
+      //await authenticationManager.newToken();
+      //await authenticationManager.makePortfolio(portfolioData);
+      await authenticationManager.getPortfolio();
       await authenticationManager.logOut(); // jwt 받아서 로그아웃
     } catch (e) {
       // 오류 처리

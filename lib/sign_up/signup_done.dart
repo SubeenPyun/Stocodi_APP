@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/login/login.dart';
-import 'package:stocodi_app/sign_up/interests.dart';
 import 'package:stocodi_app/widgets/green_longbtn.dart';
-import 'package:stocodi_app/widgets/textEditBtn.dart';
 
 class SignDone extends StatefulWidget {
   const SignDone({super.key});
