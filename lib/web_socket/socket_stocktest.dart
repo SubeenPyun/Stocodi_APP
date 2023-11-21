@@ -8,10 +8,10 @@ import '../retrofit/HttpDTO/Login.dart';
 import '../retrofit/HttpDTO/Register.dart';
 import '../retrofit/HttpService.dart';
 
-void main() => runApp(const SocketTest());
+void main() => runApp(const SocketStockTest());
 
-class SocketTest extends StatelessWidget {
-  const SocketTest({super.key});
+class SocketStockTest extends StatelessWidget {
+  const SocketStockTest({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,34 +39,9 @@ class TestPage extends StatefulWidget {
 
 class _TestPageState extends State<TestPage> {
 
-  Future<void> _checkAPI() async {
+  Future<void> _checkStockAPI() async {
     final changeStockData = ChangeStock(
-      "만호제강"
-    );
-
-    final interestData1 = InterestStock(
-      'test@naver.com',
-      '007610'
-    );
-
-    final interestData2 = InterestStock(
-      'test@naver.com',
-      '005030'
-    );
-
-    final interestData3 = InterestStock(
-      'test@naver.com',
-      '003560'
-    );
-
-    final interestData4 = InterestStock(
-      'test@naver.com',
-      '001340'
-    );
-
-    final interestData5 = InterestStock(
-      'test@naver.com',
-      '001080'
+        "만호제강"
     );
 
     final signUpData = Register(
@@ -85,25 +60,18 @@ class _TestPageState extends State<TestPage> {
     );
 
     try {
-      // 인증 api 확인
       final authenticationManager = AuthenticationManager();
       await authenticationManager.nickNameExist('봉봉'); // 이젠 또 되네
       await authenticationManager.signUp(signUpData);
       await authenticationManager.nickNameExist('봉봉');
       await authenticationManager.login(loginData);
       // await authenticationManager.logOut(); // jwt 받아서 로그아웃
-
-            // 주식 api 확인
+      // 주식 api 확인
       final stockManager = StockManager();
       await stockManager.checkSocketConnection();
       await stockManager.changeStock(changeStockData);
-      await stockManager.getStockChartInfo('001080');
-      // await stockManager.registerInterestStock(interestData1);
-      // await stockManager.registerInterestStock(interestData2);
-      // await stockManager.registerInterestStock(interestData3);
-      // await stockManager.registerInterestStock(interestData4);
-      // await stockManager.registerInterestStock(interestData5);
-      await stockManager.getBest5InterestStock('test@naver.com');
+      await stockManager.getBest5Stock();
+      await stockManager.getStockInfo('만호제강');
     } catch (e) {
       // 오류 처리
       print('오류 발생: $e');
@@ -121,14 +89,10 @@ class _TestPageState extends State<TestPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: _checkAPI, // 첫 번째 버튼에 할당된 함수
+              onPressed: _checkStockAPI, // 버튼에 할당된 함수
               child: const Text('check APIs'),
             ),
             SizedBox(height: 20), // 버튼 사이에 간격 추가
-            /*ElevatedButton(
-              onPressed: _anotherFunction, // 두 번째 버튼에 할당된 함수
-              child: const Text('Call API 2'),
-            ),*/
           ],
         ),
       ),
