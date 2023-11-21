@@ -169,8 +169,8 @@ class _PortfolioDialogState extends State<PortfolioDialog> {
               );
             } else {
               // 포트폴리오 이름과 자금 설정이 입력된 경우
-              print('포트폴리오 이름: $portfolioName');
-              print('선택된 자금: $selectedFunds');
+              //print('포트폴리오 이름: $portfolioName');
+              //print('선택된 자금: $selectedFunds');
 
               int selectedmoney;
               if (selectedFunds == '1천만원') {
