@@ -6,8 +6,14 @@ void main() {
   runApp(const Lecture());
 }
 
-class Lecture extends StatelessWidget {
+class Lecture extends StatefulWidget {
   const Lecture({Key? key}) : super(key: key);
+
+      @override
+  _LectureState createState() => _LectureState();
+}
+
+class _LectureState extends State<Lecture> {
 
   @override
   Widget build(BuildContext context) {
