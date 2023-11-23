@@ -60,8 +60,12 @@ class _AssetSectionState extends State<AssetSection> {
           ),
           SizedBox(height: 8),
           Container(
-            margin: EdgeInsets.only(left: 5, right: 5),
-            padding: EdgeInsets.all(7),
+            margin: widget.showEarnings
+                ? EdgeInsets.only(left: 5, right: 5)
+                : EdgeInsets.only(left: 0, right: 0),
+            padding: widget.showEarnings
+                ? EdgeInsets.all(7)
+                : EdgeInsets.only(top: 7, bottom: 7),
             height: 222,
             child: widget.showEarnings
                 ? PortfolioLineChart(touchedValue: widget.touchedValue)

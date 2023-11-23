@@ -22,7 +22,7 @@ final selected = Container(
 );
 
 var excourse = CourseData(
-  title: 'Course Title',
+  title: '주식, 1분만에 알려드림',
   description: 'Description of Course',
   imagePath: 'assets/kakao.jpg', // Replace with the actual image asset path
 );

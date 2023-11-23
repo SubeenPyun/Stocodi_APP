@@ -24,8 +24,8 @@ class VideoCard extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final isNarrowScreen = screenWidth < 600; // 예시 너비 (조정 가능)
 
-    final titleStyle = isNarrowScreen ? textTheme.displayLarge : textTheme.displayLarge; // 너비에 따른 스타일 조정
-    final nicknameStyle = isNarrowScreen ? textTheme.displayMedium : textTheme.displayMedium; // 너비에 따른 스타일 조정
+    final titleStyle = isNarrowScreen ? textTheme.displayMedium : textTheme.displayMedium; // 너비에 따른 스타일 조정
+    final nicknameStyle = isNarrowScreen ? textTheme.displayLarge : textTheme.displayLarge; // 너비에 따른 스타일 조정
     final dateAndViewsStyle = isNarrowScreen ? textTheme.displaySmall : textTheme.displaySmall; // 너비에 따른 스타일 조정
     double imageWidth = isNarrowScreen ? 160.0 : 200.0;
     double imageHeight = isNarrowScreen ? 100.0 : 125;
