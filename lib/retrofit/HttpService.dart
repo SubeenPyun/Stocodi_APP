@@ -56,8 +56,7 @@ class AuthenticationManager {
   Future<LoginResponse?> login(LoginRequest loginData) async {
     try {
       final response = await _apiService.login(loginData);
-      LoginResponse loginResponse =
-          LoginResponse.fromJson(response.data['response']);
+      LoginResponse loginResponse = LoginResponse.fromJson(response.data['response']);
       return loginResponse;
     } catch (e) {
       return null;
@@ -67,15 +66,14 @@ class AuthenticationManager {
   Future<AccountInfoResponse?> accountInfo() async {
     try {
       final response = await _apiService.accountInfo();
-      AccountInfoResponse accountInfoResponse =
-          AccountInfoResponse.fromJson(response.data['response']);
+      AccountInfoResponse accountInfoResponse = AccountInfoResponse.fromJson(response.data['response']);
       return accountInfoResponse;
     } catch (e) {
       return null;
     }
   }
 
-  Future<bool> newToken() async {
+  Future<bool> newToken() async{
     try {
       final response = await _apiService.newToken();
       return true;
@@ -85,7 +83,7 @@ class AuthenticationManager {
     }
   }
 
-  Future<bool> logOut() async {
+  Future<bool> logOut() async{
     try {
       final response = await _apiService.logOut();
       return true;
@@ -118,10 +116,9 @@ class AuthenticationManager {
   Future<List<GetPortfolioResponse>?> getPortfolio() async {
     try {
       final response = await _apiService.getPortfolio();
-      List<GetPortfolioResponse> portfolioResponses =
-          (response.data['response'] as List)
-              .map((json) => GetPortfolioResponse.fromJson(json))
-              .toList();
+      List<GetPortfolioResponse> portfolioResponses = (response.data['response'] as List)
+          .map((json) => GetPortfolioResponse.fromJson(json))
+          .toList();
       return portfolioResponses;
       /*String firstAccountName = portfolioResponses[0].account.account_name;
       print(firstAccountName);*/

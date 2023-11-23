@@ -1,75 +1,97 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/retrofit/stocodi_api_test.dart';
-import 'lecture/ClassRoom.dart';
-import 'lecture/Lecture.dart';
-import 'lecture/widget/Comment.dart';
-void main(){
-  runApp(const DongGi());
-}
-class DongGi extends StatelessWidget {
-  const DongGi({super.key});
+import 'package:stocodi_app/retrofit/HttpService.dart';
+import 'package:stocodi_app/retrofit/TokenManager.dart';
+import 'package:stocodi_app/sign_up/signup.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: HomeScreen(),
-    );
+import 'package:stocodi_app/sign_up/splash_screen.dart';
+import 'app.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
+import 'invest/screens/holding_items.dart';
+
+void main() {
+  initializeDateFormatting().then((_) => runApp(MyApp()));
+}
+
+class MyApp extends StatelessWidget {
+  MyApp({Key? key}) : super(key: key);
+  final authenticationManager = AuthenticationManager();
+
+  Future<void> autoLogin(BuildContext context) async {
+    try {
+      var storedAccessToken = authenticationManager.getToken("access_token");
+
+      // 저장된 토큰이 있으면 자동 로그인 시도
+      print("여기까지???");
+      final success = await authenticationManager.newToken();
+
+      if (success) {
+        // 자동 로그인 성공하면 2초 지연 후 AppScreen으로 이동
+        await Future.delayed(const Duration(seconds: 2));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AppScreen(),
+          ),
+        );
+      } else {
+        // 토큰이 없으면 2초 지연 후 Signup 페이지로 이동
+        await Future.delayed(const Duration(seconds: 2));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Signup(),
+          ),
+        );
+      }
+    } catch (e) {
+      // 오류 처리
+      print('자동 로그인 실패: $e');
+      // 토큰이 없거나 자동 로그인 실패할 경우 2초 지연 후 Signup 페이지로 이동
+      await Future.delayed(const Duration(seconds: 2));
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Signup(),
+        ),
+      );
+    }
   }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('DongGiPage'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context)=> ClassRoom()),
-                );
-              },
-              child: const Text('classroom'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context)=> Lecture()),
-                );
-              },
-              child: const Text('LectureActivity'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context)=> SignUp()),
-                );
-              },
-              child: const Text('API'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context)=> Comment()),
-                );
-              },
-              child: const Text('MyComment'),
-            ),
-
-          ],
+    return MaterialApp(
+      home: Builder(
+        builder: (context) => FutureBuilder(
+          future: autoLogin(context),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return AnimatedSwitcher(
+                duration: const Duration(milliseconds: 1000),
+                child: _splashLoadingWidget(snapshot),
+              );
+            } else {
+              // 여기서 로딩 중인 상태에 해당하는 위젯을 반환할 수 있습니다.
+              return const Splash_Screen();
+            }
+          },
         ),
       ),
     );
+  }
+
+  Widget _splashLoadingWidget(AsyncSnapshot<Object?> snapshot) {
+    if (snapshot.hasError) {
+      return const Scaffold(
+        body: Center(
+          child: Text("Error!!"),
+        ),
+      );
+    } else {
+      // 여기에 로딩 완료 후에 보여줄 위젯을 반환할 수 있습니다.
+      return Container();
+    }
   }
 }

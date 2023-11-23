@@ -13,11 +13,11 @@ class SignUp extends StatelessWidget {
     try {
       // AuthenticationManager 인스턴스 생성 및 사용
       final authenticationManager = AuthenticationManager();
+
       /*await authenticationManager.signUp(signupData);*/
       /*var nicnkameResult = await authenticationManager.nickNameExist('ozoz');
       var emailResult = await authenticationManager.emailExist('oz990011@naver.com');*/
       var loginResponse = await authenticationManager.login(loginData);
-
       //var accountInfoResponse = await authenticationManager.accountInfo();
       //await authenticationManager.newToken();
       //await authenticationManager.makePortfolio(portfolioData);

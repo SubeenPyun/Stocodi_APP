@@ -18,7 +18,6 @@ class ApiService {
     dio.options.connectTimeout = Duration(milliseconds: 5000);
     dio.options.receiveTimeout = Duration(milliseconds: 3000);
   }
-
   //회원 정보 관련
   Future<Response> signUp(MembersRequest data) async {
     try {
