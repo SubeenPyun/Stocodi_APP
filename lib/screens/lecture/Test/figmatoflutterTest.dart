@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 import '../../../theme/lecture_video_theme.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
 
+import '../Item/course_card_item.dart';
+
 final theme = LectureVideoTheme.getAppTheme();
 final textTheme = theme.textTheme;
 
 class VideoDetails extends StatefulWidget {
-  final String videoId;
+  final CourseCardItem courseCardItem;
 
-  const VideoDetails({Key? key, required this.videoId}) : super(key: key);
+  const VideoDetails({
+    Key? key,
+    required this.courseCardItem,
+  }) : super(key: key);
 
   @override
   _VideoDetailsState createState() => _VideoDetailsState();
@@ -31,7 +36,7 @@ class _VideoDetailsState extends State<VideoDetails> {
 
   Future<void> getVideoDetails() async {
     var ytInstance = yt.YoutubeExplode();
-    var video = await ytInstance.videos.get(widget.videoId);
+    var video = await ytInstance.videos.get(widget.courseCardItem.videoId);
 
     setState(() {
       title = video.title;
@@ -58,7 +63,7 @@ class _VideoDetailsState extends State<VideoDetails> {
           Container(
             margin: const EdgeInsets.only(bottom: 16),
             child: Text(
-              title ?? '로딩 중...',
+              widget.courseCardItem.courseTitle,
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
@@ -85,7 +90,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                     showDetails = !showDetails;
                   });
                   if (showDetails) {
-                    getVideoDescription(); // 더보기를 눌렀을 때 비디오 설명 가져오기
+                    widget.courseCardItem.courseDescription; // 더보기를 눌렀을 때 비디오 설명 가져오기
                   }
                 },
                 child: Text(
@@ -103,7 +108,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '비디오 설명',
+                    widget.courseCardItem.courseDescription,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8),
@@ -147,18 +152,5 @@ class _VideoDetailsState extends State<VideoDetails> {
         ],
       ),
     );
-  }
-
-  // 더보기를 눌렀을 때 비디오 설명 가져오는 함수
-  void getVideoDescription() async {
-    var ytInstance = yt.YoutubeExplode();
-    var video = await ytInstance.videos.get(widget.videoId);
-
-    // 비디오 설명을 가져와서 변수에 저장
-    description = video.description;
-
-    ytInstance.close();
-
-    setState(() {}); // 상태 갱신
   }
 }
