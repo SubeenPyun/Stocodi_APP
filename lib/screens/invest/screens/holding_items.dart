@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:provider/provider.dart';
+import 'package:stocodi_app/api/retrofit/predefined_data_dto.dart';
+import 'package:stocodi_app/screens/invest/portfolio/data/portfolio_data.dart';
 import '../../../../theme/app_theme.dart';
 import '../../../widgets/custom_appbar.dart';
 import '../../../widgets/round_square_container.dart';
@@ -85,7 +89,7 @@ Container _foreignWidget(BuildContext context) {
   );
 }
 
-Container _pieChart(BuildContext context){
+Container _pieChart(BuildContext context) {
   Map<String, double> dataMap = {
     "Flutter": 5,
     "React": 3,
@@ -108,7 +112,9 @@ Container _pieChart(BuildContext context){
   return Container(
     child: Column(
       children: [
-        SizedBox(height: 40,),
+        SizedBox(
+          height: 40,
+        ),
         PieChart(
           dataMap: dataMap,
           animationDuration: Duration(milliseconds: 800),
@@ -135,14 +141,16 @@ Container _pieChart(BuildContext context){
           // gradientList: ---To add gradient colors---
           // emptyColorGradient: ---Empty Color gradient---
         ),
-        SizedBox(height: 40,),
+        SizedBox(
+          height: 40,
+        ),
       ],
     ),
   );
 }
 
-Container _bodyWidget(BuildContext context){
-  List<Color> colorList=[
+Container _bodyWidget(BuildContext context) {
+  List<Color> colorList = [
     Color(0xFFF25840),
     Color(0xFFFF7F50),
     Color(0xFFFED749),
@@ -162,20 +170,19 @@ Container _bodyWidget(BuildContext context){
   };
 
   List<String> keys = dataMap.keys.toList();
-  List<double> values=dataMap.values.map<double>((value) => value as double).toList();
-  double S = values.fold(0, (previousValue, element) => previousValue + element);
+  List<double> values = dataMap.values.map<double>((value) => value).toList();
+  double S =
+      values.fold(0, (previousValue, element) => previousValue + element);
 
   return Container(
-    color: theme.backgroundColor,
+    color: theme.colorScheme.background,
     child: Column(
       children: [
         Container(
-          margin: EdgeInsets.only(top:20, left:20, right: 20),
+          margin: EdgeInsets.only(top: 20, left: 20, right: 20),
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            color: Colors.white
-          ),
+              borderRadius: BorderRadius.circular(25), color: Colors.white),
           child: Column(
             children: [
               Column(
@@ -194,7 +201,7 @@ Container _bodyWidget(BuildContext context){
                               ),
                               height: 10,
                               width: 10,
-                              margin:EdgeInsets.all(10),
+                              margin: EdgeInsets.all(10),
                             ),
                             Text(
                               keys[0],
@@ -205,7 +212,7 @@ Container _bodyWidget(BuildContext context){
                             ),
                             Spacer(),
                             Text(
-                              (values[0]/S*100).toInt().toString()+"%",
+                              "${(values[0] / S * 100).toInt()}%",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -222,9 +229,8 @@ Container _bodyWidget(BuildContext context){
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(3),
                                 color: colorList[1],
-
                               ),
-                              margin:EdgeInsets.all(10),
+                              margin: EdgeInsets.all(10),
                             ),
                             Text(
                               keys[1],
@@ -235,7 +241,7 @@ Container _bodyWidget(BuildContext context){
                             ),
                             Spacer(),
                             Text(
-                              (values[1]/S*100).toInt().toString()+"%",
+                              "${(values[1] / S * 100).toInt()}%",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -253,7 +259,7 @@ Container _bodyWidget(BuildContext context){
                                 borderRadius: BorderRadius.circular(3),
                                 color: colorList[2],
                               ),
-                              margin:EdgeInsets.all(10),
+                              margin: EdgeInsets.all(10),
                             ),
                             Text(
                               keys[2],
@@ -264,7 +270,7 @@ Container _bodyWidget(BuildContext context){
                             ),
                             Spacer(),
                             Text(
-                              (values[2]/S*100).toInt().toString()+"%",
+                              "${(values[2] / S * 100).toInt()}%",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -282,7 +288,7 @@ Container _bodyWidget(BuildContext context){
                                 borderRadius: BorderRadius.circular(3),
                                 color: colorList[3],
                               ),
-                              margin:EdgeInsets.all(10),
+                              margin: EdgeInsets.all(10),
                             ),
                             Text(
                               keys[3],
@@ -293,7 +299,7 @@ Container _bodyWidget(BuildContext context){
                             ),
                             Spacer(),
                             Text(
-                              (values[3]/S*100).toInt().toString()+"%",
+                              "${(values[3] / S * 100).toInt()}%",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -335,110 +341,145 @@ class _HoldingState extends State<HoldingItem>
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: theme.backgroundColor,
-        resizeToAvoidBottomInset : false,
-        appBar: CustomAppBar(
-          preferredHeight: 64,
-          title: "보유종목",
-          onSearchPressed: () {},
-          showSearchIcon: true, // searchIcon 보이게
-        ),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Container(
-            //color: theme.backgroundColor,
-            child: Column(
-              children: [
-                _bodyWidget(context),
-                Container(
-                  color: theme.backgroundColor,
-                  padding: EdgeInsets.all(20),
-                  width: MediaQuery.of(context).size.width,
-                  constraints: BoxConstraints(minHeight: 500),
-                  child: RoundSquareContainer(
-                    width : MediaQuery.of(context).size.width,
-                    child: DefaultTabController(
-                      length: 2,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                              "보유주식 자산",
-                               style: TextStyle(
-                                 fontSize: 16,
-                                 fontWeight: FontWeight.w600,
-                                 color:Color(0xFF999999),
-                               ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                            child: Text(
-                              "5,123,456원",
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontWeight: FontWeight.w700,
+    final currencyFormat = NumberFormat.currency(locale: 'ko_KR', symbol: '');
+    return Consumer<PortfolioData>(
+      builder: (context, portfolioData, _) {
+        return MaterialApp(
+          home: Scaffold(
+            backgroundColor: theme.colorScheme.background,
+            resizeToAvoidBottomInset: false,
+            appBar: CustomAppBar(
+              preferredHeight: 64,
+              title: "보유종목",
+              onSearchPressed: () {},
+              showSearchIcon: true, // searchIcon 보이게
+            ),
+            body: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Container(
+                //color: theme.backgroundColor,
+                child: Column(
+                  children: [
+                    _bodyWidget(context),
+                    Container(
+                      color: theme.colorScheme.background,
+                      padding: EdgeInsets.all(20),
+                      width: MediaQuery.of(context).size.width,
+                      constraints: BoxConstraints(minHeight: 500),
+                      child: RoundSquareContainer(
+                        width: MediaQuery.of(context).size.width,
+                        child: DefaultTabController(
+                          length: 2,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text(
+                                  "보유주식 자산",
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFF999999),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              "+478,000원(7.5%)",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color:Color(0xFFF6465D),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                                child: Text(
+                                  portfolioData.portfolioList != null &&
+                                          portfolioData
+                                              .portfolioList!.isNotEmpty
+                                      ? "${currencyFormat.format(portfolioData.selectedPortfolio!.account.total_asset_evaluation)} 원"
+                                      : "0원",
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: TabBar(
-                              controller: tabController,
-                              labelColor: Color(0xFF0ECB81),
-                              labelStyle: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFF0ECB81),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
+                                child: portfolioData.portfolioList != null &&
+                                        portfolioData.portfolioList!.isNotEmpty
+                                    ? Text(
+                                        "${portfolioData.selectedPortfolio!.account.unrealized_gain >= 0 ? "+" : ""}${currencyFormat.format(portfolioData.selectedPortfolio!.account.unrealized_gain)}원 (${portfolioData.selectedPortfolio!.account.cumulative_returns.toStringAsFixed(2)}%)",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                          color: portfolioData
+                                                      .selectedPortfolio!
+                                                      .account
+                                                      .unrealized_gain >=
+                                                  0
+                                              ? Color(0xffF6465D)
+                                              : Color(0xff4496F7),
+                                        ),
+                                      )
+                                    : Text(
+                                        "0원 (0.00%)",
+                                        // 수익률 업데이트
+                                        style: TextStyle(
+                                          color: Color(0xffF6465D),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 12,
+                                        ),
+                                      ),
                               ),
-                              indicatorColor: Color(0xFF0ECB81),
-                              unselectedLabelColor: Colors.grey,
-                              unselectedLabelStyle: const TextStyle(
-                                fontSize: 16,
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: TabBar(
+                                  indicatorWeight: 3.0,
+                                  indicatorSize: TabBarIndicatorSize.tab,
+                                  controller: tabController,
+                                  labelColor: Color(0xFF0ECB81),
+                                  labelStyle: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF0ECB81),
+                                  ),
+                                  indicatorColor: Color(0xFF0ECB81),
+                                  unselectedLabelColor: Colors.grey,
+                                  unselectedLabelStyle: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                  tabs: const [
+                                    Tab(
+                                      text: "국내",
+                                    ),
+                                    Tab(
+                                      text: "해외",
+                                    ),
+                                  ],
+                                ),
                               ),
-                              tabs: const [
-                                Tab(text: "국내",),
-                                Tab(text: "해외", ),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              child: TabBarView(
-                                controller: tabController,
-                                children: [
-                                  _internalWidget(context), // "국내" 탭에 _internalWidget를 배치
-                                  // "해외" 탭의 내용을 추가
-                                  _foreignWidget(context),
-                                ],
+                              Expanded(
+                                child: Container(
+                                  child: TabBarView(
+                                    controller: tabController,
+                                    children: [
+                                      _internalWidget(
+                                          context), // "국내" 탭에 _internalWidget를 배치
+                                      // "해외" 탭의 내용을 추가
+                                      _foreignWidget(context),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

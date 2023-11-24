@@ -3,18 +3,21 @@ import '../../widgets/green_long_btn.dart';
 import '../login/login.dart';
 
 class SignDone extends StatefulWidget {
-  const SignDone({super.key});
+  final String nicknameTxt;
+  const SignDone({
+    super.key,
+    required this.nicknameTxt,
+  });
 
   @override
   State<SignDone> createState() => _SignDoneState();
 }
 
 class _SignDoneState extends State<SignDone> {
-  bool isTyping = false;
-  TextEditingController emailController = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
+    String nick = widget.nicknameTxt;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -43,11 +46,11 @@ class _SignDoneState extends State<SignDone> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.055,
               ),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    '닉네임 ',
+                    nick,
                     style: TextStyle(
                       color: Color(0xFF191919),
                       fontSize: 28,
