@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/screens/lecture/Item/course_card_item.dart';
 import 'package:stocodi_app/screens/lecture/widget/lecture_tab.dart';
 import 'package:stocodi_app/screens/lecture/widget/video_screen_activity.dart';
 
-void main() {
-  runApp(const Lecture());
+class Lecture extends StatefulWidget {
+  final CourseCardItem courseCardItem;
+
+  const Lecture({
+    Key? key,
+    required this.courseCardItem,
+  }) : super(key: key);
+
+  @override
+  _LectureState createState() => _LectureState();
 }
 
-class Lecture extends StatelessWidget {
-  const Lecture({Key? key}) : super(key: key);
+class _LectureState extends State<Lecture> {
+  late CourseCardItem courseCardItem;
+
+  @override
+  void initState() {
+    super.initState();
+    courseCardItem = widget.courseCardItem;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +35,9 @@ class Lecture extends StatelessWidget {
         itemBuilder: (BuildContext outerContext, int outerIndex) {
           return Column(
             children: [
-              VideoScreenActivity(),
+              VideoScreenActivity(
+                courseCardItem: courseCardItem,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -37,4 +54,3 @@ class Lecture extends StatelessWidget {
     );
   }
 }
-

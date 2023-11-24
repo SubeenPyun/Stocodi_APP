@@ -1,8 +1,8 @@
 class ChartData {
   final DateTime x;
   final double open;
-  final double high;
-  final double low;
+  late double high;
+  late double low;
   final double close;
   final double volume;
 

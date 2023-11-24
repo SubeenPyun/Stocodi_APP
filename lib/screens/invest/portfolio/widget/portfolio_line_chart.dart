@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import '../../../../theme/app_theme.dart';
 import '../data/titles_data.dart';
+
+final ThemeData theme = AppTheme.appTheme;
 
 class PortfolioLineChart extends StatefulWidget {
   double touchedValue;
@@ -30,7 +33,7 @@ class _PortfolioLineChartState extends State<PortfolioLineChart> {
         getDotPainter: (spot, percent, barData, index) => FlDotCirclePainter(
           radius: 4,
           color: Colors.white,
-          strokeColor: const Color(0xff0ECB81),
+          strokeColor: theme.primaryColor,
           strokeWidth: 4,
         ),
       ),
@@ -64,7 +67,7 @@ class _PortfolioLineChartState extends State<PortfolioLineChart> {
                   radius: 5,
                   color: Colors.white,
                   strokeWidth: 5,
-                  strokeColor: const Color(0xff0ECB81),
+                  strokeColor: theme.primaryColor,
                 );
               },
             ),
@@ -72,7 +75,7 @@ class _PortfolioLineChartState extends State<PortfolioLineChart> {
         }).toList();
       },
       touchTooltipData: LineTouchTooltipData(
-        tooltipBgColor: Colors.black,
+        tooltipBgColor: Color(0xffE7FBF3),
         tooltipRoundedRadius: 20,
         getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
           return touchedBarSpots.map((barSpot) {
@@ -80,7 +83,7 @@ class _PortfolioLineChartState extends State<PortfolioLineChart> {
             return LineTooltipItem(
               '${flSpot.y.toInt()}만원',
               TextStyle(
-                color: Colors.white,
+                color: theme.primaryColor,
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
               ),
