@@ -31,6 +31,7 @@ class InvestExperiment extends StatelessWidget {
               investmentItems: investmentItems,
               context: context,
             ),
+
           ],
         ),
       ),

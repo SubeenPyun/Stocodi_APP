@@ -359,5 +359,27 @@ List<ChartData> getChartData() {
         low: 115.43,
         close: 115.82,
         volume: 1000000),
+    ChartData(
+        x: DateTime(2017, 1, 2),
+        open: 116.52,
+        high: 118.0166,
+        low: 115.43,
+        close: 115.82,
+        volume: 1000000),
+    ChartData(
+        x: DateTime(2017, 1, 9),
+        open: 116.52,
+        high: 118.0166,
+        low: 115.43,
+        close: 115.82,
+        volume: 1000000),
+    ChartData(
+        x: DateTime(2017, 1, 16),
+        open: 116.52,
+        high: 118.0166,
+        low: 115.43,
+        close: 115.82,
+        volume: 1000000),
+
   ];
 }
