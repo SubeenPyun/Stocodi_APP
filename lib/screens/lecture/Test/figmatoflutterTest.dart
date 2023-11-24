@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../../../theme/lecture_video_theme.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
 
@@ -40,7 +41,7 @@ class _VideoDetailsState extends State<VideoDetails> {
 
     setState(() {
       title = video.title;
-      date = video.uploadDate.toString();
+      date = DateFormat('yyyy-MM-dd HH:mm').format(video.uploadDate!);
       views = '조회수 ${video.engagement.viewCount}';
       author = video.author;
     });
@@ -89,9 +90,9 @@ class _VideoDetailsState extends State<VideoDetails> {
                   setState(() {
                     showDetails = !showDetails;
                   });
-                  if (showDetails) {
-                    widget.courseCardItem.courseDescription; // 더보기를 눌렀을 때 비디오 설명 가져오기
-                  }
+                  // if (showDetails) {
+                  //   widget.courseCardItem.courseDescription; // 더보기를 눌렀을 때 비디오 설명 가져오기
+                  // }
                 },
                 child: Text(
                   '더보기',
@@ -112,10 +113,6 @@ class _VideoDetailsState extends State<VideoDetails> {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 8),
-                  Text(
-                    description ?? '상세 설명이 없습니다.',
-                    style: TextStyle(fontSize: 14),
-                  ),
                 ],
               ),
             ),
