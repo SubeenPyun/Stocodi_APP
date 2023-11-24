@@ -25,5 +25,18 @@ var excourse = CourseData(
   title: '주식, 1분만에 알려드림',
   description: 'Description of Course',
   imagePath: 'assets/kakao.jpg', // Replace with the actual image asset path
+  videoId: 'bcD3XMG71vw'
 );
-var courseList = [excourse, excourse, excourse];
+var excourse1 = CourseData(
+    title: '주식, 1분만에 알려드림',
+    description: 'Description of Course',
+    imagePath: 'assets/kakao.jpg', // Replace with the actual image asset path
+    videoId: 'bcD3XMG71vw'
+);
+var excourse2 = CourseData(
+    title: '주식, 1분만에 알려드림',
+    description: 'Description of Course',
+    imagePath: 'assets/kakao.jpg', // Replace with the actual image asset path
+    videoId: 'bcD3XMG71vw'
+);
+var courseList = [excourse, excourse1, excourse2];

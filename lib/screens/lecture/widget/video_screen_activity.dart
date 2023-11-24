@@ -20,8 +20,8 @@ class _VideoScreenActivityState extends State<VideoScreenActivity> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          VideoLecture(),
-          VideoDetails(),
+          VideoLecture(videoId: 'bcD3XMG71vw'),
+          VideoDetails(videoId: 'bcD3XMG71vw'),
         ],
       ),
     );

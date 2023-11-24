@@ -5,22 +5,22 @@ import '../../../theme/app_theme.dart';
 final ThemeData theme = AppTheme.appTheme;
 
 class VideoLecture extends StatefulWidget {
-  const VideoLecture({
-    super.key
-  });
+  final String videoId;
+
+  const VideoLecture({Key? key, required this.videoId}) : super(key: key);
 
   @override
   _VideoLectureState createState() => _VideoLectureState();
 }
 
 class _VideoLectureState extends State<VideoLecture> {
-
   late YoutubePlayerController _controller;
 
   @override
   void initState() {
+    super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: 'bcD3XMG71vw',
+      initialVideoId: widget.videoId,
       flags: const YoutubePlayerFlags(
         mute: false,
         autoPlay: true,
@@ -48,6 +48,4 @@ class _VideoLectureState extends State<VideoLecture> {
       ),
     );
   }
-
-
 }
