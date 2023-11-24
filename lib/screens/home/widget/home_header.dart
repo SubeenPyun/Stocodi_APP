@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:stocodi_app/model/portfolio/response/portfolio_response.dart';
-import 'package:stocodi_app/screens/invest/portfolio/data/portfolio_data.dart';
+import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
 import 'package:stocodi_app/widgets/portfolio_dialog.dart';
 
 class HomeHeader extends StatefulWidget {

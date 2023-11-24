@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stocodi_app/screens/invest/portfolio/data/portfolio_data.dart';
+import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
 import 'package:stocodi_app/screens/invest/portfolio/widget/asset_section.dart';
 import 'package:stocodi_app/screens/invest/portfolio/widget/portfolio_grid.dart';
 import 'package:stocodi_app/screens/invest/portfolio/widget/portfolio_header.dart';

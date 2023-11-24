@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stocodi_app/api/retrofit/predefined_data_dto.dart';
 import 'package:stocodi_app/model/portfolio/request/history/transaction_type.dart';
-import 'package:stocodi_app/screens/invest/portfolio/data/portfolio_data.dart';
+import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
 import '../item/done_transaction_item.dart';
 
 class DoneTransactionLog extends StatelessWidget {
@@ -12,7 +12,7 @@ class DoneTransactionLog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<PortfolioData>(
       builder: (context, portfolioData, _) {
-        var historyList = portfolioData.selectedPortfolio!.histories;
+        var historyList = portfolioData.selectedPortfolio.histories;
         return SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:stocodi_app/api/retrofit/predefined_data_dto.dart';
-import 'package:stocodi_app/screens/invest/portfolio/data/portfolio_data.dart';
+import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
 
 import '../../../../theme/app_theme.dart';
 import '../../../../widgets/portfolio_dialog.dart';
@@ -23,7 +23,7 @@ class PortfolioSection extends StatelessWidget {
               portfolioData.portfolioList != null &&
                       portfolioData.portfolioList!.isNotEmpty
                   ? Text(
-                      portfolioData.selectedPortfolio!.account.account_name,
+                      portfolioData.selectedPortfolio.account.account_name,
                       style: theme.textTheme.titleSmall,
                     )
                   : Text(
@@ -96,7 +96,7 @@ class PortfolioSection extends StatelessWidget {
           child: Text(
             portfolioData.portfolioList != null &&
                     portfolioData.portfolioList!.isNotEmpty
-                ? "${currencyFormat.format(portfolioData.selectedPortfolio!.account.remain_cash)} 원"
+                ? "${currencyFormat.format(portfolioData.selectedPortfolio.account.remain_cash)} 원"
                 : "0 원",
             style: TextStyle(
               fontWeight: FontWeight.w700,

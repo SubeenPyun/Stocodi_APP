@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stocodi_app/screens/home/widget/home_header.dart';
 import 'package:stocodi_app/screens/home/widget/home_profit.dart';
-import 'package:stocodi_app/screens/invest/portfolio/data/portfolio_data.dart';
+import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
