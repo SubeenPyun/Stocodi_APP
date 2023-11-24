@@ -134,7 +134,9 @@ class _InterestState extends State<Interest> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const SignDone(),
+                    builder: (context) => SignDone(
+                      nicknameTxt: widget.enteredNickName,
+                    ),
                   ),
                 );
               },
