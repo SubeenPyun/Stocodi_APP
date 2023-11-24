@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/model/portfolio/response/portfolio_response.dart';
-import '../../../home/data/updatePortfolio.dart';
+import '../../screens/home/data/updatePortfolio.dart';
 
 class PortfolioData extends ChangeNotifier {
   List<PortfoiloResponse>? portfolioList = []; // 포트폴리오 리스트

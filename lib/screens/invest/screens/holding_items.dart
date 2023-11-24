@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:provider/provider.dart';
 import 'package:stocodi_app/api/retrofit/predefined_data_dto.dart';
-import 'package:stocodi_app/screens/invest/portfolio/data/portfolio_data.dart';
+import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
 import '../../../../theme/app_theme.dart';
 import '../../../widgets/custom_appbar.dart';
 import '../../../widgets/round_square_container.dart';
@@ -391,7 +391,7 @@ class _HoldingState extends State<HoldingItem>
                                   portfolioData.portfolioList != null &&
                                           portfolioData
                                               .portfolioList!.isNotEmpty
-                                      ? "${currencyFormat.format(portfolioData.selectedPortfolio!.account.total_asset_evaluation)} 원"
+                                      ? "${currencyFormat.format(portfolioData.selectedPortfolio.account.total_asset_evaluation)} 원"
                                       : "0원",
                                   style: TextStyle(
                                     fontSize: 22,
@@ -405,12 +405,12 @@ class _HoldingState extends State<HoldingItem>
                                 child: portfolioData.portfolioList != null &&
                                         portfolioData.portfolioList!.isNotEmpty
                                     ? Text(
-                                        "${portfolioData.selectedPortfolio!.account.unrealized_gain >= 0 ? "+" : ""}${currencyFormat.format(portfolioData.selectedPortfolio!.account.unrealized_gain)}원 (${portfolioData.selectedPortfolio!.account.cumulative_returns.toStringAsFixed(2)}%)",
+                                        "${portfolioData.selectedPortfolio.account.unrealized_gain >= 0 ? "+" : ""}${currencyFormat.format(portfolioData.selectedPortfolio.account.unrealized_gain)}원 (${portfolioData.selectedPortfolio.account.cumulative_returns.toStringAsFixed(2)}%)",
                                         style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500,
                                           color: portfolioData
-                                                      .selectedPortfolio!
+                                                      .selectedPortfolio
                                                       .account
                                                       .unrealized_gain >=
                                                   0

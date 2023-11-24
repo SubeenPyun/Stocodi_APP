@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:stocodi_app/model/portfolio/response/portfolio_response.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
 import 'package:stocodi_app/widgets/round_square_container.dart';
-import '../data/portfolio_data.dart';
+import '../../../../model/portfolio/portfolio_data.dart';
 
 class PortfolioHeader extends StatelessWidget {
   const PortfolioHeader({Key? key}) : super(key: key);

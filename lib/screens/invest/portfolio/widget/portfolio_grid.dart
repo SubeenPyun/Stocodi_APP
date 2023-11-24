@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stocodi_app/api/retrofit/predefined_data_dto.dart';
-import 'package:stocodi_app/screens/invest/portfolio/data/portfolio_data.dart';
+import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
 import '../../../transaction/screens/transcation_main.dart';
 import '../../screens/holding_items.dart';
 import '../../transaction_log.dart';
@@ -21,7 +21,7 @@ class PortfolioGrid extends StatelessWidget {
     int transactionsInCurrentMonth = 0;
 
     // 현재 월과 동일한 월의 거래 개수 계산
-    for (var history in newData.selectedPortfolio!.histories) {
+    for (var history in newData.selectedPortfolio.histories) {
       if (history.transaction_date.month == currentMonth) {
         transactionsInCurrentMonth += history.quantity;
       }
