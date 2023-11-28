@@ -61,7 +61,7 @@ class StockManager {
       print('종목 차트 정보 조회 오류: $e');
     }
   }
-  
+
   // 실시간 거래량 순위 Best 5
   Future<void> getBest5Stock() async {
     try {
