@@ -13,6 +13,5 @@ SocketConnect _$SocketConnectFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$SocketConnectToJson(SocketConnect instance) =>
     <String, dynamic>{
-      "\"id\"": instance.id,
-      // 'id': instance.id, // 원래 이렇게 되어있음 -> 소켓 연결위해 변형
+      'id': instance.id,
     };
