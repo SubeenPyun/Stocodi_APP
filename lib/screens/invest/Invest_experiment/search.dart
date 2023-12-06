@@ -15,10 +15,9 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   String stock_name = '';
-  final TextEditingController _controller = TextEditingController();
+  List<Stock> stock_list = [];
 
-  // Future<List<Stock>>? _stockListFuture; // Updated this line
-  late List<Stock> stock_list;
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {

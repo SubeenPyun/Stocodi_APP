@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stocodi_app/screens/invest/Invest_experiment/search.dart';
-import 'package:stocodi_app/screens/invest/portfolio/data/portfolio_data.dart';
 import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
 import 'package:stocodi_app/widgets/custom_appbar.dart';
 import '../../../../theme/app_theme.dart';

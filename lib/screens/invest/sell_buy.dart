@@ -34,6 +34,7 @@ class _SellBuyState extends State<SellBuy> {
               price: widget.stockInfo.price,
               changeValue: widget.stockInfo.changeValue,
               changePercentage: widget.stockInfo.changePercentage,
+              code: '',
             ),
             StockTabBar(currentPrice: widget.stockInfo.price,),
             SellBuyButtons(),
