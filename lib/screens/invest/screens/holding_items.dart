@@ -1,10 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:pie_chart/pie_chart.dart';
-import '../../../../theme/app_theme.dart';
-import '../../../widgets/custom_appbar.dart';
-import '../../../widgets/round_square_container.dart';
-import '../item/foreign_invest_item.dart';
-import '../item/internal_invest_item.dart';
+import 'package:stocodi_app/widgets/custom_appbar.dart';
+import 'package:stocodi_app/screens/invest/widget/holding_item_piechart.dart';
+import 'package:stocodi_app/screens/invest/widget/foreign_item_widget.dart';
+import 'package:stocodi_app/screens/invest/widget/internal_item_widget.dart';
+import 'package:stocodi_app/theme/app_theme.dart';
+import 'package:stocodi_app/widgets/round_square_container.dart';
 
 final ThemeData theme = AppTheme.appTheme;
 
@@ -13,132 +15,6 @@ class HoldingItem extends StatefulWidget {
 
   @override
   _HoldingState createState() => _HoldingState();
-}
-
-Container _internalWidget(BuildContext context) {
-  Widget buildInternalItem(String image, String title, int totalprice,
-      double percentage, int profit, int numOfItem) {
-    return InternalInvestItem(
-      image: image,
-      title: title,
-      totalprice: totalprice,
-      percentage: percentage,
-      profit: profit,
-      numOfItem: numOfItem,
-    );
-  }
-
-  return Container(
-    padding: const EdgeInsets.all(10),
-    child: ListView.builder(
-      itemCount: 5,
-      itemBuilder: (context, index) {
-        switch (index) {
-          case 0:
-            return buildInternalItem("apple", "애플", 237816, 3.6, 478000, 21);
-          case 1:
-            return buildInternalItem("teslr", "테슬라", 331672, -1.1, 478000, 6);
-          case 2:
-            return buildInternalItem("ecopro", "에코프로", 1021000, 1.4, 478000, 6);
-          case 3:
-            return buildInternalItem("posco", "포스코DX", 60700, 3.2, 478000, 6);
-          case 4:
-            return buildInternalItem("sm", "에스엠", 132000, 1.3, 478000, 6);
-          default:
-            return SizedBox.shrink();
-        }
-      },
-    ),
-  );
-}
-
-Container _foreignWidget(BuildContext context) {
-  Widget buildForeignItem(String image, String title, int totalprice,
-      double percentage, int profit, int numOfItem) {
-    return ForeignInvestItem(
-      image: image,
-      title: title,
-      totalprice: totalprice,
-      percentage: percentage,
-      profit: profit,
-      numOfItem: numOfItem,
-    );
-  }
-
-  return Container(
-    padding: const EdgeInsets.all(10),
-    child: ListView.builder(
-      itemCount: 3,
-      itemBuilder: (context, index) {
-        switch (index) {
-          case 0:
-            return buildForeignItem("apple", "애플", 237816, 3.6, 478000, 21);
-          case 1:
-            return buildForeignItem("teslr", "테슬라", 331672, -1.1, 478000, 6);
-          case 2:
-            return buildForeignItem("ecopro", "에코프로", 1021000, 1.4, 478000, 6);
-          default:
-            return SizedBox.shrink();
-        }
-      },
-    ),
-  );
-}
-
-Container _pieChart(BuildContext context){
-  Map<String, double> dataMap = {
-    "Flutter": 5,
-    "React": 3,
-    "Xamarin": 2,
-    "Ionic": 2,
-  };
-
-  List<Color> colorList = [
-    Color(0xFFF25840),
-    Color(0xFFFF7F50),
-    Color(0xFFFED749),
-    Color(0xFF1DE180),
-    Color(0xFF89EAF3),
-    Color(0xFF54B6FF),
-    Color(0xFFA65CF4),
-    Color(0xFFE19EC7),
-    Color(0xFF465A65),
-  ];
-
-  return Container(
-    child: Column(
-      children: [
-        SizedBox(height: 40,),
-        PieChart(
-          dataMap: dataMap,
-          animationDuration: Duration(milliseconds: 800),
-          chartRadius: MediaQuery.of(context).size.width / 4,
-          colorList: colorList,
-          initialAngleInDegree: 0,
-          chartType: ChartType.ring,
-          ringStrokeWidth: 60,
-          legendOptions: LegendOptions(
-            showLegendsInRow: false,
-            legendPosition: LegendPosition.bottom,
-            showLegends: false,
-            legendTextStyle: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          chartValuesOptions: ChartValuesOptions(
-            showChartValueBackground: false,
-            showChartValues: false,
-            showChartValuesInPercentage: false,
-            showChartValuesOutside: false,
-            decimalPlaces: 1,
-          ),
-          // gradientList: ---To add gradient colors---
-          // emptyColorGradient: ---Empty Color gradient---
-        ),
-        SizedBox(height: 40,),
-      ],
-    ),
-  );
 }
 
 Container _bodyWidget(BuildContext context){
@@ -162,25 +38,24 @@ Container _bodyWidget(BuildContext context){
   };
 
   List<String> keys = dataMap.keys.toList();
-  List<double> values=dataMap.values.map<double>((value) => value as double).toList();
-  double S = values.fold(0, (previousValue, element) => previousValue + element);
+  List<double> values = dataMap.values.map<double>((value) => value).toList();
+  double S =
+      values.fold(0, (previousValue, element) => previousValue + element);
 
   return Container(
-    color: theme.backgroundColor,
+    color: theme.colorScheme.background,
     child: Column(
       children: [
         Container(
-          margin: EdgeInsets.only(top:20, left:20, right: 20),
+          margin: EdgeInsets.only(top: 20, left: 20, right: 20),
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            color: Colors.white
-          ),
+              borderRadius: BorderRadius.circular(25), color: Colors.white),
           child: Column(
             children: [
               Column(
                 children: [
-                  _pieChart(context),
+                  pieChart(),
                   //SizedBox(height: 40,),
                   Container(
                     child: Column(
@@ -194,7 +69,7 @@ Container _bodyWidget(BuildContext context){
                               ),
                               height: 10,
                               width: 10,
-                              margin:EdgeInsets.all(10),
+                              margin: EdgeInsets.all(10),
                             ),
                             Text(
                               keys[0],
@@ -205,7 +80,7 @@ Container _bodyWidget(BuildContext context){
                             ),
                             Spacer(),
                             Text(
-                              (values[0]/S*100).toInt().toString()+"%",
+                              "${(values[0] / S * 100).toInt()}%",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -222,9 +97,8 @@ Container _bodyWidget(BuildContext context){
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(3),
                                 color: colorList[1],
-
                               ),
-                              margin:EdgeInsets.all(10),
+                              margin: EdgeInsets.all(10),
                             ),
                             Text(
                               keys[1],
@@ -235,7 +109,7 @@ Container _bodyWidget(BuildContext context){
                             ),
                             Spacer(),
                             Text(
-                              (values[1]/S*100).toInt().toString()+"%",
+                              "${(values[1] / S * 100).toInt()}%",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -253,7 +127,7 @@ Container _bodyWidget(BuildContext context){
                                 borderRadius: BorderRadius.circular(3),
                                 color: colorList[2],
                               ),
-                              margin:EdgeInsets.all(10),
+                              margin: EdgeInsets.all(10),
                             ),
                             Text(
                               keys[2],
@@ -264,7 +138,7 @@ Container _bodyWidget(BuildContext context){
                             ),
                             Spacer(),
                             Text(
-                              (values[2]/S*100).toInt().toString()+"%",
+                              "${(values[2] / S * 100).toInt()}%",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -282,7 +156,7 @@ Container _bodyWidget(BuildContext context){
                                 borderRadius: BorderRadius.circular(3),
                                 color: colorList[3],
                               ),
-                              margin:EdgeInsets.all(10),
+                              margin: EdgeInsets.all(10),
                             ),
                             Text(
                               keys[3],
@@ -293,7 +167,7 @@ Container _bodyWidget(BuildContext context){
                             ),
                             Spacer(),
                             Text(
-                              (values[3]/S*100).toInt().toString()+"%",
+                              "${(values[3] / S * 100).toInt()}%",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -352,6 +226,8 @@ class _HoldingState extends State<HoldingItem>
             child: Column(
               children: [
                 _bodyWidget(context),
+
+                //tabbar+ tabbar 위쪽
                 Container(
                   color: theme.backgroundColor,
                   padding: EdgeInsets.all(20),
@@ -383,19 +259,26 @@ class _HoldingState extends State<HoldingItem>
                                 fontSize: 22,
                                 fontWeight: FontWeight.w700,
                               ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              "+478,000원(7.5%)",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color:Color(0xFFF6465D),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                                child: Text(
+                                  portfolioData.portfolioList != null &&
+                                          portfolioData
+                                              .portfolioList!.isNotEmpty
+                                      ? "${currencyFormat.format(portfolioData.selectedPortfolio.account.total_asset_evaluation)} 원"
+                                      : "0원",
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
+
+                          //여기서부터 탭바
+                          //따로 분리하려고 했는데 tabController 때문에 일단 여기 뒀습니당 ㅠㅠ
                           Padding(
                             padding: const EdgeInsets.all(10),
                             child: TabBar(
@@ -406,10 +289,32 @@ class _HoldingState extends State<HoldingItem>
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFF0ECB81),
                               ),
-                              indicatorColor: Color(0xFF0ECB81),
-                              unselectedLabelColor: Colors.grey,
-                              unselectedLabelStyle: const TextStyle(
-                                fontSize: 16,
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: TabBar(
+                                  indicatorWeight: 3.0,
+                                  indicatorSize: TabBarIndicatorSize.tab,
+                                  controller: tabController,
+                                  labelColor: Color(0xFF0ECB81),
+                                  labelStyle: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF0ECB81),
+                                  ),
+                                  indicatorColor: Color(0xFF0ECB81),
+                                  unselectedLabelColor: Colors.grey,
+                                  unselectedLabelStyle: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                  tabs: const [
+                                    Tab(
+                                      text: "국내",
+                                    ),
+                                    Tab(
+                                      text: "해외",
+                                    ),
+                                  ],
+                                ),
                               ),
                               tabs: const [
                                 Tab(text: "국내",),
@@ -422,23 +327,23 @@ class _HoldingState extends State<HoldingItem>
                               child: TabBarView(
                                 controller: tabController,
                                 children: [
-                                  _internalWidget(context), // "국내" 탭에 _internalWidget를 배치
+                                  internalWidget(), // "국내" 탭에 _internalWidget를 배치
                                   // "해외" 탭의 내용을 추가
-                                  _foreignWidget(context),
+                                  foreignWidget(),
                                 ],
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
