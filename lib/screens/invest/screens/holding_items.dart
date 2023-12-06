@@ -5,7 +5,6 @@ import 'package:stocodi_app/widgets/custom_appbar.dart';
 import 'package:stocodi_app/screens/invest/widget/holding_item_piechart.dart';
 import 'package:stocodi_app/screens/invest/widget/foreign_item_widget.dart';
 import 'package:stocodi_app/screens/invest/widget/internal_item_widget.dart';
-
 import 'package:stocodi_app/theme/app_theme.dart';
 import 'package:stocodi_app/widgets/round_square_container.dart';
 
@@ -39,20 +38,19 @@ Container _bodyWidget(BuildContext context){
   };
 
   List<String> keys = dataMap.keys.toList();
-  List<double> values=dataMap.values.map<double>((value) => value as double).toList();
-  double S = values.fold(0, (previousValue, element) => previousValue + element);
+  List<double> values = dataMap.values.map<double>((value) => value).toList();
+  double S =
+      values.fold(0, (previousValue, element) => previousValue + element);
 
   return Container(
-    color: theme.backgroundColor,
+    color: theme.colorScheme.background,
     child: Column(
       children: [
         Container(
-          margin: EdgeInsets.only(top:20, left:20, right: 20),
+          margin: EdgeInsets.only(top: 20, left: 20, right: 20),
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            color: Colors.white
-          ),
+              borderRadius: BorderRadius.circular(25), color: Colors.white),
           child: Column(
             children: [
               Column(
@@ -71,7 +69,7 @@ Container _bodyWidget(BuildContext context){
                               ),
                               height: 10,
                               width: 10,
-                              margin:EdgeInsets.all(10),
+                              margin: EdgeInsets.all(10),
                             ),
                             Text(
                               keys[0],
@@ -82,7 +80,7 @@ Container _bodyWidget(BuildContext context){
                             ),
                             Spacer(),
                             Text(
-                              (values[0]/S*100).toInt().toString()+"%",
+                              "${(values[0] / S * 100).toInt()}%",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -99,9 +97,8 @@ Container _bodyWidget(BuildContext context){
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(3),
                                 color: colorList[1],
-
                               ),
-                              margin:EdgeInsets.all(10),
+                              margin: EdgeInsets.all(10),
                             ),
                             Text(
                               keys[1],
@@ -112,7 +109,7 @@ Container _bodyWidget(BuildContext context){
                             ),
                             Spacer(),
                             Text(
-                              (values[1]/S*100).toInt().toString()+"%",
+                              "${(values[1] / S * 100).toInt()}%",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -130,7 +127,7 @@ Container _bodyWidget(BuildContext context){
                                 borderRadius: BorderRadius.circular(3),
                                 color: colorList[2],
                               ),
-                              margin:EdgeInsets.all(10),
+                              margin: EdgeInsets.all(10),
                             ),
                             Text(
                               keys[2],
@@ -141,7 +138,7 @@ Container _bodyWidget(BuildContext context){
                             ),
                             Spacer(),
                             Text(
-                              (values[2]/S*100).toInt().toString()+"%",
+                              "${(values[2] / S * 100).toInt()}%",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -159,7 +156,7 @@ Container _bodyWidget(BuildContext context){
                                 borderRadius: BorderRadius.circular(3),
                                 color: colorList[3],
                               ),
-                              margin:EdgeInsets.all(10),
+                              margin: EdgeInsets.all(10),
                             ),
                             Text(
                               keys[3],
@@ -170,7 +167,7 @@ Container _bodyWidget(BuildContext context){
                             ),
                             Spacer(),
                             Text(
-                              (values[3]/S*100).toInt().toString()+"%",
+                              "${(values[3] / S * 100).toInt()}%",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400,
@@ -262,16 +259,20 @@ class _HoldingState extends State<HoldingItem>
                                 fontSize: 22,
                                 fontWeight: FontWeight.w700,
                               ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Text(
-                              "+478,000원(7.5%)",
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color:Color(0xFFF6465D),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 5),
+                                child: Text(
+                                  portfolioData.portfolioList != null &&
+                                          portfolioData
+                                              .portfolioList!.isNotEmpty
+                                      ? "${currencyFormat.format(portfolioData.selectedPortfolio.account.total_asset_evaluation)} 원"
+                                      : "0원",
+                                  style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -288,10 +289,32 @@ class _HoldingState extends State<HoldingItem>
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFF0ECB81),
                               ),
-                              indicatorColor: Color(0xFF0ECB81),
-                              unselectedLabelColor: Colors.grey,
-                              unselectedLabelStyle: const TextStyle(
-                                fontSize: 16,
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: TabBar(
+                                  indicatorWeight: 3.0,
+                                  indicatorSize: TabBarIndicatorSize.tab,
+                                  controller: tabController,
+                                  labelColor: Color(0xFF0ECB81),
+                                  labelStyle: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF0ECB81),
+                                  ),
+                                  indicatorColor: Color(0xFF0ECB81),
+                                  unselectedLabelColor: Colors.grey,
+                                  unselectedLabelStyle: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                  tabs: const [
+                                    Tab(
+                                      text: "국내",
+                                    ),
+                                    Tab(
+                                      text: "해외",
+                                    ),
+                                  ],
+                                ),
                               ),
                               tabs: const [
                                 Tab(text: "국내",),
@@ -309,18 +332,18 @@ class _HoldingState extends State<HoldingItem>
                                   foreignWidget(),
                                 ],
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

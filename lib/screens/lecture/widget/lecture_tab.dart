@@ -57,7 +57,7 @@ class _LectureTabState extends State<LectureTab>
                 Tab(
                   child: Text(
                     '다음 동영상',
-                    style: textTheme.displayMedium?.copyWith(
+                    style: textTheme.displayLarge?.copyWith(
                       color: _tabController.index == 0
                           ? theme.unselectedWidgetColor
                           : theme.primaryColor,
