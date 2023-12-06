@@ -4,6 +4,7 @@ class InterestItemData {
   final double price;
   final double changeValue;
   final double changePercentage;
+  final String code;
 
   InterestItemData({
     required this.image,
@@ -11,5 +12,6 @@ class InterestItemData {
     required this.price,
     required this.changeValue,
     required this.changePercentage,
+    required this.code
   });
 }
