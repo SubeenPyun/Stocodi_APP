@@ -28,7 +28,7 @@ class _AppScreenState extends State<AppScreen> {
     const ClassRoom(),
     const InvestExperiment(),
     Container(),
-    Tmpmypage(),
+    Container(),
   ];
 
   BottomNavigationBarItem _bottomNavigationBarItem(
@@ -81,7 +81,7 @@ class _AppScreenState extends State<AppScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.colorScheme.background,
+      backgroundColor: theme.backgroundColor,
       body: _pages[_currentPageIndex],
       bottomNavigationBar: _bottomNavigationBarwidget(),
     );

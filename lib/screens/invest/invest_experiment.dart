@@ -44,7 +44,7 @@ class _InvestExperimentState extends State<InvestExperiment> {
         showSearchIcon: true,
       ),
       body: Container(
-        color: theme.colorScheme.background,
+        color: theme.backgroundColor,
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
