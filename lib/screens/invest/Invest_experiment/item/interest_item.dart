@@ -12,6 +12,7 @@ class InterestItem extends StatelessWidget {
   final double percentage;
   final VoidCallback onPressed;
   final VoidCallback heartOnPressed;
+  final String code;
 
   InterestItem({
     required this.image,
@@ -20,6 +21,7 @@ class InterestItem extends StatelessWidget {
     required this.percentage,
     required this.onPressed,
     required this.heartOnPressed,
+    required this.code,
   });
 
   @override
