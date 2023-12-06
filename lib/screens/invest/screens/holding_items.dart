@@ -38,6 +38,7 @@ Container _bodyWidget(BuildContext context){
     "Ionic": 2,
   };
 
+
   List<String> keys = dataMap.keys.toList();
   List<double> values=dataMap.values.map<double>((value) => value as double).toList();
   double S = values.fold(0, (previousValue, element) => previousValue + element);
