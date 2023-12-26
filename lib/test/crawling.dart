@@ -29,8 +29,8 @@ class _StockPricePageState extends State<StockPricePage> {
   String beforeVS = 'Fetching...'; // 전일 대비 가격 정보를 저장할 변수
 
   @override
-  void initState() {dfkhdaskfjsdhjkfhsjkfhskjvskdhvkjkdnsklv
-    super.initState();asdkl;sdklvnsdklvdsklvsdklv
+  void initState() {
+    super.initState();
     fetchAndSetStockPrice(); // 앱이 실행될 때 주asdkjvlksdhvkl;sdvklsdvsdv가 정보를 가져오는 함수 호출
   }
 
