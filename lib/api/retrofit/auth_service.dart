@@ -188,7 +188,7 @@ class ApiService {
       _httpResult.success(response.data["response"], '강의 조회');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '강의 조회', getPortfolioStatusCheck);
+      _httpResult.fail(e, '강의 조회', getLectureStatusCheck);
       throw Exception('Failed to get lecture: $e');
     }
   }

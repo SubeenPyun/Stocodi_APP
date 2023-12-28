@@ -1,19 +1,63 @@
 import 'package:flutter/material.dart';
-
 import '../../../API/retrofit/auth_manager.dart';
 import '../../../model/lecture/request/comment_model.dart';
+import '../Item/comment_item.dart';
 
-
-class MyComment extends StatefulWidget {
-  final String imageUrl;
-
-  const MyComment({Key? key, required this.imageUrl}) : super(key: key);
-
-  @override
-  _MyCommentState createState() => _MyCommentState();
+void main() {
+  runApp(const LectureComment());
 }
 
-class _MyCommentState extends State<MyComment> {
+class LectureComment extends StatelessWidget {
+  const LectureComment({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.white,
+        body: Column(
+          children: [
+            const SizedBox(
+              height: 65,
+              child: LectureMyComment(imageUrl: 'assets/kakao.jpg'),
+            ),
+            Expanded(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final isNarrowScreen = constraints.maxWidth < 600; // 예시 너비 (조정 가능)
+
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    itemCount: 15,
+                    itemBuilder: (context, index) {
+                      return CommentItem(
+                        name: 'Name $index',
+                        profileImage: 'assets/kakao.jpg',
+                        text: 'Your comment text here',
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class LectureMyComment extends StatefulWidget {
+  final String imageUrl;
+
+  const LectureMyComment({Key? key, required this.imageUrl}) : super(key: key);
+
+  @override
+  _LectureMyCommentState createState() => _LectureMyCommentState();
+}
+
+class _LectureMyCommentState extends State<LectureMyComment> {
   final TextEditingController _commentController = TextEditingController();
 
   @override

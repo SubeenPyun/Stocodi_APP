@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/screens/lecture/Item/course_card_item.dart';
+import 'package:stocodi_app/screens/lecture/Item/classroom_course_item.dart';
 import 'package:stocodi_app/screens/lecture/widget/lecture_tab.dart';
 import 'package:stocodi_app/screens/lecture/widget/video_screen_activity.dart';
 
 class Lecture extends StatefulWidget {
-  final CourseCardItem courseCardItem;
+  final ClassRoomCourseItem courseCardItem;
 
   const Lecture({
     Key? key,
@@ -16,7 +16,7 @@ class Lecture extends StatefulWidget {
 }
 
 class _LectureState extends State<Lecture> {
-  late CourseCardItem courseCardItem;
+  late ClassRoomCourseItem courseCardItem;
 
   @override
   void initState() {
@@ -43,7 +43,7 @@ class _LectureState extends State<Lecture> {
                 children: <Widget>[
                   SizedBox(
                     height: screenHeight * 0.5,
-                    child: LectureTab(),
+                    child: LectureTab(lectureId: courseCardItem.lectureId),
                   ),
                 ],
               ),

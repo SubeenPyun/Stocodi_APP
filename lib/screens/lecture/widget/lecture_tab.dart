@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../../theme/AppTheme.dart';
-import 'comment.dart';
-import 'next_video.dart';
-
-void main() {
-  runApp(const LectureTab());
-}
+import 'lecture_comment.dart';
+import 'lecture_next_video.dart';
 
 final theme = AppTheme.getAppTheme();
 final textTheme = AppTheme.getAppTheme().textTheme;
 
 class LectureTab extends StatefulWidget {
-  const LectureTab({Key? key}) : super(key: key);
+  final int lectureId;
+  const LectureTab({
+    Key? key, required this.lectureId}) : super(key: key);
 
   @override
   _LectureTabState createState() => _LectureTabState();
@@ -71,8 +69,8 @@ class _LectureTabState extends State<LectureTab>
         body: TabBarView(
           controller: _tabController,
           children: const [
-            Comment(),
-            NextVideo(),
+            LectureComment(),
+            LectureNextVideo(),
           ],
         ),
       ),
@@ -125,3 +123,4 @@ class TabItem extends StatelessWidget {
     );
   }
 }
+

@@ -3,13 +3,13 @@ import 'package:intl/intl.dart';
 import '../../../theme/lecture_video_theme.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
 
-import '../Item/course_card_item.dart';
+import '../Item/classroom_course_item.dart';
 
 final theme = LectureVideoTheme.getAppTheme();
 final textTheme = theme.textTheme;
 
 class VideoDetail extends StatefulWidget {
-  final CourseCardItem courseCardItem;
+  final ClassRoomCourseItem courseCardItem;
 
   const VideoDetail({
     Key? key,
@@ -37,7 +37,7 @@ class _VideoDetailsState extends State<VideoDetail> {
 
   Future<void> getVideoDetails() async {
     var ytInstance = yt.YoutubeExplode();
-    var video = await ytInstance.videos.get(widget.courseCardItem.videoId);
+    var video = await ytInstance.videos.get(widget.courseCardItem.videoLink);
 
     setState(() {
       title = video.title;

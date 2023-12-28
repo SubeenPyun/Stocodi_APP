@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:stocodi_app/screens/lecture/Lecture.dart';
 
 import '../../model/auth/request/login_model.dart';
 import '../../model/auth/request/members_model.dart';

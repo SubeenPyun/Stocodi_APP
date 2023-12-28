@@ -5,7 +5,7 @@ part 'lecture_response.g.dart';
 @JsonSerializable()
 class LectureResponse {
   final int id;
-  final String videoLink;
+  final String video_link;
   final String title;
   final String description;
   final List<String> tags;
@@ -14,7 +14,7 @@ class LectureResponse {
 
   LectureResponse({
     required this.id,
-    required this.videoLink,
+    required this.video_link,
     required this.title,
     required this.description,
     required this.tags,

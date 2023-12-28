@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/screens/lecture/widget/video_lecture.dart';
-import '../Item/course_card_item.dart';
+import '../Item/classroom_course_item.dart';
 import 'video_detail.dart';
 
 class VideoScreenActivity extends StatefulWidget {
-  final CourseCardItem courseCardItem;
+  final ClassRoomCourseItem courseCardItem;
 
 
   const VideoScreenActivity({
@@ -17,7 +17,7 @@ class VideoScreenActivity extends StatefulWidget {
 }
 
 class _VideoScreenActivityState extends State<VideoScreenActivity> {
-  late CourseCardItem courseCardItem;
+  late ClassRoomCourseItem courseCardItem;
 
   @override
   void initState() {
