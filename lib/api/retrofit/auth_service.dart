@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../model/auth/request/login_model.dart';
 import '../../model/auth/request/members_model.dart';
+import '../../model/lecture/request/comment_model.dart';
 import '../../model/portfolio/request/accounts_model.dart';
 import 'http_result.dart';
 
@@ -156,9 +157,10 @@ class ApiService {
 
   //////////////////////////////////////////////////////////////////////
   //강의
-  Future<Response> writeComment() async {
+  Future<Response> writeComment(CommentRequest comment) async {
     try {
-      final response = await dio.post('/comments');
+      await setToken('access_token');
+      final response = await dio.post('/comments', data: comment.toJson());
       _httpResult.success(response, '댓글 작성');
       return response;
     } catch (e) {
@@ -169,7 +171,7 @@ class ApiService {
 
   Future<Response> deleteComment(int lectureId) async {
     try {
-      final response = await dio.post('/lectures/$lectureId');
+      final response = await dio.delete('/lectures/$lectureId');
       _httpResult.success(response, '댓글 삭제');
       return response;
     } catch (e) {
@@ -178,20 +180,8 @@ class ApiService {
     }
   }
 
+
   /////////////////////////////////////////////////////////////////////
-  //주식 구매 판매
-  /*Future<Response> stockSell() async {
-    try {
-      setHeader();
-      await setCookie();
-      final response = await dio.post('/transactions/sells');
-      _httpResult.success(response.data["response"], '주식 판매');
-      return response;
-    } catch (e) {
-      _httpResult.fail(e, '주식 판매',stockSellStatusCheck);
-      throw Exception('Failed to stock sell: $e');
-    }
-  }*/
   Future<Response> makePortfolio(PortfolioRequest data) async {
     try {
       await setToken('access_token');

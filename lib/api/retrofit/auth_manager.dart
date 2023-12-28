@@ -4,6 +4,7 @@ import '../../model/auth/request/login_model.dart';
 import '../../model/auth/request/members_model.dart';
 import '../../model/auth/response/account_model.dart';
 import '../../model/auth/response/login_model.dart';
+import '../../model/lecture/request/comment_model.dart';
 import '../../model/portfolio/request/accounts_model.dart';
 import '../../model/portfolio/response/portfolio_response.dart';
 import 'auth_service.dart';
@@ -99,14 +100,15 @@ class AuthenticationManager {
 
   //////////////////////////////////////////////////////////////////////////
   //강의
-  Future<Response?> writeComment() async {
+
+  Future<Response?> writeComment(CommentRequest comment) async {
     try {
-      final response = await _apiService.writeComment();
+      final response = await _apiService.writeComment(comment);
       return response;
     } catch (e) {
       print('댓글 작성 오류: $e');
+      return null;
     }
-    return null;
   }
 
   Future<Response?> deleteComment(int lectureId) async {
@@ -129,6 +131,7 @@ class AuthenticationManager {
       return false;
     }
   }
+
 
   Future<List<PortfoiloResponse>?> getPortfolio() async {
     try {

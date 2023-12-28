@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../../API/retrofit/auth_manager.dart';
+import '../../../model/lecture/request/comment_model.dart';
+
+
 class MyComment extends StatefulWidget {
   final String imageUrl;
 
@@ -40,41 +44,57 @@ class _MyCommentState extends State<MyComment> {
             ),
             const SizedBox(width: 16),
             ElevatedButton(
-              onPressed: _submitComment,
+              onPressed: () {
+                _submitComment(context);
+              },
               style: ElevatedButton.styleFrom(
                 primary: const Color(0xFF0ECB81),
               ),
               child: const Text('입력'),
-            ),
+            )
           ],
         ),
       ),
     );
   }
 
-  void _submitComment() {
+  Future<void> _submitComment(BuildContext context) async {
     String comment = _commentController.text;
     if (comment.isNotEmpty) {
       print('댓글: $comment');
+      CommentRequest commentRequest = CommentRequest(
+        lecture_id: 1,
+        content: comment,
+      );
+      final authenticationManager = AuthenticationManager();
+      var commentResponse = await authenticationManager.writeComment(commentRequest);
+
+      if (commentResponse == null) {
+        _showErrorDialog(context, '댓글 작성에 실패했어요..');
+      }
       _commentController.clear();
     } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('경고'),
-            content: const Text('댓글을 입력하세요.'),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('확인'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
+      _showErrorDialog(context, '댓글을 입력하세요.');
     }
+  }
+
+  void _showErrorDialog(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text('경고'),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('확인'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
