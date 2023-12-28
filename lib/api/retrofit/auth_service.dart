@@ -154,6 +154,31 @@ class ApiService {
     await storage.write(key: 'refresh_token', value: refreshToken);
   }
 
+  //////////////////////////////////////////////////////////////////////
+  //강의
+  Future<Response> writeComment() async {
+    try {
+      final response = await dio.post('/comments');
+      _httpResult.success(response, '댓글 작성');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '댓글 작성');
+      throw Exception('Failed to write comment: $e');
+    }
+  }
+
+  Future<Response> deleteComment(int lectureId) async {
+    try {
+      final response = await dio.post('/lectures/$lectureId');
+      _httpResult.success(response, '댓글 삭제');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '댓글 삭제');
+      throw Exception('Failed to delete comment: $e');
+    }
+  }
+
+  /////////////////////////////////////////////////////////////////////
   //주식 구매 판매
   /*Future<Response> stockSell() async {
     try {

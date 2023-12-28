@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 import '../../model/auth/request/login_model.dart';
 import '../../model/auth/request/members_model.dart';
 import '../../model/auth/response/account_model.dart';
@@ -95,16 +97,29 @@ class AuthenticationManager {
     }
   }
 
-  //주식 구매 판매
-  /*Future<bool> stockSell() async{
+  //////////////////////////////////////////////////////////////////////////
+  //강의
+  Future<Response?> writeComment() async {
     try {
-      final response = await _apiService.stockSell();
-      return true;
+      final response = await _apiService.writeComment();
+      return response;
     } catch (e) {
-      print('주식 판매 오류: $e');
-      return false;
+      print('댓글 작성 오류: $e');
     }
-  }*/
+    return null;
+  }
+
+  Future<Response?> deleteComment(int lectureId) async {
+    try {
+      final response = await _apiService.deleteComment(lectureId);
+      return response;
+    } catch (e) {
+      print('댓글 삭제 오류: $e');
+    }
+    return null;
+  }
+
+  //////////////////////////////////////////////////////////////////////////
   Future<bool> makePortfolio(PortfolioRequest data) async {
     try {
       final response = await _apiService.makePortfolio(data);

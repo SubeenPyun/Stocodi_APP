@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stocodi_app/api/retrofit/predefined_data_dto.dart';
 import 'package:stocodi_app/model/portfolio/request/history/transaction_type.dart';
 import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
 import '../item/done_transaction_item.dart';

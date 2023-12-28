@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stocodi_app/screens/lecture/widget/video_lecture.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
 import '../Item/course_card_item.dart';
-import '../Test/figmatoflutterTest.dart';
+import 'video_detail.dart';
 
 class VideoScreenActivity extends StatefulWidget {
   final CourseCardItem courseCardItem;
@@ -13,7 +13,7 @@ class VideoScreenActivity extends StatefulWidget {
     required this.courseCardItem,
   }) : super(key: key);
 
-    @override
+  @override
   _VideoScreenActivityState createState() => _VideoScreenActivityState();
 }
 
@@ -35,7 +35,7 @@ class _VideoScreenActivityState extends State<VideoScreenActivity> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           VideoLecture(courseCardItem: courseCardItem,),
-          VideoDetails(courseCardItem: courseCardItem,),
+          VideoDetail(courseCardItem: courseCardItem,),
         ],
       ),
     );
