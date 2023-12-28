@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ClassRoomLectureTheme {
+class ClassRoomTopTheme {
   static ThemeData getAppTheme() {
     return ThemeData(
       backgroundColor: Colors.white,

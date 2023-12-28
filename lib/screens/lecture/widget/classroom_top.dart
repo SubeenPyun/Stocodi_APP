@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../theme/class_room_lecture_theme.dart';
+import '../../../theme/classroom_top_theme.dart';
 import '../data/predefined_classroom_data.dart';
 
-final theme = ClassRoomLectureTheme.getAppTheme();
+final theme = ClassRoomTopTheme.getAppTheme();
 final textTheme = theme.textTheme;
 
-class ClassRoomLecture extends StatelessWidget {
-  const ClassRoomLecture({super.key});
+class ClassRoomTop extends StatelessWidget {
+  const ClassRoomTop({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -4,6 +4,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 import 'package:stocodi_app/screens/app.dart';
 import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
+import 'package:stocodi_app/screens/login/login.dart';
 import 'package:stocodi_app/screens/sign_up/signup.dart';
 import 'package:stocodi_app/screens/sign_up/splash_screen.dart';
 import 'API/retrofit/auth_manager.dart';

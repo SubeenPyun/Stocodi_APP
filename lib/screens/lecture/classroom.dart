@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/screens/lecture/widget/classroom_lecture.dart';
-import '../../theme/class_room_lecture_theme.dart';
-import 'Item/couse_list_item.dart';
+import 'package:stocodi_app/screens/lecture/widget/classroom_top.dart';
+import '../../theme/classroom_top_theme.dart';
+import 'Item/classroom_couse_list_item.dart';
 import 'data/predefined_classroom_data.dart';
 
-final theme = ClassRoomLectureTheme.getAppTheme();
+final theme = ClassRoomTopTheme.getAppTheme();
 final textTheme = theme.textTheme;
 class ClassRoom extends StatelessWidget {
   const ClassRoom({Key? key}) : super(key: key);
@@ -31,11 +31,11 @@ class ClassRoom extends StatelessWidget {
             SizedBox(
               height: screenHeight * 0.37,
               width: MediaQuery.of(context).size.width,
-              child: ClassRoomLecture(),
+              child: ClassRoomTop(),
             ),
-            CourseItem(courseTitle: '실시간 인기강의', courseList: courseList),
-            CourseItem(courseTitle: 'Course1', courseList: courseList),
-            CourseItem(courseTitle: 'Course2', courseList: courseList),
+            ClassRoomCourseListItem(courseTitle: '실시간 인기강의', courseList: courseList),
+            ClassRoomCourseListItem(courseTitle: 'Course1', courseList: courseList),
+            ClassRoomCourseListItem(courseTitle: 'Course2', courseList: courseList),
           ],
         ),
       ),

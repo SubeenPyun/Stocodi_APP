@@ -7,6 +7,7 @@ import '../../model/auth/response/login_model.dart';
 import '../../model/lecture/request/comment_model.dart';
 import '../../model/portfolio/request/accounts_model.dart';
 import '../../model/portfolio/response/portfolio_response.dart';
+import '../../model/lecture/response/lecture_response.dart';
 import 'auth_service.dart';
 
 class AuthenticationManager {
@@ -119,6 +120,20 @@ class AuthenticationManager {
       print('댓글 삭제 오류: $e');
     }
     return null;
+  }
+
+  Future<List<LectureResponse>?> getLecture() async {
+    try {
+      final response = await _apiService.getLecture();
+      List<LectureResponse> lectureResponses =
+      (response.data['response'] as List)
+          .map((json) => LectureResponse.fromJson(json))
+          .toList();
+      return lectureResponses;
+    } catch (e) {
+      print('강의 조회 오류: $e');
+      return null;
+    }
   }
 
   //////////////////////////////////////////////////////////////////////////

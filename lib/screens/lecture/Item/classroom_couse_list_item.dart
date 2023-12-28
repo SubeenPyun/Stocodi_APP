@@ -6,11 +6,11 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
 final theme = ClassRoomTheme.getAppTheme();
 final textTheme = theme.textTheme;
 
-class CourseItem extends StatelessWidget {
+class ClassRoomCourseListItem extends StatelessWidget {
   final String courseTitle;
   final List<String> courseList;
 
-  const CourseItem({
+  const ClassRoomCourseListItem({
     Key? key,
     required this.courseTitle,
     required this.courseList,

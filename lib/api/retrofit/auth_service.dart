@@ -159,6 +159,7 @@ class ApiService {
   //강의
   Future<Response> writeComment(CommentRequest comment) async {
     try {
+      //setHeader();
       await setToken('access_token');
       final response = await dio.post('/comments', data: comment.toJson());
       _httpResult.success(response, '댓글 작성');
@@ -180,6 +181,17 @@ class ApiService {
     }
   }
 
+  Future<Response> getLecture() async {
+    try {
+      setHeader();
+      final response = await dio.get('/lectures');
+      _httpResult.success(response.data["response"], '강의 조회');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '강의 조회', getPortfolioStatusCheck);
+      throw Exception('Failed to get lecture: $e');
+    }
+  }
 
   /////////////////////////////////////////////////////////////////////
   Future<Response> makePortfolio(PortfolioRequest data) async {
