@@ -44,9 +44,12 @@ class _LectureCommentState extends State<LectureComment> {
         backgroundColor: Colors.white,
         body: Column(
           children: [
-            const SizedBox(
+            SizedBox(
               height: 65,
-              child: LectureMyComment(imageUrl: 'assets/kakao.jpg'),
+              child: LectureMyComment(
+                imageUrl: 'assets/kakao.jpg',
+                lectureId: widget.lectureId,
+              ),
             ),
             Expanded(
               child: LayoutBuilder(
@@ -79,8 +82,9 @@ class _LectureCommentState extends State<LectureComment> {
 
 class LectureMyComment extends StatefulWidget {
   final String imageUrl;
+  final int lectureId;
 
-  const LectureMyComment({Key? key, required this.imageUrl}) : super(key: key);
+  const LectureMyComment({Key? key, required this.imageUrl, required this.lectureId}) : super(key: key);
 
   @override
   _LectureMyCommentState createState() => _LectureMyCommentState();
@@ -136,7 +140,7 @@ class _LectureMyCommentState extends State<LectureMyComment> {
     if (comment.isNotEmpty) {
       print('댓글: $comment');
       CommentRequest commentRequest = CommentRequest(
-        lecture_id: 1,
+        lecture_id: widget.lectureId,
         content: comment,
       );
       final authenticationManager = AuthenticationManager();
