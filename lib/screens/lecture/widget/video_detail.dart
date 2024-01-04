@@ -49,7 +49,6 @@ class _VideoDetailsState extends State<VideoDetail> {
     // 작성자(author)의 채널 정보 가져오기
     var channel = await ytInstance.channels.getByUsername(author!); // 수정된 부분
     authorProfileImage = channel.logoUrl;
-
     ytInstance.close();
   }
 
@@ -146,6 +145,36 @@ class _VideoDetailsState extends State<VideoDetail> {
               ],
             ),
           ),
+
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  // 좋아요 아이콘을 눌렀을 때의 동작
+                },
+                icon: Icon(Icons.favorite), // 좋아요 아이콘
+              ),
+              IconButton(
+                onPressed: () {
+                  // 스크랩 아이콘을 눌렀을 때의 동작
+                },
+                icon: Icon(Icons.bookmark), // 스크랩 아이콘
+              ),
+              IconButton(
+                onPressed: () {
+                  // 링크 복사 아이콘을 눌렀을 때의 동작
+                },
+                icon: Icon(Icons.content_copy), // 링크 복사 아이콘
+              ),
+              IconButton(
+                onPressed: () {
+                  // ... 아이콘을 눌렀을 때의 동작
+                },
+                icon: Icon(Icons.more_horiz), // ... 아이콘
+              ),
+            ],
+          ),
+
         ],
       ),
     );
