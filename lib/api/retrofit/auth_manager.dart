@@ -6,6 +6,7 @@ import '../../model/auth/request/members_model.dart';
 import '../../model/auth/response/account_model.dart';
 import '../../model/auth/response/login_model.dart';
 import '../../model/lecture/request/comment_model.dart';
+import '../../model/lecture/response/comment_response.dart';
 import '../../model/portfolio/request/accounts_model.dart';
 import '../../model/portfolio/response/portfolio_response.dart';
 import '../../model/lecture/response/lecture_response.dart';
@@ -102,6 +103,20 @@ class AuthenticationManager {
 
   //////////////////////////////////////////////////////////////////////////
   //강의
+
+  Future<List<CommentResponse>?> getComments(int lectureId) async {
+    try {
+      final response = await _apiService.getComments(lectureId);
+      List<CommentResponse> commentResponses =
+      (response.data['response'] as List)
+          .map((json) => CommentResponse.fromJson(json))
+          .toList();
+      return commentResponses;
+    } catch (e) {
+      print('$lectureId 강의 댓글 조회 오류: $e');
+      return null;
+    }
+  }
 
   Future<Response?> writeComment(CommentRequest comment) async {
     try {

@@ -157,6 +157,20 @@ class ApiService {
 
   //////////////////////////////////////////////////////////////////////
   //강의
+
+  Future<Response> getComments(int lectureId) async {
+    try {
+      setHeader();
+      //await setToken('access_token');
+      final response = await dio.get('/comments/lectures/$lectureId');
+      _httpResult.success(response.data["response"], '$lectureId 강의 댓글 조회');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '$lectureId 강의 댓글 조회');
+      throw Exception('Failed to load $lectureId lecture comments: $e');
+    }
+  }
+
   Future<Response> writeComment(CommentRequest comment) async {
     try {
       //setHeader();

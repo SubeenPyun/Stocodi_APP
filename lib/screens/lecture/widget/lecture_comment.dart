@@ -1,14 +1,41 @@
 import 'package:flutter/material.dart';
 import '../../../API/retrofit/auth_manager.dart';
 import '../../../model/lecture/request/comment_model.dart';
+import '../../../model/lecture/response/comment_response.dart';
 import '../Item/comment_item.dart';
 
-void main() {
-  runApp(const LectureComment());
+class LectureComment extends StatefulWidget  {
+  final int lectureId;
+  final Function(int) onCommentCountChanged;
+  const LectureComment(this.lectureId, {required this.onCommentCountChanged, Key? key}) : super(key: key);
+  @override
+  _LectureCommentState createState() => _LectureCommentState();
 }
 
-class LectureComment extends StatelessWidget {
-  const LectureComment({super.key});
+class _LectureCommentState extends State<LectureComment> {
+  late List<CommentResponse> commentList = [];
+
+  get lectureId => null; // Initialize courseList as an empty list
+
+  @override
+  void initState() {
+    super.initState();
+    setCommentList(); // Call setCourseList when the widget is initialized
+  }
+
+  Future<void> setCommentList() async {
+    try {
+      final authenticationManager = AuthenticationManager();
+      final fetchedCourseList = await authenticationManager.getComments(widget.lectureId);
+      setState(() {
+        commentList = fetchedCourseList ?? []; // Use fetchedCourseList or an empty list if null
+        widget.onCommentCountChanged(commentList.length);
+      });
+    } catch (e) {
+      print('Error fetching comment list: $e');
+      // Handle error, show a snackbar, etc.
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,15 +53,17 @@ class LectureComment extends StatelessWidget {
                 builder: (context, constraints) {
                   final isNarrowScreen = constraints.maxWidth < 600; // 예시 너비 (조정 가능)
 
-                  return ListView.builder(
+                  return ListView.builder( //여기에 commentList를 해서 보내고 싶어
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
-                    itemCount: 15,
+                    itemCount: commentList.length,
                     itemBuilder: (context, index) {
+                      CommentResponse comment = commentList[index]; // 각각의 댓글을 가져옴
                       return CommentItem(
-                        name: 'Name $index',
-                        profileImage: 'assets/kakao.jpg',
-                        text: 'Your comment text here',
+                        name: comment.author, // 예시: 댓글 이름
+                        profileImage: 'assets/kakao.jpg', // 예시: 프로필 이미지
+                        text: comment.content,
+                        created: comment.created_at, // 예시: 댓글 텍스트
                       );
                     },
                   );

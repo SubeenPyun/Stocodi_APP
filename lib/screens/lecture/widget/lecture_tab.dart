@@ -18,6 +18,8 @@ class LectureTab extends StatefulWidget {
 class _LectureTabState extends State<LectureTab>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  int commentCount = 999;
+  int? get lectureId => null;
 
   @override
   void initState() {
@@ -49,7 +51,7 @@ class _LectureTabState extends State<LectureTab>
                 Tab(
                   child: TabItem(
                       text: '댓글',
-                      count: '999',
+                      count: '$commentCount',
                       isSelected: _tabController.index == 0),
                 ),
                 Tab(
@@ -68,8 +70,15 @@ class _LectureTabState extends State<LectureTab>
         ),
         body: TabBarView(
           controller: _tabController,
-          children: const [
-            LectureComment(),
+          children: [
+            LectureComment(
+              widget.lectureId,
+              onCommentCountChanged: (count) {
+                setState(() {
+                  commentCount = count;
+                });
+              },
+            ),
             LectureNextVideo(),
           ],
         ),

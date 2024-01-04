@@ -6,11 +6,13 @@ class CommentItem extends StatelessWidget {
     this.name = 'Your Name',
     this.profileImage = 'Y',
     required this.text,
+    required this.created,
   });
 
   final String name;
   final String profileImage;
   final String text;
+  final String created;
 
   @override
   Widget build(BuildContext context) {
