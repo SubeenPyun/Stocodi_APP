@@ -24,7 +24,9 @@ class LectureManager {
   Future<LectureResponse?> oneLecture(String lectureId) async {
     try {
       final response = await _apiService.oneLecture(lectureId);
-      return response;
+      final responseData = response.data['response']; // 데이터 추출
+      LectureResponse lectureResponse = LectureResponse.fromJson(responseData);
+      return lectureResponse;
     } catch (e) {
       print('강의 하나 조회 오류: $e');
     }

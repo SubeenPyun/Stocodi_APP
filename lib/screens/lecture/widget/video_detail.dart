@@ -53,13 +53,12 @@ class _VideoDetailsState extends State<VideoDetail> {
     var ytInstance = yt.YoutubeExplode();
     var video = await ytInstance.videos.get(widget.courseCardItem.videoLink);
 
-    print(widget.courseCardItem.videoLink);
-
     setState(() {
-      Future<LectureResponse?> lecture = lectureManager.oneLecture(widget.courseCardItem.lectureId.toString());
+      // 강의 하나 조회
+      //Future<LectureResponse?> lecture = lectureManager.oneLecture(widget.courseCardItem.lectureId.toString());
       title = video.title;
       date = DateFormat('yyyy-MM-dd HH:mm').format(video.uploadDate!);
-      views = '조회수 ${video.engagement.viewCount}';
+      views = '조회수 ${video.engagement.viewCount}'; // 수정하려고 하는 부분
       author = video.author;
     });
 

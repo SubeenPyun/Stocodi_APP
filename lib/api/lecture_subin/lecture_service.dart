@@ -17,13 +17,11 @@ class LectureService {
   }
 
   // 강의 하나 조회
-  Future<LectureResponse> oneLecture(String lectureId) async {
+  Future<Response> oneLecture(String lectureId) async {
     try {
       final response = await dio.get('/lectures/$lectureId');
-      LectureResponse lectureResponse = (response.data['response'])
-          .map((json) => LectureResponse.fromJson(json));
       _httpResult.success(response, '강의 하나 조회');
-      return lectureResponse;
+      return response;
     } catch (e) {
       _httpResult.fail(e, '강의 하나 조회');
       throw Exception('Failed to load one lecture: $e');
