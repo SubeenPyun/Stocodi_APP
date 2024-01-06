@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-
 part 'comment_response.g.dart';
 
 @JsonSerializable()
