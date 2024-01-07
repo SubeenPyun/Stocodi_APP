@@ -55,21 +55,8 @@ class _ChartDetailState extends State<ChartDetail> {
             }, selectedOption == '년'),
           ],
         ),
-        Chart(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            buysellBtn('매수하기', () {
-              // Action when the "매수하기" button is pressed
-              print('매수');
-            },
-                Color(0xffffedef), Color(0xfff6465d), context),
-            buysellBtn('매도하기', () {
-              // Action when the "매도하기" button is pressed
-              print('매도');
-            },
-                Color(0xffe8f2fe), Color(0xff4496f7), context),
-          ],
+        Expanded(
+            child: Chart()
         ),
       ],
     );
