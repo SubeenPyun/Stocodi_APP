@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stocodi_app/screens/invest/Invest_experiment/search.dart';
 import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
 import 'package:stocodi_app/widgets/custom_appbar.dart';
 import '../../../../theme/app_theme.dart';
@@ -18,6 +19,7 @@ class InvestExperiment extends StatefulWidget {
 
 class _InvestExperimentState extends State<InvestExperiment> {
   late PortfolioData portfolioData;
+  
   @override
   void initState() {
     portfolioData = Provider.of<PortfolioData>(context, listen: false);
@@ -33,11 +35,16 @@ class _InvestExperimentState extends State<InvestExperiment> {
       appBar: CustomAppBar(
         preferredHeight: 64,
         title: "투자실험",
-        onSearchPressed: () {},
+        onSearchPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Search()),
+          );
+        },
         showSearchIcon: true,
       ),
       body: Container(
-        color: theme.colorScheme.background,
+        color: theme.backgroundColor,
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
