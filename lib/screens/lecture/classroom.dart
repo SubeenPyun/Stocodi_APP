@@ -22,14 +22,13 @@ class ClassRoom extends StatelessWidget {
             icon: const Icon(Icons.menu, color: Color(0xff191919)),
             onPressed: () {
               //기능
-              {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => SearchLecture()),
-                );
-              }
-            }
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchLecture(),
+                ),
+              );
+            },
           ),
         ],
       ),
