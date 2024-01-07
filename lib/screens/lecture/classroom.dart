@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/screens/lecture/search_lecture.dart';
 import 'package:stocodi_app/screens/lecture/widget/classroom_lecture.dart';
 import '../../theme/class_room_lecture_theme.dart';
 import 'Item/couse_list_item.dart';
@@ -21,6 +22,12 @@ class ClassRoom extends StatelessWidget {
             icon: const Icon(Icons.menu, color: Color(0xff191919)),
             onPressed: () {
               //기능
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchLecture(),
+                ),
+              );
             },
           ),
         ],

@@ -53,6 +53,10 @@ class _InvestExperimentState extends State<InvestExperiment> {
               investmentItems: investmentItems,
               context: context,
             ),
+            InterestItemsList(
+              investmentItems: investmentItems,
+              context: context,
+            ),
           ],
         ),
       ),
