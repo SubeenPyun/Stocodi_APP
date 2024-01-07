@@ -31,6 +31,10 @@ class InvestExperiment extends StatelessWidget {
               investmentItems: investmentItems,
               context: context,
             ),
+            InterestItemsList(
+              investmentItems: investmentItems,
+              context: context,
+            ),
           ],
         ),
       ),

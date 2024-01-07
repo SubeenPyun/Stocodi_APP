@@ -4,10 +4,12 @@ import '../../../chart/widget/Chart.dart';
 
 class StockTabBar extends StatefulWidget {
   final double currentPrice;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
 
   const StockTabBar({
     Key? key,
     required this.currentPrice,
+    this.scaffoldKey,
   }) : super(key: key);
 
   @override
@@ -62,7 +64,7 @@ class _StockTabBarState extends State<StockTabBar> with SingleTickerProviderStat
             controller: _tabController,
             children: [
               Chart(), // 차트 탭에 해당하는 위젯
-              PriceColumnList(currentPrice: widget.currentPrice), // 호가 탭에 해당하는 위젯
+              PriceColumnList(currentPrice: widget.currentPrice, scaffoldKey: widget.scaffoldKey,), // 호가 탭에 해당하는 위젯
             ],
           ),
         ),
