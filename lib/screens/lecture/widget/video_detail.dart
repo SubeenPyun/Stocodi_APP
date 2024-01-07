@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:stocodi_app/api/lecture_subin/lecture_manager.dart';
-import 'package:stocodi_app/model/lecture/response/lecture_response.dart';
+import '../../../api/lecture_subin/lecture_manager.dart';
+import '../../../model/lecture/response/lecture_response.dart';
 import '../../../theme/lecture_video_theme.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
 
@@ -24,12 +24,12 @@ class VideoDetail extends StatefulWidget {
 }
 
 class _VideoDetailsState extends State<VideoDetail> {
-  late String? title;
-  late String? date;
-  late String? views;
-  late String? author;
-  late String? description; // 비디오 설명을 저장할 변수
-  late String? authorProfileImage; // 프로필 이미지 주소를 저장할 변수
+  late String? title = null;
+  late String? date = null;
+  late String? views = null;
+  late String? author = null;
+  late String? description = null; // 비디오 설명을 저장할 변수
+  late String? authorProfileImage = null; // 프로필 이미지 주소를 저장할 변수
   bool showDetails = false;
   int likes = 60; // 가정한 '좋아요' 수
 
@@ -41,24 +41,24 @@ class _VideoDetailsState extends State<VideoDetail> {
   @override
   void initState() {
     super.initState();
+    increaseViews();
     getVideoDetails();
-    //increaseViews();
   }
 
   void increaseViews(){
-    lectureManager.lectreViews(widget.courseCardItem.lectureId.toString());
+    lectureManager.lectureViews(widget.courseCardItem.lectureId.toString());
   }
 
   Future<void> getVideoDetails() async {
     var ytInstance = yt.YoutubeExplode();
     var video = await ytInstance.videos.get(widget.courseCardItem.videoLink);
 
+    LectureResponse? lecture = await lectureManager.oneLecture(widget.courseCardItem.lectureId.toString());
+
     setState(() {
-      // 강의 하나 조회
-      //Future<LectureResponse?> lecture = lectureManager.oneLecture(widget.courseCardItem.lectureId.toString());
-      title = video.title;
+      title = lecture?.title;
       date = DateFormat('yyyy-MM-dd HH:mm').format(video.uploadDate!);
-      views = '조회수 ${video.engagement.viewCount}'; // 수정하려고 하는 부분
+      views = '조회수 ${lecture?.views ?? 0}'; // 예시로 views를 가져오는 부분
       author = video.author;
     });
 
@@ -92,11 +92,11 @@ class _VideoDetailsState extends State<VideoDetail> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
-      padding: const EdgeInsets.fromLTRB(12, 0, 14, 10),
+      margin: const EdgeInsets.fromLTRB(12, 0, 14, 10),
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -189,89 +189,89 @@ class _VideoDetailsState extends State<VideoDetail> {
           SizedBox(height: 20,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                SizedBox( // 좋아요 버튼
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: _incrementLikes, // 버튼이 눌렸을 때 실행할 함수
-                    style: ElevatedButton.styleFrom(
-                      primary: isLikeButtonPressed ? Colors.green : Color(0xffF5F7F9), // 버튼의 배경 색상
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100), // 둥근 모서리
-                      ),
-                      elevation: 1, // 버튼의 그림자 깊이
+            children: <Widget>[
+              SizedBox( // 좋아요 버튼
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: _incrementLikes, // 버튼이 눌렸을 때 실행할 함수
+                  style: ElevatedButton.styleFrom(
+                    primary: isLikeButtonPressed ? Colors.green : Color(0xffF5F7F9), // 버튼의 배경 색상
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100), // 둥근 모서리
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min, // 컨텐츠 크기에 맞게 조절
-                      children: <Widget>[
-                        Icon(Icons.favorite_border, size: 24, color: isLikeButtonPressed ? Colors.white : Color(0xff9BA6AF)), // 아이콘
-                        SizedBox(width: 6), // 아이콘과 텍스트 사이의 간격
-                        Text(
-                            '${likes}K',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: isLikeButtonPressed ? Colors.white : Color(0xff9BA6AF),
-                          ),
-                        ), // 텍스트
-                      ],
-                    ),
+                    elevation: 1, // 버튼의 그림자 깊이
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min, // 컨텐츠 크기에 맞게 조절
+                    children: <Widget>[
+                      Icon(Icons.favorite_border, size: 24, color: isLikeButtonPressed ? Colors.white : Color(0xff9BA6AF)), // 아이콘
+                      SizedBox(width: 6), // 아이콘과 텍스트 사이의 간격
+                      Text(
+                        '${likes}K',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: isLikeButtonPressed ? Colors.white : Color(0xff9BA6AF),
+                        ),
+                      ), // 텍스트
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: _scrapLecture, // 버튼이 눌렸을 때 실행할 함수
-                    style: ElevatedButton.styleFrom(
-                      primary: isScrapButtonPressed ? Colors.green : Color(0xffF5F7F9), // 버튼의 배경 색상
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100), // 둥근 모서리
-                      ),
-                      elevation: 1, // 버튼의 그림자 깊이
+              ),
+              SizedBox(
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: _scrapLecture, // 버튼이 눌렸을 때 실행할 함수
+                  style: ElevatedButton.styleFrom(
+                    primary: isScrapButtonPressed ? Colors.green : Color(0xffF5F7F9), // 버튼의 배경 색상
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100), // 둥근 모서리
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min, // 컨텐츠 크기에 맞게 조절
-                      children: <Widget>[
-                        Icon(Icons.bookmark_border, size: 24, color: isScrapButtonPressed ? Colors.white : Color(0xff9BA6AF)), // 아이콘
-                        SizedBox(width: 6), // 아이콘과 텍스트 사이의 간격
-                        Text(
-                            '스크랩',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: isScrapButtonPressed ? Colors.white : Color(0xff9BA6AF),
-                          ),
-                        ), // 텍스트
-                      ],
-                    ),
+                    elevation: 1, // 버튼의 그림자 깊이
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min, // 컨텐츠 크기에 맞게 조절
+                    children: <Widget>[
+                      Icon(Icons.bookmark_border, size: 24, color: isScrapButtonPressed ? Colors.white : Color(0xff9BA6AF)), // 아이콘
+                      SizedBox(width: 6), // 아이콘과 텍스트 사이의 간격
+                      Text(
+                        '스크랩',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: isScrapButtonPressed ? Colors.white : Color(0xff9BA6AF),
+                        ),
+                      ), // 텍스트
+                    ],
                   ),
                 ),
-                SizedBox(
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: (){}, // 버튼이 눌렸을 때 실행할 함수
-                    style: ElevatedButton.styleFrom(
-                      primary: Color(0xffF5F7F9), // 버튼의 배경 색상
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(100), // 둥근 모서리
-                      ),
-                      elevation: 1, // 버튼의 그림자 깊이
+              ),
+              SizedBox(
+                height: 40,
+                child: ElevatedButton(
+                  onPressed: (){}, // 버튼이 눌렸을 때 실행할 함수
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xffF5F7F9), // 버튼의 배경 색상
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100), // 둥근 모서리
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min, // 컨텐츠 크기에 맞게 조절
-                      children: <Widget>[
-                        Icon(Icons.content_copy_outlined, size: 24, color: Color(0xff9BA6AF)), // 아이콘
-                        SizedBox(width: 6), // 아이콘과 텍스트 사이의 간격
-                        Text(
-                            '링크 복사',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: Color(0xff9BA6AF),
-                          ),
-                        ), // 텍스트
-                      ],
-                    ),
+                    elevation: 1, // 버튼의 그림자 깊이
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min, // 컨텐츠 크기에 맞게 조절
+                    children: <Widget>[
+                      Icon(Icons.content_copy_outlined, size: 24, color: Color(0xff9BA6AF)), // 아이콘
+                      SizedBox(width: 6), // 아이콘과 텍스트 사이의 간격
+                      Text(
+                        '링크 복사',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Color(0xff9BA6AF),
+                        ),
+                      ), // 텍스트
+                    ],
                   ),
                 ),
-              ],
+              ),
+            ],
           ),
           SizedBox(height: 12,)
         ],

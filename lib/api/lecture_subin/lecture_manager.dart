@@ -45,7 +45,7 @@ class LectureManager {
   }
 
   // 조회수 올리기
-  Future<Response?> lectreViews(String lectureId) async {
+  Future<Response?> lectureViews(String lectureId) async {
     try {
       final response = await _apiService.lectureViews(lectureId);
       return response;

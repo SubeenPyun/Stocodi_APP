@@ -43,12 +43,12 @@ class LectureService {
   // 조회수 올리기
   Future<Response> lectureViews(String lectureId) async {
     try {
-      final response = await dio.post('/lectures/views/$lectureId');
+      final response = await dio.put('/lectures/views/$lectureId');
       _httpResult.success(response, '조회수 올리기');
       return response;
-    } catch (e) {
-      _httpResult.fail(e, '조회수 올리기');
-      throw Exception('Failed to increase lecture view: $e');
+      } catch (e) {
+        _httpResult.fail(e, '조회수 올리기');
+        throw Exception('Failed to increase lecture view: $e');
     }
   }
 
