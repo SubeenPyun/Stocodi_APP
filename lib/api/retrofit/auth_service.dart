@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../model/auth/request/login_model.dart';
 import '../../model/auth/request/members_model.dart';
+import '../../model/lecture/request/comment_model.dart';
 import '../../model/portfolio/request/accounts_model.dart';
 import 'http_result.dart';
 
@@ -154,19 +155,59 @@ class ApiService {
     await storage.write(key: 'refresh_token', value: refreshToken);
   }
 
-  //주식 구매 판매
-  /*Future<Response> stockSell() async {
+  //////////////////////////////////////////////////////////////////////
+  //강의
+
+  Future<Response> getComments(int lectureId) async {
     try {
       setHeader();
-      await setCookie();
-      final response = await dio.post('/transactions/sells');
-      _httpResult.success(response.data["response"], '주식 판매');
+      //await setToken('access_token');
+      final response = await dio.get('/comments/lectures/$lectureId');
+      _httpResult.success(response.data["response"], '$lectureId 강의 댓글 조회');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '주식 판매',stockSellStatusCheck);
-      throw Exception('Failed to stock sell: $e');
+      _httpResult.fail(e, '$lectureId 강의 댓글 조회');
+      throw Exception('Failed to load $lectureId lecture comments: $e');
     }
-  }*/
+  }
+
+  Future<Response> writeComment(CommentRequest comment) async {
+    try {
+      //setHeader();
+      await setToken('access_token');
+      final response = await dio.post('/comments', data: comment.toJson());
+      _httpResult.success(response, '댓글 작성');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '댓글 작성');
+      throw Exception('Failed to write comment: $e');
+    }
+  }
+
+  Future<Response> deleteComment(int lectureId) async {
+    try {
+      final response = await dio.delete('/lectures/$lectureId');
+      _httpResult.success(response, '댓글 삭제');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '댓글 삭제');
+      throw Exception('Failed to delete comment: $e');
+    }
+  }
+
+  Future<Response> getLecture() async {
+    try {
+      setHeader();
+      final response = await dio.get('/lectures');
+      _httpResult.success(response.data["response"], '강의 조회');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '강의 조회', getLectureStatusCheck);
+      throw Exception('Failed to get lecture: $e');
+    }
+  }
+
+  /////////////////////////////////////////////////////////////////////
   Future<Response> makePortfolio(PortfolioRequest data) async {
     try {
       await setToken('access_token');

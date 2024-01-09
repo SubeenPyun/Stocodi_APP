@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import '../../../model/lecture/response/lecture_response.dart';
 import '../../../theme/class_room_theme.dart';
-import 'course_card_item.dart';
+import 'classroom_course_item.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
 
 final theme = ClassRoomTheme.getAppTheme();
 final textTheme = theme.textTheme;
 
-class CourseItem extends StatelessWidget {
+class ClassRoomCourseListItem extends StatelessWidget {
   final String courseTitle;
-  final List<String> courseList;
+  final List<LectureResponse> courseList;
 
-  const CourseItem({
+  const ClassRoomCourseListItem({
     Key? key,
     required this.courseTitle,
     required this.courseList,
@@ -65,21 +66,20 @@ class CourseItem extends StatelessWidget {
     );
   }
 
-  Future<List<Widget>> buildCourseCards(List<String> courseList) async {
+  Future<List<Widget>> buildCourseCards(List<LectureResponse> courseList) async {
     var ytInstance = yt.YoutubeExplode(); // YouTube 인스턴스 생성
     List<Widget> courseCards = [];
 
     for (var courseData in courseList) {
-      var video = await ytInstance.videos.get(courseData);
-      var videoTitle = video.title;
-      var courseDescription = video.description;
+      var video = await ytInstance.videos.get(courseData.video_link);
       var courseImage = video.thumbnails.highResUrl;
 
-      var courseCard = CourseCardItem(
-        courseTitle: videoTitle,
-        courseDescription: courseDescription,
+      var courseCard = ClassRoomCourseItem(
+        courseTitle: courseData.title,
+        courseDescription: courseData.description,
         courseImage: courseImage,
-        videoId: courseData,
+        videoLink: courseData.video_link,
+        lectureId: courseData.id,
       );
       courseCards.add(courseCard);
     }

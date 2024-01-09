@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import '../../../theme/AppTheme.dart';
-import 'comment.dart';
-import 'next_video.dart';
-
-void main() {
-  runApp(const LectureTab());
-}
+import 'lecture_comment.dart';
+import 'lecture_next_video.dart';
 
 final theme = AppTheme.getAppTheme();
 final textTheme = AppTheme.getAppTheme().textTheme;
 
 class LectureTab extends StatefulWidget {
-  const LectureTab({Key? key}) : super(key: key);
+  final int lectureId;
+  const LectureTab({
+    Key? key, required this.lectureId}) : super(key: key);
 
   @override
   _LectureTabState createState() => _LectureTabState();
@@ -20,6 +18,8 @@ class LectureTab extends StatefulWidget {
 class _LectureTabState extends State<LectureTab>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  int commentCount = 999;
+  int? get lectureId => null;
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class _LectureTabState extends State<LectureTab>
                 Tab(
                   child: TabItem(
                       text: '댓글',
-                      count: '999',
+                      count: '$commentCount',
                       isSelected: _tabController.index == 0),
                 ),
                 Tab(
@@ -70,9 +70,16 @@ class _LectureTabState extends State<LectureTab>
         ),
         body: TabBarView(
           controller: _tabController,
-          children: const [
-            Comment(),
-            NextVideo(),
+          children: [
+            LectureComment(
+              widget.lectureId,
+              onCommentCountChanged: (count) {
+                setState(() {
+                  commentCount = count;
+                });
+              },
+            ),
+            LectureNextVideo(),
           ],
         ),
       ),
@@ -125,3 +132,4 @@ class TabItem extends StatelessWidget {
     );
   }
 }
+

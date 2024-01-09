@@ -5,18 +5,20 @@ import '../lecture.dart';
 final theme = ClassRoomTheme.getAppTheme();
 final textTheme = theme.textTheme;
 
-class CourseCardItem extends StatelessWidget {
+class ClassRoomCourseItem extends StatelessWidget {
   final String courseTitle;
   final String courseDescription;
   final String courseImage;
-  final String videoId;
+  final String videoLink;
+  final int lectureId;
 
-  const CourseCardItem({
+  const ClassRoomCourseItem({
     Key? key,
     required this.courseTitle,
     required this.courseDescription,
     required this.courseImage,
-    required this.videoId
+    required this.videoLink,
+    required this.lectureId
   }) : super(key: key);
 
   @override

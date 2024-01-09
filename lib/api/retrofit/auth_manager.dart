@@ -1,9 +1,15 @@
+import 'package:dio/dio.dart';
+import 'package:stocodi_app/screens/lecture/lecture.dart';
+
 import '../../model/auth/request/login_model.dart';
 import '../../model/auth/request/members_model.dart';
 import '../../model/auth/response/account_model.dart';
 import '../../model/auth/response/login_model.dart';
+import '../../model/lecture/request/comment_model.dart';
+import '../../model/lecture/response/comment_response.dart';
 import '../../model/portfolio/request/accounts_model.dart';
 import '../../model/portfolio/response/portfolio_response.dart';
+import '../../model/lecture/response/lecture_response.dart';
 import 'auth_service.dart';
 
 class AuthenticationManager {
@@ -95,16 +101,58 @@ class AuthenticationManager {
     }
   }
 
-  //주식 구매 판매
-  /*Future<bool> stockSell() async{
+  //////////////////////////////////////////////////////////////////////////
+  //강의
+
+  Future<List<CommentResponse>?> getComments(int lectureId) async {
     try {
-      final response = await _apiService.stockSell();
-      return true;
+      final response = await _apiService.getComments(lectureId);
+      List<CommentResponse> commentResponses =
+      (response.data['response'] as List)
+          .map((json) => CommentResponse.fromJson(json))
+          .toList();
+      return commentResponses;
     } catch (e) {
-      print('주식 판매 오류: $e');
-      return false;
+      print('$lectureId 강의 댓글 조회 오류: $e');
+      return null;
     }
-  }*/
+  }
+
+  Future<Response?> writeComment(CommentRequest comment) async {
+    try {
+      final response = await _apiService.writeComment(comment);
+      return response;
+    } catch (e) {
+      print('댓글 작성 오류: $e');
+      return null;
+    }
+  }
+
+  Future<Response?> deleteComment(int lectureId) async {
+    try {
+      final response = await _apiService.deleteComment(lectureId);
+      return response;
+    } catch (e) {
+      print('댓글 삭제 오류: $e');
+    }
+    return null;
+  }
+
+  Future<List<LectureResponse>?> getLecture() async {
+    try {
+      final response = await _apiService.getLecture();
+      List<LectureResponse> lectureResponses =
+      (response.data['response'] as List)
+          .map((json) => LectureResponse.fromJson(json))
+          .toList();
+      return lectureResponses;
+    } catch (e) {
+      print('강의 조회 오류: $e');
+      return null;
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////
   Future<bool> makePortfolio(PortfolioRequest data) async {
     try {
       final response = await _apiService.makePortfolio(data);
@@ -114,6 +162,7 @@ class AuthenticationManager {
       return false;
     }
   }
+
 
   Future<List<PortfoiloResponse>?> getPortfolio() async {
     try {
