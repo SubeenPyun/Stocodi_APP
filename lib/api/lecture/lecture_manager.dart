@@ -49,6 +49,17 @@ class LectureManager {
     return null;
   }
 
+  Future<Response?> addWatchingLectureList(int lectureId) async {
+    try {
+      final response = await _apiService.addWatchingLectureList(lectureId);
+      return response;
+    } catch (e) {
+      print('시청 중 강의 추가 오류: $e');
+      return null;
+    }
+  }
+
+
   Future<List<LectureResponse>?> getLectureList() async {
     try {
       final response = await _apiService.getLectureList();

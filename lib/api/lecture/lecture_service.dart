@@ -54,6 +54,19 @@ class LectureService {
     }
   }
 
+  Future<Response> addWatchingLectureList(int lectureId) async {
+    try {
+      await setToken('access_token');
+      final response = await dio.post('/watchings/$lectureId');
+      _httpResult.success(response, '시청 중 강의 추가');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '시청 중 강의 추가',addWatchingListStatusCheck);
+      throw Exception('Failed to add watching lecture list: $e');
+    }
+  }
+
+
   Future<Response> getLectureList() async {
     try {
       setHeader();
