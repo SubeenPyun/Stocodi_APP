@@ -8,7 +8,6 @@ import 'package:stocodi_app/model/auth/request/kakao_members_model.dart';
 
 import '../../model/auth/request/login_model.dart';
 import '../../model/auth/request/members_model.dart';
-import '../../model/lecture/request/comment_model.dart';
 import '../../model/portfolio/request/accounts_model.dart';
 import 'http_result.dart';
 
@@ -210,54 +209,6 @@ class ApiService {
   //////////////////////////////////////////////////////////////////////
   //강의
 
-  Future<Response> getComments(int lectureId) async {
-    try {
-      setHeader();
-      //await setToken('access_token');
-      final response = await dio.get('/comments/lectures/$lectureId');
-      _httpResult.success(response.data["response"], '$lectureId 강의 댓글 조회');
-      return response;
-    } catch (e) {
-      _httpResult.fail(e, '$lectureId 강의 댓글 조회');
-      throw Exception('Failed to load $lectureId lecture comments: $e');
-    }
-  }
-
-  Future<Response> writeComment(CommentRequest comment) async {
-    try {
-      //setHeader();
-      await setToken('access_token');
-      final response = await dio.post('/comments', data: comment.toJson());
-      _httpResult.success(response, '댓글 작성');
-      return response;
-    } catch (e) {
-      _httpResult.fail(e, '댓글 작성');
-      throw Exception('Failed to write comment: $e');
-    }
-  }
-
-  Future<Response> deleteComment(int lectureId) async {
-    try {
-      final response = await dio.delete('/lectures/$lectureId');
-      _httpResult.success(response, '댓글 삭제');
-      return response;
-    } catch (e) {
-      _httpResult.fail(e, '댓글 삭제');
-      throw Exception('Failed to delete comment: $e');
-    }
-  }
-
-  Future<Response> getLecture() async {
-    try {
-      setHeader();
-      final response = await dio.get('/lectures');
-      _httpResult.success(response.data["response"], '강의 조회');
-      return response;
-    } catch (e) {
-      _httpResult.fail(e, '강의 조회', getLectureStatusCheck);
-      throw Exception('Failed to get lecture: $e');
-    }
-  }
 
   /////////////////////////////////////////////////////////////////////
   Future<Response> makePortfolio(PortfolioRequest data) async {

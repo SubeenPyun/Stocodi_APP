@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import '../../../api/lecture_subin/lecture_manager.dart';
+import '../../../api/lecture/lecture_manager.dart';
 import '../../../model/lecture/response/lecture_response.dart';
 import '../../../theme/lecture_video_theme.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;

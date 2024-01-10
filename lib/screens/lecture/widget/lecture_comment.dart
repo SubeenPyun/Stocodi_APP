@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../API/retrofit/auth_manager.dart';
+import '../../../api/lecture/lecture_manager.dart';
 import '../../../model/lecture/request/comment_model.dart';
 import '../../../model/lecture/response/comment_response.dart';
 import '../Item/comment_item.dart';
@@ -25,8 +25,8 @@ class _LectureCommentState extends State<LectureComment> {
 
   Future<void> setCommentList() async {
     try {
-      final authenticationManager = AuthenticationManager();
-      final fetchedCourseList = await authenticationManager.getComments(widget.lectureId);
+      final lectureManager = LectureManager();
+      final fetchedCourseList = await lectureManager.getComments(widget.lectureId);
       setState(() {
         commentList = fetchedCourseList ?? []; // Use fetchedCourseList or an empty list if null
         widget.onCommentCountChanged(commentList.length);
@@ -143,8 +143,8 @@ class _LectureMyCommentState extends State<LectureMyComment> {
         lecture_id: widget.lectureId,
         content: comment,
       );
-      final authenticationManager = AuthenticationManager();
-      var commentResponse = await authenticationManager.writeComment(commentRequest);
+      final lectureManager = LectureManager();
+      var commentResponse = await lectureManager.writeComment(commentRequest);
 
       if (commentResponse == null) {
         _showErrorDialog(context, '댓글 작성에 실패했어요..');
