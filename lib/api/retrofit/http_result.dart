@@ -91,6 +91,12 @@ void makePortfolioStatusCheck(int statusCode) {
   }
 }
 
+void getLectureStatusCheck(int statusCode) {
+  if(statusCode == 404){
+    showToast('get lecture 정보 불일치');
+  }
+}
+
 void getPortfolioStatusCheck(int statusCode) {
   if (statusCode == 404) {
     showToast('get portfolio 정보 불일치');

@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/theme/app_theme.dart';
@@ -5,10 +6,12 @@ import '../item/price_column_item.dart';
 
 class PriceColumnList extends StatefulWidget {
   final double currentPrice;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
 
   const PriceColumnList({
     super.key,
     required this.currentPrice,
+    this.scaffoldKey,
   });
 
   @override
@@ -47,6 +50,7 @@ class _PriceColumnListState extends State<PriceColumnList> {
               selectedPriceIndex = isSelected ? index : -1;
             });
           },
+          scaffoldKey: widget.scaffoldKey,
         );
       },
     );

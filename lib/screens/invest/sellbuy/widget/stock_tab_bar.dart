@@ -5,10 +5,12 @@ import '../../../chart/widget/Chart.dart';
 
 class StockTabBar extends StatefulWidget {
   final double currentPrice;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
 
   const StockTabBar({
     Key? key,
     required this.currentPrice,
+    this.scaffoldKey,
   }) : super(key: key);
 
   @override

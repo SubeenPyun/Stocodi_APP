@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../theme/app_theme.dart';
-import '../Item/course_card_item.dart';
+import '../Item/classroom_course_item.dart';
 
 final ThemeData theme = AppTheme.appTheme;
 
 class VideoLecture extends StatefulWidget {
-  final CourseCardItem courseCardItem;
+  final ClassRoomCourseItem courseCardItem;
 
   const VideoLecture({
     Key? key,
@@ -18,7 +18,7 @@ class VideoLecture extends StatefulWidget {
 }
 
 class _VideoLectureState extends State<VideoLecture> {
-  late CourseCardItem courseCardItem;
+  late ClassRoomCourseItem courseCardItem;
   late YoutubePlayerController _controller;
 
   @override
@@ -26,7 +26,7 @@ class _VideoLectureState extends State<VideoLecture> {
     super.initState();
     courseCardItem = widget.courseCardItem;
     _controller = YoutubePlayerController(
-      initialVideoId: courseCardItem.videoId,
+      initialVideoId: courseCardItem.videoLink,
       flags: const YoutubePlayerFlags(
         mute: false,
         autoPlay: true,
