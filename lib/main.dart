@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 import 'package:stocodi_app/screens/app.dart';
 import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
@@ -9,6 +10,7 @@ import 'package:stocodi_app/screens/sign_up/splash_screen.dart';
 import 'API/retrofit/auth_manager.dart';
 
 void main() {
+  KakaoSdk.init(nativeAppKey: '2b8c8978e959e4c010dec60a9a4594fb');
   initializeDateFormatting().then((_) => runApp(MyApp()));
 }
 

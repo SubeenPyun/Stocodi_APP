@@ -28,7 +28,7 @@ class NetworkService {
     }
 
     headers['cookie'] = _generateCookieHeader();
-    }
+  }
 
   void _setCookie(String rawCookie) {
     if (rawCookie.isNotEmpty) {
@@ -100,5 +100,21 @@ class NetworkService {
     } catch (error) {
       throw Exception("Error while fetching data: $error");
     }
+  }
+}
+
+class ErrorInterceptor extends Interceptor {
+  @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    final status = response.statusCode;
+    final isValid = status != null && status >= 200 && status < 400;
+    if (!isValid) {
+      throw DioException.badResponse(
+        statusCode: status!,
+        requestOptions: response.requestOptions,
+        response: response,
+      );
+    }
+    super.onResponse(response, handler);
   }
 }

@@ -9,6 +9,7 @@ class NewInputField extends StatefulWidget {
   final TextInputType inputtype;
   final Function(String) onTextChanged; // 입력된 텍스트를 알리는 콜백
   final Function(_NewInputFieldState)? onStateSet; // 상태를 저장하는 콜백
+  final String initialText;
 
   const NewInputField({
     Key? key,
@@ -18,6 +19,7 @@ class NewInputField extends StatefulWidget {
     required this.obscure,
     required this.inputtype,
     required this.onTextChanged,
+    required this.initialText, // 생성자에 initialText 매개변수 추가
     this.onStateSet,
   }) : super(key: key);
 
@@ -26,7 +28,28 @@ class NewInputField extends StatefulWidget {
 }
 
 class _NewInputFieldState extends State<NewInputField> {
-  final TextEditingController _controller = TextEditingController();
+  late TextEditingController _controller;
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialText); // 초기값 설정
+    // 나머지 initState 코드...
+
+    _controller.addListener(() {
+      // 컨트롤러 값이 변경될 때마다 입력된 텍스트를 알리는 콜백 호출
+      widget.onTextChanged(_controller.text);
+    });
+    widget.onStateSet?.call(this);
+  }
+
+  @override
+  void didUpdateWidget(covariant NewInputField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initialText != widget.initialText) {
+      // initialText 값이 변경될 때 컨트롤러의 텍스트를 업데이트
+      _controller.text = widget.initialText;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +89,5 @@ class _NewInputFieldState extends State<NewInputField> {
 
   String getEnteredText() {
     return _controller.text;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // 상태를 저장하는 콜백이 있을 경우 호출
-    widget.onStateSet?.call(this);
   }
 }

@@ -65,6 +65,8 @@ class _SignEmailState extends State<SignEmail> {
               text: "이메일 주소를 입력해주세요",
               obscure: false,
               inputtype: TextInputType.emailAddress,
+
+              initialText: enteredTxt,
               // onTextChanged 콜백을 통해 입력된 텍스트 업데이트
               onTextChanged: (text) {
                 setState(() {
@@ -85,7 +87,7 @@ class _SignEmailState extends State<SignEmail> {
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.BOTTOM,
                     timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.red,
+                    backgroundColor: Color(0xff0ECB81),
                     textColor: Colors.white,
                     fontSize: 16.0,
                   );
@@ -100,7 +102,7 @@ class _SignEmailState extends State<SignEmail> {
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.BOTTOM,
                       timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red,
+                      backgroundColor: Color(0xff0ECB81),
                       textColor: Colors.white,
                       fontSize: 16.0,
                     );
