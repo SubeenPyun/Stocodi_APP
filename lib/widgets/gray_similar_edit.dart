@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 
 class GraySimilarEdit extends StatelessWidget {
   final double frontboxsize;
-  final String imgName;
+  final Icon imgName;
   final String text;
-  final double betweenboxsize;
-  final String imgColor;
   final Color boxColor;
   final Color textColor;
 
@@ -14,8 +12,6 @@ class GraySimilarEdit extends StatelessWidget {
     required this.frontboxsize,
     required this.imgName,
     required this.text,
-    required this.betweenboxsize,
-    required this.imgColor,
     required this.boxColor,
     required this.textColor,
   });
@@ -37,14 +33,15 @@ class GraySimilarEdit extends StatelessWidget {
           SizedBox(
             width: frontboxsize,
           ),
-          Image.asset(
+          imgName,
+          /*Image.asset(
             'assets/images/${imgColor}_$imgName.png',
             width: 24,
             height: 24,
             fit: BoxFit.fill,
-          ),
+          ),*/
           SizedBox(
-            width: betweenboxsize,
+            width: 12,
           ),
           Expanded(
             child: Text(

@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:stocodi_app/screens/sign_up/signup_deatil.dart';
+import 'package:stocodi_app/screens/sign_up/tmp_signup_detail.dart';
 import '../../widgets/gray_similar_edit.dart';
 import '../../widgets/green_long_btn.dart';
 import '../../widgets/new_input_field.dart';
 
-class SignupPwd extends StatefulWidget {
-  final String enteredTxt;
-  const SignupPwd({
+class TmpSignupPwd extends StatefulWidget {
+  final String enteredEmail;
+  final String enteredNickName;
+  final String enteredGender;
+
+  const TmpSignupPwd({
     super.key,
-    required this.enteredTxt,
+    required this.enteredEmail,
+    required this.enteredNickName,
+    required this.enteredGender,
   });
 
   @override
-  State<SignupPwd> createState() => _SignupPwdState();
+  State<TmpSignupPwd> createState() => _TmpSignupPwdState();
 }
 
-class _SignupPwdState extends State<SignupPwd> {
+class _TmpSignupPwdState extends State<TmpSignupPwd> {
   bool isTyping = false;
   String enteredPassword = ''; // 비밀번호 저장할 변수
   bool isPasswordValid(String password) {
@@ -30,7 +36,9 @@ class _SignupPwdState extends State<SignupPwd> {
 
   @override
   Widget build(BuildContext context) {
-    String email = widget.enteredTxt;
+    String email = widget.enteredEmail;
+    String tmpGender = widget.enteredGender;
+    String tmpNickname = widget.enteredNickName;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -109,7 +117,7 @@ class _SignupPwdState extends State<SignupPwd> {
                 // 비밀번호 유효성 검사
                 if (!isPasswordValid(enteredPassword)) {
                   Fluttertoast.showToast(
-                    msg: "비밀번호는 영문, 숫자, 특수문자를 포함한 8~25자리여야 합니다.",
+                    msg: "비밀번호는 영문, 숫자, 특수문자를\n포함한 8~25자리여야 합니다.",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.BOTTOM,
                     timeInSecForIosWeb: 1,
@@ -122,9 +130,11 @@ class _SignupPwdState extends State<SignupPwd> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SignDetail(
+                      builder: (context) => TmpSignDetail(
                         enteredEmail: email,
                         enteredPwd: enteredPassword,
+                        enteredGender: tmpGender,
+                        enteredNickName: tmpNickname,
                       ),
                     ),
                   );

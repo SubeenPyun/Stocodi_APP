@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:kakao_flutter_sdk_auth/kakao_flutter_sdk_auth.dart';
+import 'package:stocodi_app/model/auth/request/kakao_auth_model.dart';
+import 'package:stocodi_app/model/auth/request/kakao_members_model.dart';
 
 import '../../model/auth/request/login_model.dart';
 import '../../model/auth/request/members_model.dart';
@@ -30,8 +33,21 @@ class ApiService {
       _httpResult.success(response, '회원 가입');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '회원가입');
+      //_httpResult.fail(e, '회원가입');
       throw Exception('Failed to signup: $e');
+    }
+  }
+
+  //회원 정보 관련
+  Future<Response> kakaoSignUp(KakaoMembersRequest data) async {
+    try {
+      setHeader();
+      final response = await dio.post('/oauth/members', data: data.toJson());
+      //_httpResult.success(response, '회원 가입');
+      return response;
+    } catch (e) {
+      //_httpResult.fail(e, '회원가입');
+      throw Exception('카카오 회원가입 실패 >> Failed to signup: $e');
     }
   }
 
@@ -42,7 +58,7 @@ class ApiService {
       _httpResult.success(response, '닉네임 중복 체크');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '닉네임 중복 체크', nickNameStatusCheck);
+      //_httpResult.fail(e, '닉네임 중복 체크', nickNameStatusCheck);
       throw Exception('Failed to check ninickname exists: $e');
     }
   }
@@ -54,7 +70,7 @@ class ApiService {
       _httpResult.success(response, '이메일 중복 체크');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '이메일 중복 체크', emailStatusCheck);
+      //_httpResult.fail(e, '이메일 중복 체크', emailStatusCheck);
       throw Exception('Failed to check email exists: $e');
     }
   }
@@ -68,8 +84,38 @@ class ApiService {
       _httpResult.success(response.data["response"], '로그인');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '로그인', loginStatusCheck);
+      //_httpResult.fail(e, '로그인', loginStatusCheck);
       throw Exception('Failed to login: $e');
+    }
+  }
+
+  Future<Response> kakaoLogin(KakaoAuthRequest authCode) async {
+    try {
+      setHeader();
+      final response =
+          await dio.get('/oauth/kakao?authCode', data: authCode.toJson());
+      //final response = await dio
+      //    .get('/oauth/kakao', queryParameters: {'authCode': authCode});
+      writeToken(response);
+      await setCookie();
+      _httpResult.success(response, '카카오 로그인');
+      return response;
+    } on DioError catch (e) {
+      //print("여기서 이상하네요?");
+      //_httpResult.fail(e, '카카오로그인', kakaoLoginStatusCheck);
+      //throw Exception('Failed to login: $e');
+
+      if (e.response!.statusCode == 400) {
+        // 비밀번호가 틀렸을 때의 처리
+        // 사용자에게 알림을 주거나 다른 처리를 수행할 수 있습니다.
+
+        throw Exception('첫번째 Failed to login: $e');
+      } else {
+        // 요청 자체가 실패한 경우에 대한 처리
+        //print(e.response!.statusCode);
+        throw Exception('두번째 Failed to login: $e');
+      }
+      // 기타 다른 상태 코드에 대한 처리
     }
   }
 
@@ -80,21 +126,27 @@ class ApiService {
       _httpResult.success(response.data["response"], '계정 정보 조회');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '계정 정보 조회', accountInfoStatusCheck);
+      //_httpResult.fail(e, '계정 정보 조회', accountInfoStatusCheck);
       throw Exception('Failed to get accountInfo: $e');
     }
   }
 
   Future<Response> logOut() async {
     try {
-      await setToken('refresh_token');
+      await clearCookies(); // 로그아웃 시 쿠키를 지우는 함수 호출
       final response = await dio.get('/auth/logout');
       _httpResult.success(response, '로그 아웃');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '로그 아웃');
+      //_httpResult.fail(e, '로그 아웃');
       throw Exception('Failed to  logout: $e');
     }
+  }
+
+  Future<void> clearCookies() async {
+    await storage.delete(key: 'access_token');
+    await storage.delete(key: 'refresh_token');
+    // 다른 필요한 쿠키가 있으면 여기에서 삭제
   }
 
   Future<Response> newToken() async {
@@ -109,7 +161,7 @@ class ApiService {
       _httpResult.success(response.data["response"], '토큰 갱신');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '토큰 갱신', newTokenStatusCheck);
+      //_httpResult.fail(e, '토큰 갱신', newTokenStatusCheck);
       throw Exception('Failed to login: $e');
     }
   }
@@ -215,7 +267,7 @@ class ApiService {
       _httpResult.success(response.data["response"], '포트폴리오 생성');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '포트폴리오 생성', makePortfolioStatusCheck);
+      //_httpResult.fail(e, '포트폴리오 생성', makePortfolioStatusCheck);
       throw Exception('Failed to make portfolio: $e');
     }
   }
@@ -227,7 +279,7 @@ class ApiService {
       _httpResult.success(response.data["response"], '포트폴리오 조회');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '포트폴리오 조회', getPortfolioStatusCheck);
+      //_httpResult.fail(e, '포트폴리오 조회', getPortfolioStatusCheck);
       throw Exception('Failed to get portfolio: $e');
     }
   }
