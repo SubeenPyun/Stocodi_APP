@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:stocodi_app/api/retrofit/auth_manager.dart';
+import 'package:stocodi_app/model/auth/kakao/Kakao_login.dart';
+import 'package:stocodi_app/model/auth/kakao/social_viewmodel.dart';
+import 'package:stocodi_app/model/auth/request/kakao_auth_model.dart';
+import 'package:stocodi_app/screens/app.dart';
+import 'package:stocodi_app/screens/sign_up/kakao_signup_detail.dart';
+import 'package:stocodi_app/screens/sign_up/signup_done.dart';
 import 'package:stocodi_app/screens/sign_up/signup_email_enter.dart';
+import 'package:stocodi_app/screens/sign_up/tmp_signup_password.dart';
 import '../../widgets/long_btn.dart';
 import '../login/login.dart';
-
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -12,6 +20,8 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  final socialviewmodel = SocialViewModel(KakaoLogin());
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -62,41 +72,148 @@ class _SignupState extends State<Signup> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.089,
               ),
-              LongButton(
-                frontboxsize: 22,
-                imgName: 'google_login.png',
-                text: '구글 계정으로 시작하기',
-                borderColor: Color(0xFFEBEBEB),
-                textColor: Color(0xFF767676),
-                height: MediaQuery.of(context).size.height * 0.0627,
-                imgsize: 24,
-                betweensize: 12,
+              GestureDetector(
+                onTap: () {
+                  Fluttertoast.showToast(
+                    msg: "서비스 준비 중입니다.",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Color(0xff0ECB81),
+                    textColor: Colors.white,
+                    fontSize: 16.0,
+                  );
+                },
+                child: LongButton(
+                  frontboxsize: 22,
+                  imgName: 'google_login.png',
+                  text: '구글 계정으로 시작하기',
+                  borderColor: Color(0xFFEBEBEB),
+                  textColor: Color(0xFF767676),
+                  height: MediaQuery.of(context).size.height * 0.0627,
+                  imgsize: 24,
+                  betweensize: 12,
+                ),
               ),
               const SizedBox(
                 height: 16,
               ),
-              LongButton(
-                frontboxsize: 22,
-                imgName: 'naver_login.png',
-                text: '네이버 계정으로 시작하기',
-                borderColor: Color(0xFFEBEBEB),
-                textColor: Color(0xFF767676),
-                height: MediaQuery.of(context).size.height * 0.0627,
-                imgsize: 24,
-                betweensize: 12,
+              GestureDetector(
+                onTap: () {
+                  Fluttertoast.showToast(
+                    msg: "서비스 준비 중입니다.",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Color(0xff0ECB81),
+                    textColor: Colors.white,
+                    fontSize: 16.0,
+                  );
+                },
+                child: LongButton(
+                  frontboxsize: 22,
+                  imgName: 'naver_login.png',
+                  text: '네이버 계정으로 시작하기',
+                  borderColor: Color(0xFFEBEBEB),
+                  textColor: Color(0xFF767676),
+                  height: MediaQuery.of(context).size.height * 0.0627,
+                  imgsize: 24,
+                  betweensize: 12,
+                ),
               ),
               const SizedBox(
                 height: 16,
               ),
-              LongButton(
-                frontboxsize: 22,
-                imgName: 'kakao_login.png',
-                text: '카카오 계정으로 시작하기',
-                borderColor: Color(0xFFEBEBEB),
-                textColor: Color(0xFF767676),
-                height: MediaQuery.of(context).size.height * 0.0627,
-                imgsize: 24,
-                betweensize: 12,
+              GestureDetector(
+                onTap: () async {
+                  String isLoggedIn = await socialviewmodel.login();
+                  if (isLoggedIn == "3") {
+                    String kakaonickname = socialviewmodel.getNickname();
+                    String kakaoemail = socialviewmodel.getEmail();
+                    String kakaogender = socialviewmodel.getGender();
+                    // 회원가입하려면 SignDone 페이지로 이동
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TmpSignupPwd(
+                              enteredEmail: kakaoemail,
+                              enteredNickName: kakaonickname,
+                              enteredGender: kakaogender)),
+                    );
+                  } else if (isLoggedIn == "-1") {
+                    // 로그인이 실패한 경우에 대한 처리
+                    // 예: 에러 메시지 표시 또는 다른 작업 수행
+                    Fluttertoast.showToast(
+                      msg: "이메일이 인증되지 않았습니다.",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Color(0xff0ECB81),
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
+                  } else if (isLoggedIn == '1') {
+                    /*final authenticationManager = AuthenticationManager();
+                    String authCode = socialviewmodel.getAuth();
+
+                    KakaoAuthRequest tologin =
+                        KakaoAuthRequest(authCode: authCode);
+
+                    var loginResponse =
+                        await authenticationManager.kakaoLogin(tologin);
+
+                    if (loginResponse == null) {
+                      Fluttertoast.showToast(
+                        msg: "오류가 발생하였습니다.",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Color(0xff0ECB81),
+                        textColor: Colors.white,
+                        fontSize: 16.0,
+                      );
+                    } else {
+                      Fluttertoast.showToast(
+                        msg: "이미 회원가입되어 있습니다.",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Color(0xff0ECB81),
+                        textColor: Colors.white,
+                        fontSize: 16.0,
+                      );
+                      // 로그인 성공 시 현재 화면을 AppScreen으로 대체, 로그인하면 login 페이지 못 가게 다 막기
+                      Navigator.pop(context);
+
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AppScreen(),
+                        ),
+                      );
+                    }*/
+
+                    Fluttertoast.showToast(
+                      msg: "이미 회원가입되어 있습니다.",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Color(0xff0ECB81),
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
+                  }
+                },
+                child: LongButton(
+                  frontboxsize: 22,
+                  imgName: 'kakao_login.png',
+                  text: '카카오 계정으로 시작하기',
+                  borderColor: Color(0xFFEBEBEB),
+                  textColor: Color(0xFF767676),
+                  height: MediaQuery.of(context).size.height * 0.0627,
+                  imgsize: 24,
+                  betweensize: 12,
+                ),
               ),
               const SizedBox(
                 height: 16,
