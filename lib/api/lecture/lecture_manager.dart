@@ -1,13 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:stocodi_app/api/lecture_subin/lecture_service.dart';
 import 'package:stocodi_app/model/lecture/response/lecture_response.dart';
-
-import '../../model/auth/request/login_model.dart';
-import '../../model/auth/request/members_model.dart';
-import '../../model/auth/response/account_model.dart';
-import '../../model/auth/response/login_model.dart';
-import '../../model/portfolio/request/accounts_model.dart';
-import '../../model/portfolio/response/portfolio_response.dart';
+import 'lecture_service.dart';
 
 class LectureManager {
   final LectureService _apiService = LectureService();

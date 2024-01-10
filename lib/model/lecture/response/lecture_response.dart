@@ -6,6 +6,7 @@ part 'lecture_response.g.dart';
 class LectureResponse {
   final int id;
   final String video_link;
+  final String thumbnail_name;
   final String title;
   final String description;
   final List<String> tags;
@@ -15,6 +16,7 @@ class LectureResponse {
   LectureResponse({
     required this.id,
     required this.video_link,
+    required this.thumbnail_name,
     required this.title,
     required this.description,
     required this.tags,
