@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import '../../../theme/class_room_theme.dart';
 import '../lecture.dart';
@@ -8,7 +10,7 @@ final textTheme = theme.textTheme;
 class ClassRoomCourseItem extends StatelessWidget {
   final String courseTitle;
   final String courseDescription;
-  final String courseImage;
+  final String courseImage; // 이미지 데이터를 담는 문자열
   final String videoLink;
   final int lectureId;
 
@@ -18,13 +20,16 @@ class ClassRoomCourseItem extends StatelessWidget {
     required this.courseDescription,
     required this.courseImage,
     required this.videoLink,
-    required this.lectureId
+    required this.lectureId,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double cardWidth = MediaQuery.of(context).size.width * 0.5;
     double cardHeight = cardWidth * 0.8;
+
+    // Base64로 인코딩된 이미지 데이터를 디코딩하여 이미지로 변환
+    Uint8List decodedImage = base64Decode(courseImage);
 
     return GestureDetector(
       onTap: () {
@@ -47,7 +52,7 @@ class ClassRoomCourseItem extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    image: NetworkImage(courseImage),
+                    image: MemoryImage(decodedImage), // 디코딩한 이미지 데이터를 사용하여 이미지 표시
                     fit: BoxFit.cover,
                   ),
                 ),
