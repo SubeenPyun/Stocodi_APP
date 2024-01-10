@@ -74,9 +74,15 @@ void makePortfolioStatusCheck(int statusCode) {
   }
 }
 
-void getLectureStatusCheck(int statusCode) {
+void getLectureListStatusCheck(int statusCode) {
   if(statusCode == 404){
     showToast('get lecture 정보 불일치');
+  }
+}
+
+void getWatchingListStatusCheck(int statusCode) {
+  if(statusCode == 404){
+    showToast('get watching list 정보 불일치');
   }
 }
 

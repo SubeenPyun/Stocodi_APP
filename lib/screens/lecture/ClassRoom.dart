@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/screens/lecture/widget/classroom_top.dart';
 import '../../API/retrofit/auth_manager.dart';
+import '../../api/lecture/lecture_manager.dart';
 import '../../model/lecture/response/lecture_response.dart';
 import '../../theme/classroom_top_theme.dart';
 import 'Item/classroom_couse_list_item.dart';
@@ -28,10 +29,13 @@ class _ClassRoomState extends State<ClassRoom> {
 
   Future<void> setCourseList() async {
     try {
-      final authenticationManager = AuthenticationManager();
-      final fetchedCourseList = await authenticationManager.getLecture();
+      final lectureManager = LectureManager();
+      final fetchedCourseList = await lectureManager.getLectureList();
+      final fetchedWatchingLectureList = await lectureManager.getWatchingLectureList();
+
       setState(() {
         courseList = fetchedCourseList ?? []; // Use fetchedCourseList or an empty list if null
+        watchingList = fetchedWatchingLectureList ?? [];
       });
     } catch (e) {
       print('Error fetching course list: $e');

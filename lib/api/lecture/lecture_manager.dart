@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:stocodi_app/model/lecture/response/lecture_response.dart';
+import '../../model/lecture/request/comment_model.dart';
+import '../../model/lecture/response/comment_response.dart';
 import 'lecture_service.dart';
 
 class LectureManager {
@@ -12,6 +14,68 @@ class LectureManager {
   }
 
   LectureManager._internal();
+
+  Future<List<CommentResponse>?> getComments(int lectureId) async {
+    try {
+      final response = await _apiService.getComments(lectureId);
+      List<CommentResponse> commentResponses =
+      (response.data['response'] as List)
+          .map((json) => CommentResponse.fromJson(json))
+          .toList();
+      return commentResponses;
+    } catch (e) {
+      print('$lectureId 강의 댓글 조회 오류: $e');
+      return null;
+    }
+  }
+
+  Future<Response?> writeComment(CommentRequest comment) async {
+    try {
+      final response = await _apiService.writeComment(comment);
+      return response;
+    } catch (e) {
+      print('댓글 작성 오류: $e');
+      return null;
+    }
+  }
+
+  Future<Response?> deleteComment(int lectureId) async {
+    try {
+      final response = await _apiService.deleteComment(lectureId);
+      return response;
+    } catch (e) {
+      print('댓글 삭제 오류: $e');
+    }
+    return null;
+  }
+
+  Future<List<LectureResponse>?> getLectureList() async {
+    try {
+      final response = await _apiService.getLectureList();
+      List<LectureResponse> lectureResponses =
+      (response.data['response'] as List)
+          .map((json) => LectureResponse.fromJson(json))
+          .toList();
+      return lectureResponses;
+    } catch (e) {
+      print('전체 강의 리스트 조회 오류: $e');
+      return null;
+    }
+  }
+
+  Future<List<LectureResponse>?> getWatchingLectureList() async {
+    try {
+      final response = await _apiService.getWatchingLectureList();
+      List<LectureResponse> lectureResponses =
+      (response.data['response'] as List)
+          .map((json) => LectureResponse.fromJson(json))
+          .toList();
+      return lectureResponses;
+    } catch (e) {
+      print('시청 중 강의 리스트 조회 오류: $e');
+      return null;
+    }
+  }
 
   // 강의 하나 조회
   Future<LectureResponse?> oneLecture(String lectureId) async {
@@ -44,28 +108,6 @@ class LectureManager {
       return response;
     } catch (e) {
       print('조회수 올리기 오류: $e');
-    }
-    return null;
-  }
-
-  // 댓글 작성
-  Future<Response?> writeComment() async {
-    try {
-      final response = await _apiService.writeComment();
-      return response;
-    } catch (e) {
-      print('댓글 작성 오류: $e');
-    }
-    return null;
-  }
-
-  // 댓글 삭제
-  Future<Response?> deleteComment(int lectureId) async {
-    try {
-      final response = await _apiService.deleteComment(lectureId);
-      return response;
-    } catch (e) {
-      print('댓글 삭제 오류: $e');
     }
     return null;
   }
