@@ -101,13 +101,26 @@ class LectureManager {
     return null;
   }
 
-  // 강의 좋아요
-  Future<Response?> lectureLikes(String lectureId) async {
+  // 강의 좋아요 확인
+  Future<bool?> checkLike(String lectureId) async {
     try {
-      final response = await _apiService.lectureLikes(lectureId);
-      return response;
+      final response = await _apiService.checkLike(lectureId);
+      final responseData = response.data['response'];
+      return responseData;
     } catch (e) {
-      print('강의 좋아요 오류: $e');
+      print('강의 좋아요 확인 오류: $e');
+    }
+    return null;
+  }
+
+  // 강의 좋아요 OnOff
+  Future<bool?> likeOnOff(String lectureId) async {
+    try {
+      final response = await _apiService.likeOnOff(lectureId);
+      final responseData = response.data['response'];
+      return responseData;
+    } catch (e) {
+      print('강의 좋아요 OnOff 오류: $e');
     }
     return null;
   }
