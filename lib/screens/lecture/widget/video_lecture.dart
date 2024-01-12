@@ -22,15 +22,19 @@ class VideoLecture extends StatefulWidget {
 class _VideoLectureState extends State<VideoLecture> {
   late ClassRoomCourseItem courseCardItem;
   late YoutubePlayerController _controller;
+  String youtubeId = '';
   bool _isPlayerReady = false;
   bool _hasStarted = false;
+  late Uri uri;
 
   @override
   void initState() {
     super.initState();
+    uri = Uri.parse(widget.courseCardItem.videoLink);
+    youtubeId = uri.queryParameters['v'] ?? '';
     courseCardItem = widget.courseCardItem;
     _controller = YoutubePlayerController(
-      initialVideoId: courseCardItem.videoLink,
+      initialVideoId: youtubeId,
       flags: const YoutubePlayerFlags(
         mute: false,
         autoPlay: true,
