@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../api/lecture/lecture_manager.dart';
+import '../../../api/lecture/lecture_service.dart';
 import '../../../model/lecture/request/comment_model.dart';
 import '../../../model/lecture/response/comment_response.dart';
 import '../Item/comment_item.dart';
@@ -72,7 +73,10 @@ class _LectureCommentState extends State<LectureComment> {
                         name: comment.author, // 예시: 댓글 이름
                         profileImage: 'assets/kakao.jpg', // 예시: 프로필 이미지
                         text: comment.content,
-                        created: comment.created_at, // 예시: 댓글 텍스트
+                        created: comment.created_at,
+                        onDelete: () {
+                          _showDeleteDialog(comment.comment_id);
+                        }, // 예시: 댓글 텍스트
                       );
                     },
                   );
@@ -82,6 +86,33 @@ class _LectureCommentState extends State<LectureComment> {
           ],
         ),
       ),
+    );
+  }
+
+  void _showDeleteDialog(int commentId) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text('댓글 삭제'),
+          content: const Text('이 댓글을 삭제하시겠습니까?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('아니오'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('예'),
+              onPressed: () {
+                LectureManager().deleteComment(commentId);
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

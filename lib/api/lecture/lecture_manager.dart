@@ -40,15 +40,17 @@ class LectureManager {
     }
   }
 
-  Future<Response?> deleteComment(int lectureId) async {
+  Future<Response?> deleteComment(int commentId) async {
     try {
-      final response = await _apiService.deleteComment(lectureId);
+      final response = await _apiService.deleteComment(commentId);
       return response;
     } catch (e) {
       print('댓글 삭제 오류: $e');
     }
     return null;
   }
+
+
 
   Future<Response?> addWatchingLectureList(WatchingLectureRequest watchingLecture) async {
     try {
@@ -60,19 +62,14 @@ class LectureManager {
     }
   }
 
-
-  Future<List<LectureResponse>?> getLectureList() async {
+  Future<Response?> deleteWatchingLecture(int lectureId) async {
     try {
-      final response = await _apiService.getLectureList();
-      List<LectureResponse> lectureResponses =
-      (response.data['response'] as List)
-          .map((json) => LectureResponse.fromJson(json))
-          .toList();
-      return lectureResponses;
+      final response = await _apiService.deleteWatchingLecture(lectureId);
+      return response;
     } catch (e) {
-      print('전체 강의 리스트 조회 오류: $e');
-      return null;
+      print('시청 중 강의 삭제 오류: $e');
     }
+    return null;
   }
 
   Future<List<LectureResponse>?> getWatchingLectureList() async {
@@ -88,6 +85,56 @@ class LectureManager {
       return null;
     }
   }
+
+  Future<String?> isWatched(int lectureId) async {
+    try {
+      final response = await _apiService.isWatched(lectureId);
+      final responseData = response.data['response'];
+      return responseData;
+    } catch (e) {
+      print('시청 중 강의 여부 조회 오류: $e');
+    }
+    return null;
+  }
+
+  Future<Response?> changeWatchedTime(WatchingLectureRequest watchingLecture) async {
+    try {
+      final response = await _apiService.changeWatchedTime(watchingLecture);
+      return response;
+    } catch (e) {
+      print('시청 중 강의 시간 수정: $e');
+    }
+    return null;
+  }
+
+
+
+
+  Future<Response?> deleteLecture(int lectureId) async {
+    try {
+      final response = await _apiService.deleteLecture(lectureId);
+      return response;
+    } catch (e) {
+      print('강의 삭제 오류: $e');
+    }
+    return null;
+  }
+
+  Future<List<LectureResponse>?> getLectureList() async {
+    try {
+      final response = await _apiService.getLectureList();
+      List<LectureResponse> lectureResponses =
+      (response.data['response'] as List)
+          .map((json) => LectureResponse.fromJson(json))
+          .toList();
+      return lectureResponses;
+    } catch (e) {
+      print('전체 강의 리스트 조회 오류: $e');
+      return null;
+    }
+  }
+
+
 
   // 강의 하나 조회
   Future<LectureResponse?> oneLecture(String lectureId) async {

@@ -7,12 +7,14 @@ class CommentItem extends StatelessWidget {
     this.profileImage = 'Y',
     required this.text,
     required this.created,
+    required this.onDelete,
   });
 
   final String name;
   final String profileImage;
   final String text;
   final String created;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {

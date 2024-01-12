@@ -45,9 +45,9 @@ class LectureService {
     }
   }
 
-  Future<Response> deleteComment(int lectureId) async {
+  Future<Response> deleteComment(int commendId) async {
     try {
-      final response = await dio.delete('/lectures/$lectureId');
+      final response = await dio.delete('/comments/$commendId');
       _httpResult.success(response, '댓글 삭제');
       return response;
     } catch (e) {
@@ -55,6 +55,8 @@ class LectureService {
       throw Exception('Failed to delete comment: $e');
     }
   }
+
+
 
   Future<Response> addWatchingLectureList(WatchingLectureRequest watchingLecture) async {
     try {
@@ -65,6 +67,55 @@ class LectureService {
     } catch (e) {
       _httpResult.fail(e, '시청 중 강의 추가',addWatchingListStatusCheck);
       throw Exception('Failed to add watching lecture list: $e');
+    }
+  }
+
+  Future<Response> deleteWatchingLecture(int lectureId) async {
+    try {
+      final response = await dio.delete('/watchings/$lectureId');
+      _httpResult.success(response, '강의 삭제');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '시청 중 강의 삭제');
+      throw Exception('Failed to delete watching lecture: $e');
+    }
+  }
+
+
+  Future<Response> getWatchingLectureList() async {
+    try {
+      await setToken('access_token');
+      final response = await dio.get('/watchings');
+      _httpResult.success(response.data["response"], '시청 중 강의 조회');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '시청 중 강의 조회', getWatchingListStatusCheck);
+      throw Exception('Failed to get watching lecture list: $e');
+    }
+  }
+
+  Future<Response> isWatched(int lectureId) async {
+    try {
+      await setToken('access_token');
+      final response = await dio.get('/watchings/$lectureId');
+      _httpResult.success(response.data["response"], '시청 중 강의 여부 조회');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '시청 중 강의 여부 조회');
+      throw Exception('Failed to checked is watched: $e');
+    }
+  }
+
+
+  Future<Response> changeWatchedTime(WatchingLectureRequest watchingLecture) async {
+    try {
+      await setToken('access_token');
+      final response = await dio.put('/watchings/${watchingLecture.lecture_id}',data: watchingLecture.toJson2());
+      _httpResult.success(response.data["response"], '시청 중 강의 시간 수정');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '시청 중 강의 시간 수정');
+      throw Exception('Failed to change watched time: $e');
     }
   }
 
@@ -81,15 +132,14 @@ class LectureService {
     }
   }
 
-  Future<Response> getWatchingLectureList() async {
+  Future<Response> deleteLecture(int lectureId) async {
     try {
-      await setToken('access_token');
-      final response = await dio.get('/watchings');
-      _httpResult.success(response.data["response"], '시청 중 강의 조회');
+      final response = await dio.delete('/lectures/$lectureId');
+      _httpResult.success(response, '강의 삭제');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '시청 중 강의 조회', getWatchingListStatusCheck);
-      throw Exception('Failed to get watching lecture list: $e');
+      _httpResult.fail(e, '강의 삭제');
+      throw Exception('Failed to delete lecture: $e');
     }
   }
 

@@ -12,6 +12,7 @@ class WatchingLectureRequest {
   });
 
   Map<String, dynamic> toJson() => _$WatchingLectureRequestToJson(this);
+  Map<String, dynamic> toJson2() => _$WatchingLectureRequestToJson2(this);
 
   factory WatchingLectureRequest.fromJson(Map<String, dynamic> json) {
     return _$WatchingLectureRequestFromJson(json);
