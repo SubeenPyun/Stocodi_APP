@@ -49,6 +49,12 @@ class _LectureCommentState extends State<LectureComment> {
               child: LectureMyComment(
                 imageUrl: 'assets/kakao.jpg',
                 lectureId: widget.lectureId,
+                onCommentSubmitted: (updatedList) {
+                  setState(() {
+                    commentList = updatedList;
+                    widget.onCommentCountChanged(commentList.length);
+                  });
+                },
               ),
             ),
             Expanded(
@@ -83,8 +89,9 @@ class _LectureCommentState extends State<LectureComment> {
 class LectureMyComment extends StatefulWidget {
   final String imageUrl;
   final int lectureId;
+  final Function(List<CommentResponse>) onCommentSubmitted;
 
-  const LectureMyComment({Key? key, required this.imageUrl, required this.lectureId}) : super(key: key);
+  const LectureMyComment({Key? key, required this.imageUrl, required this.lectureId, required this.onCommentSubmitted}) : super(key: key);
 
   @override
   _LectureMyCommentState createState() => _LectureMyCommentState();
@@ -138,7 +145,6 @@ class _LectureMyCommentState extends State<LectureMyComment> {
   Future<void> _submitComment(BuildContext context) async {
     String comment = _commentController.text;
     if (comment.isNotEmpty) {
-      print('댓글: $comment');
       CommentRequest commentRequest = CommentRequest(
         lecture_id: widget.lectureId,
         content: comment,
@@ -146,9 +152,14 @@ class _LectureMyCommentState extends State<LectureMyComment> {
       final lectureManager = LectureManager();
       var commentResponse = await lectureManager.writeComment(commentRequest);
 
-      if (commentResponse == null) {
+      if (commentResponse != null) {
+        List<CommentResponse>? updatedCommentList =
+        await lectureManager.getComments(widget.lectureId);
+        widget.onCommentSubmitted(updatedCommentList!);
+      } else {
         _showErrorDialog(context, '댓글 작성에 실패했어요..');
       }
+
       _commentController.clear();
     } else {
       _showErrorDialog(context, '댓글을 입력하세요.');
