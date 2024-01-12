@@ -57,8 +57,8 @@ class _HomeProfitState extends State<HomeProfit> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height - 450,
+      //width: double.infinity,
+      //height: MediaQuery.of(context).size.height - 450,
       margin: EdgeInsets.only(top: 12),
       padding: EdgeInsets.all(25),
       decoration: BoxDecoration(
@@ -129,6 +129,7 @@ class _HomeProfitState extends State<HomeProfit> {
                   )
                 ]),
           ),
+          SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

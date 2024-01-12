@@ -118,9 +118,12 @@ class _SignDoneState extends State<SignDone> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context, //여기도 다시 수정해야 함
-                      MaterialPageRoute(builder: (context) => Login()));
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (_) => Login(),
+                    ),
+                    (route) => false,
+                  );
                 },
                 child: GreenLongBtn(
                   text: '메인으로',

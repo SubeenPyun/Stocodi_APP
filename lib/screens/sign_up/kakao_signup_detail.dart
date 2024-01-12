@@ -30,6 +30,8 @@ class _KaKaoSignDetailState extends State<KaKaoSignDetail> {
   String phone = '';
   String birth = '';
   String nickname = '';
+
+  TextEditingController nameController = TextEditingController();
   // 조건을 만족하는지 확인하는 함수
   void checkConditions() {
     if (name.isNotEmpty && phone.length == 11 && birth.length == 8) {
@@ -117,19 +119,36 @@ class _KaKaoSignDetailState extends State<KaKaoSignDetail> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.036,
             ),
-            NewInputField(
-              focus: true,
-              image: Icon(Icons.person, size: 20),
-              text: '이름을 입력해주세요',
-              obscure: false,
-              inputtype: TextInputType.name,
-
-              initialText: name, // enteredEmail 변수의 값을 초기값으로 설정
-              // onTextChanged 콜백을 통해 입력된 텍스트 업데이트
-              onTextChanged: (entername) {
+            TextField(
+              controller: nameController,
+              autofocus: true,
+              cursorColor: Color(0xFF0ECB81),
+              decoration: InputDecoration(
+                prefixIcon: Padding(
+                  padding: EdgeInsets.only(left: 23, right: 15),
+                  child: Icon(Icons.person, size: 20),
+                ),
+                prefixIconColor: MaterialStateColor.resolveWith((states) =>
+                    states.contains(MaterialState.focused)
+                        ? Color(0xFF0ECB81)
+                        : Color(0xFFBEBEBE)),
+                labelText: '이름을 입력해주세요',
+                labelStyle: TextStyle(color: Color(0xFFBDBDBD), fontSize: 14),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF0ECB81), width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFEBEBEB), width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+              ),
+              obscureText: false,
+              keyboardType: TextInputType.text,
+              onChanged: (entername) {
                 setState(() {
-                  name = entername;
-                  checkConditions();
+                  name = nameController.text;
                 });
               },
             ),

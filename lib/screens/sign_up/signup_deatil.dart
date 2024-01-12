@@ -20,12 +20,13 @@ class SignDetail extends StatefulWidget {
 
 class _SignDetailState extends State<SignDetail> {
   bool isTyping = false;
-  TextEditingController emailController = TextEditingController();
   String name = '';
   String phone = '';
   String birth = '';
   String nickname = '';
   bool canProceed = false;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController nicknameController = TextEditingController();
   // 조건을 만족하는지 확인하는 함수
   void checkConditions() {
     if (name.isNotEmpty &&
@@ -62,7 +63,10 @@ class _SignDetailState extends State<SignDetail> {
   }
 
   Future<void> onNextButtonPressed() async {
-    if (canProceed) {
+    if (name.isNotEmpty &&
+        phone.length == 11 &&
+        birth.length == 8 &&
+        nickname.isNotEmpty) {
       // 조건이 충족되었을 때 닉네임 중복 검사
       final authenticationManager = AuthenticationManager();
 
@@ -141,39 +145,73 @@ class _SignDetailState extends State<SignDetail> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.036,
             ),
-            NewInputField(
-              focus: true,
-              image: Icon(Icons.person, size: 20),
-              text: '이름을 입력해주세요',
-              obscure: false,
-              inputtype: TextInputType.name,
-
-              initialText: name,
-              // onTextChanged 콜백을 통해 입력된 텍스트 업데이트
-              onTextChanged: (entername) {
+            TextField(
+              controller: nameController,
+              autofocus: true,
+              cursorColor: Color(0xFF0ECB81),
+              decoration: InputDecoration(
+                prefixIcon: Padding(
+                  padding: EdgeInsets.only(left: 23, right: 15),
+                  child: Icon(Icons.person, size: 20),
+                ),
+                prefixIconColor: MaterialStateColor.resolveWith((states) =>
+                    states.contains(MaterialState.focused)
+                        ? Color(0xFF0ECB81)
+                        : Color(0xFFBEBEBE)),
+                labelText: '이름을 입력해주세요',
+                labelStyle: TextStyle(color: Color(0xFFBDBDBD), fontSize: 14),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF0ECB81), width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFEBEBEB), width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+              ),
+              obscureText: false,
+              keyboardType: TextInputType.text,
+              onChanged: (entername) {
                 setState(() {
-                  name = entername;
-                  checkConditions();
+                  name = nameController.text;
                 });
               },
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.017,
             ),
-            NewInputField(
-              focus: true,
-              image: Icon(Icons.person, size: 20),
-              text: '사용할 닉네임을 입력해주세요',
-              obscure: false,
-              inputtype: TextInputType.name,
-              // onTextChanged 콜백을 통해 입력된 텍스트 업데이트
-
-              initialText: nickname,
-              onTextChanged: (enternickname) {
+            TextField(
+              controller: nicknameController,
+              autofocus: true,
+              cursorColor: Color(0xFF0ECB81),
+              decoration: InputDecoration(
+                prefixIcon: Padding(
+                  padding: EdgeInsets.only(left: 23, right: 15),
+                  child: Icon(Icons.person, size: 20),
+                ),
+                prefixIconColor: MaterialStateColor.resolveWith((states) =>
+                    states.contains(MaterialState.focused)
+                        ? Color(0xFF0ECB81)
+                        : Color(0xFFBEBEBE)),
+                labelText: '사용할 닉네임을 입력해주세요',
+                labelStyle: TextStyle(color: Color(0xFFBDBDBD), fontSize: 14),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFF0ECB81), width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFEBEBEB), width: 1),
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+              ),
+              obscureText: false,
+              keyboardType: TextInputType.name,
+              onChanged: (enternickname) {
                 setState(() {
                   if (!containsSpecialCharacters(enternickname)) {
-                    nickname = enternickname;
-                    checkConditions();
+                    nickname = nicknameController.text;
                   } else {
                     //특수문자 들어갔으니 안된다는 말을 써야 한다.
                     showToast('닉네임에는 특수문자가 들어갈 수 없습니다.');
@@ -196,7 +234,6 @@ class _SignDetailState extends State<SignDetail> {
               onTextChanged: (enterbirth) {
                 setState(() {
                   birth = enterbirth;
-                  checkConditions();
                 });
               },
             ),

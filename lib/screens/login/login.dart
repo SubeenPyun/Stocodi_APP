@@ -223,13 +223,13 @@ class _LoginState extends State<Login> {
                             print(
                                 "이메일 : $enteredEmail 비밀번호 : $enteredPassword");
                             // 로그인 성공 시 현재 화면을 AppScreen으로 대체, 로그인하면 login 페이지 못 가게 다 막기
-                            Navigator.pop(context);
+                            //Navigator.pop(context);
 
-                            Navigator.pushReplacement(
-                              context,
+                            Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
-                                builder: (context) => AppScreen(),
+                                builder: (_) => AppScreen(),
                               ),
+                              (route) => false,
                             );
                           }
                         } catch (e) {
