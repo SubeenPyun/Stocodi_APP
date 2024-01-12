@@ -8,7 +8,7 @@ final textTheme = theme.textTheme;
 class ClassRoomCourseItem extends StatelessWidget {
   final String courseTitle;
   final String courseDescription;
-  final String courseImage;
+  final Widget courseImage;
   final String videoLink;
   final int lectureId;
 
@@ -47,10 +47,11 @@ class ClassRoomCourseItem extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    image: NetworkImage(courseImage),
+                    image: NetworkImage('assets/placeholder_image.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
+                child: courseImage,
               ),
               const SizedBox(height: 5),
               Text(courseTitle, style: textTheme.displayMedium, maxLines: 1, overflow: TextOverflow.ellipsis),
