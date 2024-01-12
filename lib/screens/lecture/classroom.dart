@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/screens/lecture/search_lecture.dart';
 import 'package:stocodi_app/screens/lecture/widget/classroom_top.dart';
 import '../../API/retrofit/auth_manager.dart';
 import '../../api/lecture/lecture_manager.dart';
@@ -51,6 +52,18 @@ class _ClassRoomState extends State<ClassRoom> {
         backgroundColor: theme.backgroundColor,
         title: Text('강의실', style: textTheme.displayLarge),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.search, color: Color(0xff191919)),
+            onPressed: () {
+              // Functionality
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchLecture(),
+                ),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.menu, color: Color(0xff191919)),
             onPressed: () {
