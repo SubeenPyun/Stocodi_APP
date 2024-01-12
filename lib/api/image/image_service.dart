@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../model/auth/request/login_model.dart';
@@ -39,13 +40,15 @@ class ImageService {
     return await storage.read(key: token);
   }
 
-  Future<Uint8List?> getImage(String thumbNailName) async {
+  Future<Widget> getImage(String thumbNailName) async {
     try {
       await setToken('access_token');
-      final response = await dio.get('/storage/images/$thumbNailName',options: Options(responseType: ResponseType.bytes)); // 이미지를 가져올 엔드포인트 URL
+      final response = await dio.get('/storage/images/$thumbNailName',
+          options: Options(responseType: ResponseType.bytes));
+
       if (response.statusCode == 200) {
-        // 이미지 데이터를 Uint8List로 변환해서 반환
-        return Uint8List.fromList(response.data);
+        final image = MemoryImage(Uint8List.fromList(response.data));
+        return Image(image: image); // 'Image' 대신 'Image' 위젯 사용
       } else {
         throw Exception('Failed to load image: ${response.statusCode}');
       }
