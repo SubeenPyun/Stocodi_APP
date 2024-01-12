@@ -30,6 +30,7 @@ class _HomeState extends State<Home> {
         },
         child: Scaffold(
           body: SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
             // SingleChildScrollView 추가
             child: Column(
               children: [

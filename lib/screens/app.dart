@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/screens/tmp/tmp_mypage.dart';
 import 'package:stocodi_app/test/crawling.dart';
 import '../theme/app_theme.dart';
 import 'home/home.dart';
@@ -28,7 +29,7 @@ class _AppScreenState extends State<AppScreen> {
     const ClassRoom(),
     const InvestExperiment(),
     DongGi(),
-    Container(),
+    Tmpmypage(),
   ];
 
   BottomNavigationBarItem _bottomNavigationBarItem(
@@ -81,7 +82,7 @@ class _AppScreenState extends State<AppScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.colorScheme.background,
       body: _pages[_currentPageIndex],
       bottomNavigationBar: _bottomNavigationBarwidget(),
     );

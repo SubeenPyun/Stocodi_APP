@@ -58,14 +58,12 @@ class _SignEmailState extends State<SignEmail> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.0358,
             ),
-            // NewInputField 위젯 사용
             NewInputField(
               focus: true,
               image: Icon(Icons.mail, size: 20),
               text: "이메일 주소를 입력해주세요",
               obscure: false,
               inputtype: TextInputType.emailAddress,
-
               initialText: enteredTxt,
               // onTextChanged 콜백을 통해 입력된 텍스트 업데이트
               onTextChanged: (text) {
