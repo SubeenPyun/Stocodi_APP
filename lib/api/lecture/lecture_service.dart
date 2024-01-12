@@ -127,6 +127,18 @@ class LectureService {
     }
   }
 
+  // 강의 검색
+  Future<Response> lectureSearch(String key) async {
+    try {
+      final response = await dio.put('/lectures/search/$key');
+      _httpResult.success(response, '강의 검색: $key');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '강의 검색');
+      throw Exception('Failed to search lecture: $e');
+    }
+  }
+
   void setHeader() {
     dio.options.headers = {
       'Content-Type': 'application/json',

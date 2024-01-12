@@ -65,7 +65,7 @@ class _StockTabBarState extends State<StockTabBar> with SingleTickerProviderStat
             controller: _tabController,
             children: [
               ChartDetail(), // 차트 탭에 해당하는 위젯
-              PriceColumnList(currentPrice: widget.currentPrice), // 호가 탭에 해당하는 위젯
+              PriceColumnList(currentPrice: widget.currentPrice, scaffoldKey: widget.scaffoldKey,), // 호가 탭에 해당하는 위젯
             ],
           ),
         ),

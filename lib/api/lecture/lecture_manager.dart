@@ -122,4 +122,17 @@ class LectureManager {
     }
     return null;
   }
+
+  // 강의 검색
+  Future<LectureResponse?> lectureSearch(String key) async {
+    try {
+      final response = await _apiService.oneLecture(key);
+      final responseData = response.data['response']; // 데이터 추출
+      LectureResponse lectureResponse = LectureResponse.fromJson(responseData);
+      return lectureResponse;
+    } catch (e) {
+      print('강의 검색: $e');
+    }
+    return null;
+  }
 }
