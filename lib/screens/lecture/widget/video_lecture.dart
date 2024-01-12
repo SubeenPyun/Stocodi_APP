@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -19,7 +18,7 @@ class VideoLecture extends StatefulWidget {
   _VideoLectureState createState() => _VideoLectureState();
 }
 
-class _VideoLectureState extends State<VideoLecture> {
+class _VideoLectureState extends State<VideoLecture> with RouteAware, WidgetsBindingObserver {
   late ClassRoomCourseItem courseCardItem;
   late YoutubePlayerController _controller;
   String youtubeId = '';
@@ -44,8 +43,11 @@ class _VideoLectureState extends State<VideoLecture> {
         forceHD: false,
         enableCaption: true,
       ),
-    )..addListener((){
+    )
+      ..addListener(_listener);
+  }
 
+  void _listener(){
       if (_controller.value.isReady && !_hasStarted) {
         _controller.seekTo(const Duration(seconds: 30));
         _controller.play();
@@ -56,8 +58,7 @@ class _VideoLectureState extends State<VideoLecture> {
         Duration pausedPosition = _controller.value.position;
         print("유튜브 영상 일시 정지 at : ${pausedPosition.inSeconds} 초");
       }
-    });
-  }
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +73,12 @@ class _VideoLectureState extends State<VideoLecture> {
           handleColor: theme.primaryColor,
         ),
         onReady: () {
-            _isPlayerReady = true;
-            },
+          _isPlayerReady = true;
+        },
+        onEnded: (YoutubeMetaData metaData) {
+          // 영상이 종료되었을 때 호출되는 콜백
+          print('영상이 종료되었습니다.: $metaData');
+        },
       ),
     );
   }
