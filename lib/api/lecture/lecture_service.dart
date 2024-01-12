@@ -103,14 +103,28 @@ class LectureService {
     }
   }
 
-  // 강의 좋아요
-  Future<Response> lectureLikes(String lectureId) async {
+  // 강의 좋아요 확인
+  Future<Response> checkLike(String lectureId) async {
     try {
-      final response = await dio.put('/likes/$lectureId');
-      _httpResult.success(response, '강의 좋아요');
+      await setToken('access_token');
+      final response = await dio.get('/likes/$lectureId');
+      _httpResult.success(response, '강의 좋아요 확인');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '강의 좋아요');
+      _httpResult.fail(e, '강의 좋아요 확인');
+      throw Exception('Failed to check likes: $e');
+    }
+  }
+
+  // 강의 좋아요 OnOff
+  Future<Response> likeOnOff(String lectureId) async {
+    try {
+      await setToken('access_token');
+      final response = await dio.put('/likes/$lectureId');
+      _httpResult.success(response, '강의 좋아요 OnOff');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '강의 좋아요 OnOff');
       throw Exception('Failed to like lecture: $e');
     }
   }
