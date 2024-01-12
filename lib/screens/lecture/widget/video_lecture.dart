@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../theme/app_theme.dart';
@@ -20,6 +22,8 @@ class VideoLecture extends StatefulWidget {
 class _VideoLectureState extends State<VideoLecture> {
   late ClassRoomCourseItem courseCardItem;
   late YoutubePlayerController _controller;
+  bool _isPlayerReady = false;
+  bool _hasStarted = false;
 
   @override
   void initState() {
@@ -36,7 +40,19 @@ class _VideoLectureState extends State<VideoLecture> {
         forceHD: false,
         enableCaption: true,
       ),
-    );
+    )..addListener((){
+
+      if (_controller.value.isReady && !_hasStarted) {
+        _controller.seekTo(const Duration(seconds: 30));
+        _controller.play();
+        _hasStarted = true;
+      }
+
+      if(_isPlayerReady && _controller.value.playerState == PlayerState.paused){
+        Duration pausedPosition = _controller.value.position;
+        print("유튜브 영상 일시 정지 at : ${pausedPosition.inSeconds} 초");
+      }
+    });
   }
 
   @override
@@ -51,6 +67,9 @@ class _VideoLectureState extends State<VideoLecture> {
           playedColor: theme.primaryColor,
           handleColor: theme.primaryColor,
         ),
+        onReady: () {
+            _isPlayerReady = true;
+            },
       ),
     );
   }
