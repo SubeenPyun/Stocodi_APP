@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:stocodi_app/model/lecture/response/lecture_response.dart';
 import '../../model/lecture/request/comment_model.dart';
+import '../../model/lecture/request/watching_lecture_model.dart';
 import '../../model/lecture/response/comment_response.dart';
 import 'lecture_service.dart';
 
@@ -49,9 +50,9 @@ class LectureManager {
     return null;
   }
 
-  Future<Response?> addWatchingLectureList(int lectureId) async {
+  Future<Response?> addWatchingLectureList(WatchingLectureRequest watchingLecture) async {
     try {
-      final response = await _apiService.addWatchingLectureList(lectureId);
+      final response = await _apiService.addWatchingLectureList(watchingLecture);
       return response;
     } catch (e) {
       print('시청 중 강의 추가 오류: $e');

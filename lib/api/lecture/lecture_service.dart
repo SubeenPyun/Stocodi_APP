@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:stocodi_app/model/lecture/request/watching_lecture_model.dart';
 import 'package:stocodi_app/model/lecture/response/lecture_response.dart';
 import '../../model/lecture/request/comment_model.dart';
 import '../retrofit/http_result.dart';
@@ -55,10 +56,10 @@ class LectureService {
     }
   }
 
-  Future<Response> addWatchingLectureList(int lectureId) async {
+  Future<Response> addWatchingLectureList(WatchingLectureRequest watchingLecture) async {
     try {
       await setToken('access_token');
-      final response = await dio.post('/watchings/$lectureId');
+      final response = await dio.post('/watchings',data: watchingLecture.toJson());
       _httpResult.success(response, '시청 중 강의 추가');
       return response;
     } catch (e) {
