@@ -7,6 +7,7 @@ class PortfolioData extends ChangeNotifier {
   late PortfoiloResponse selectedPortfolio;
   late UpdatePortfolio updatePortfolio;
   bool isSelected = false;
+  int memberId = 0;
 
   PortfolioData() {
     updatePortfolio = UpdatePortfolio();
@@ -55,5 +56,11 @@ class PortfolioData extends ChangeNotifier {
       print("포트폴리오가 리스트 안에 존재하지 않습니다.");
       // 선택한 포트폴리오가 리스트 안에 없는 경우 처리할 작업을 여기에 추가하세요.
     }
+  }
+
+  Future<void> updateSelectedMemberId(int loginMemberId) async {
+    memberId = loginMemberId;
+    //print("멤버아이디 final >>> $memberId");
+    notifyListeners();
   }
 }
