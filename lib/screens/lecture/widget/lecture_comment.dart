@@ -68,14 +68,16 @@ class _LectureCommentState extends State<LectureComment> {
                     itemCount: commentList.length,
                     itemBuilder: (context, index) {
                       CommentResponse comment = commentList[index]; // 각각의 댓글을 가져옴
+                      bool myComment = (2 == comment.member_id);
                       return CommentItem(
                         name: comment.author, // 예시: 댓글 이름
                         profileImage: 'assets/kakao.jpg', // 예시: 프로필 이미지
                         text: comment.content,
                         created: comment.created_at,
+                        myComment: myComment,
                         onDelete: () {
                           _showDeleteDialog(comment.comment_id);
-                        }, // 예시: 댓글 텍스트
+                        },   // 예시: 댓글 텍스트
                       );
                     },
                   );
@@ -104,8 +106,9 @@ class _LectureCommentState extends State<LectureComment> {
             ),
             TextButton(
               child: const Text('예'),
-              onPressed: () {
-                LectureManager().deleteComment(commentId);
+              onPressed: () async {
+                await LectureManager().deleteComment(commentId);
+                await setCommentList();
                 Navigator.of(dialogContext).pop();
               },
             ),
