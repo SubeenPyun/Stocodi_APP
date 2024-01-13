@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stocodi_app/model/auth/kakao/kakao_login.dart';
 import 'package:stocodi_app/model/auth/kakao/social_viewmodel.dart';
+import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
 import 'package:stocodi_app/screens/sign_up/tmp_signup_password.dart';
 
 import '../../API/retrofit/auth_manager.dart';
@@ -55,7 +57,7 @@ class _LoginState extends State<Login> {
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
-      backgroundColor: Colors.red,
+      backgroundColor: Color(0xff0ECB81),
       textColor: Colors.white,
       fontSize: 16.0,
     );
@@ -222,8 +224,12 @@ class _LoginState extends State<Login> {
                           } else {
                             print(
                                 "이메일 : $enteredEmail 비밀번호 : $enteredPassword");
-                            // 로그인 성공 시 현재 화면을 AppScreen으로 대체, 로그인하면 login 페이지 못 가게 다 막기
-                            //Navigator.pop(context);
+                            PortfolioData portfolioData =
+                                Provider.of<PortfolioData>(context,
+                                    listen: false);
+                            portfolioData.memberId = loginResponse.member_id;
+                            portfolioData.updateSelectedMemberId(
+                                loginResponse.member_id);
 
                             Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(

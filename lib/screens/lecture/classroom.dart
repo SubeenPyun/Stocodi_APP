@@ -18,7 +18,8 @@ class ClassRoom extends StatefulWidget {
 }
 
 class _ClassRoomState extends State<ClassRoom> {
-  late List<LectureResponse> popularCourseList = []; // Initialize courseList as an empty list
+  late List<LectureResponse> popularCourseList =
+      []; // Initialize courseList as an empty list
   late List<LectureResponse> watchingList = [];
   late List<LectureResponse> courseList = [];
 
@@ -32,10 +33,12 @@ class _ClassRoomState extends State<ClassRoom> {
     try {
       final lectureManager = LectureManager();
       final fetchedCourseList = await lectureManager.getLectureList();
-      final fetchedWatchingLectureList = await lectureManager.getWatchingLectureList();
+      final fetchedWatchingLectureList =
+          await lectureManager.getWatchingLectureList();
 
       setState(() {
-        courseList = fetchedCourseList ?? []; // Use fetchedCourseList or an empty list if null
+        courseList = fetchedCourseList ??
+            []; // Use fetchedCourseList or an empty list if null
         watchingList = fetchedWatchingLectureList ?? [];
       });
     } catch (e) {
@@ -49,14 +52,14 @@ class _ClassRoomState extends State<ClassRoom> {
     final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: theme.backgroundColor,
+        backgroundColor: theme.colorScheme.background,
         title: Text('강의실', style: textTheme.displayLarge),
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: Color(0xff191919)),
             onPressed: () {
               // Functionality
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => SearchLecture(),
@@ -80,9 +83,12 @@ class _ClassRoomState extends State<ClassRoom> {
               width: MediaQuery.of(context).size.width,
               child: ClassRoomTop(),
             ),
-            ClassRoomCourseListItem(courseTitle: '수강 중인 강의', courseList: watchingList),
-            ClassRoomCourseListItem(courseTitle: '실시간 인기강의', courseList: popularCourseList),
-            ClassRoomCourseListItem(courseTitle: '강의 전체 보기', courseList: courseList),
+            ClassRoomCourseListItem(
+                courseTitle: '수강 중인 강의', courseList: watchingList),
+            ClassRoomCourseListItem(
+                courseTitle: '실시간 인기강의', courseList: popularCourseList),
+            ClassRoomCourseListItem(
+                courseTitle: '강의 전체 보기', courseList: courseList),
           ],
         ),
       ),

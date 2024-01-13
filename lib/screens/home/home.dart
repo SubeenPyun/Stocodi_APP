@@ -29,15 +29,33 @@ class _HomeState extends State<Home> {
           return false;
         },
         child: Scaffold(
-          body: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
-            // SingleChildScrollView 추가
-            child: Column(
-              children: [
-                HomeHeader(),
-                HomeProfit(),
-              ],
-            ),
+          body: Stack(
+            children: [
+              SingleChildScrollView(
+                physics: AlwaysScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    HomeHeader(),
+                    HomeProfit(),
+                  ],
+                ),
+              ),
+              Positioned.fill(
+                child: Container(
+                  color: Colors.grey.withOpacity(0.5),
+                  child: Center(
+                    child: Text(
+                      "현재 서비스 준비중입니다",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       );
