@@ -70,7 +70,7 @@ class _VideoLectureState extends State<VideoLecture>{
     });
   }
 
-  void _listener(){
+  Future<void> _listener() async {
     if (_controller.value.isReady && !_hasStarted) {
       _controller.seekTo(Duration(seconds: seconds));
       _controller.play();
@@ -83,10 +83,10 @@ class _VideoLectureState extends State<VideoLecture>{
       WatchingLectureRequest watchingLectureRequest = WatchingLectureRequest(lecture_id: widget.courseCardItem.lectureId, time: pausedPosition.inSeconds.toString());
 
       if(isWatched){
-        lectureManager.changeWatchedTime(watchingLectureRequest);
+        await lectureManager.changeWatchedTime(watchingLectureRequest);
       }
       else{
-        lectureManager.addWatchingLectureList(watchingLectureRequest);
+        await lectureManager.addWatchingLectureList(watchingLectureRequest);
       }
     }
   }
@@ -117,13 +117,13 @@ class _VideoLectureState extends State<VideoLecture>{
           onReady: () {
             _isPlayerReady = true;
           },
-          onEnded: (YoutubeMetaData metaData) {
+          onEnded: (YoutubeMetaData metaData) async {
             // 영상이 종료되었을 때 호출되는 콜백
             print('영상이 종료되었습니다.: $metaData');
 
             // 시청 중 강의를 끝까지 본 경우 시청 중 강의 리스트에서 삭제
             if(isWatched){
-              lectureManager.deleteWatchingLecture(widget.courseCardItem.lectureId);
+              await lectureManager.deleteWatchingLecture(widget.courseCardItem.lectureId);
             }
           },
         ),
