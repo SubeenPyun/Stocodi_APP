@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/widgets/custom_appbar.dart';
 import 'package:stocodi_app/screens/invest/widget/holding_item_piechart.dart';
