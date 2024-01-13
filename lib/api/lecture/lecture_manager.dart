@@ -107,9 +107,6 @@ class LectureManager {
     return null;
   }
 
-
-
-
   Future<Response?> deleteLecture(int lectureId) async {
     try {
       final response = await _apiService.deleteLecture(lectureId);
@@ -134,10 +131,8 @@ class LectureManager {
     }
   }
 
-
-
   // 강의 하나 조회
-  Future<LectureResponse?> oneLecture(String lectureId) async {
+  Future<LectureResponse?> oneLecture(int lectureId) async {
     try {
       final response = await _apiService.oneLecture(lectureId);
       final responseData = response.data['response']; // 데이터 추출
@@ -150,7 +145,7 @@ class LectureManager {
   }
 
   // 강의 좋아요 확인
-  Future<bool?> checkLike(String lectureId) async {
+  Future<bool?> checkLike(int lectureId) async {
     try {
       final response = await _apiService.checkLike(lectureId);
       final responseData = response.data['response'];
@@ -162,7 +157,7 @@ class LectureManager {
   }
 
   // 강의 좋아요 OnOff
-  Future<bool?> likeOnOff(String lectureId) async {
+  Future<bool?> likeOnOff(int lectureId) async {
     try {
       final response = await _apiService.likeOnOff(lectureId);
       final responseData = response.data['response'];
@@ -174,7 +169,7 @@ class LectureManager {
   }
 
   // 조회수 올리기
-  Future<Response?> lectureViews(String lectureId) async {
+  Future<Response?> lectureViews(int lectureId) async {
     try {
       final response = await _apiService.lectureViews(lectureId);
       return response;
@@ -187,7 +182,7 @@ class LectureManager {
   // 강의 검색
   Future<LectureResponse?> lectureSearch(String key) async {
     try {
-      final response = await _apiService.oneLecture(key);
+      final response = await _apiService.lectureSearch(key);
       final responseData = response.data['response']; // 데이터 추출
       LectureResponse lectureResponse = LectureResponse.fromJson(responseData);
       return lectureResponse;

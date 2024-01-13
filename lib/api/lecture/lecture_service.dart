@@ -144,7 +144,7 @@ class LectureService {
   }
 
   // 강의 하나 조회
-  Future<Response> oneLecture(String lectureId) async {
+  Future<Response> oneLecture(int lectureId) async {
     try {
       final response = await dio.get('/lectures/$lectureId');
       _httpResult.success(response, '강의 하나 조회');
@@ -156,7 +156,7 @@ class LectureService {
   }
 
   // 강의 좋아요 확인
-  Future<Response> checkLike(String lectureId) async {
+  Future<Response> checkLike(int lectureId) async {
     try {
       await setToken('access_token');
       final response = await dio.get('/likes/$lectureId');
@@ -169,7 +169,7 @@ class LectureService {
   }
 
   // 강의 좋아요 OnOff
-  Future<Response> likeOnOff(String lectureId) async {
+  Future<Response> likeOnOff(int lectureId) async {
     try {
       await setToken('access_token');
       final response = await dio.put('/likes/$lectureId');
@@ -182,7 +182,7 @@ class LectureService {
   }
 
   // 조회수 올리기
-  Future<Response> lectureViews(String lectureId) async {
+  Future<Response> lectureViews(int lectureId) async {
     try {
       final response = await dio.put('/lectures/views/$lectureId');
       _httpResult.success(response, '조회수 올리기');
