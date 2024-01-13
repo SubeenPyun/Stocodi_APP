@@ -70,7 +70,7 @@ class _VideoLectureState extends State<VideoLecture>{
     });
   }
 
-  void _listener(){
+  Future<void> _listener() async {
     if (_controller.value.isReady && !_hasStarted) {
       _controller.seekTo(Duration(seconds: seconds));
       _controller.play();
@@ -83,10 +83,10 @@ class _VideoLectureState extends State<VideoLecture>{
       WatchingLectureRequest watchingLectureRequest = WatchingLectureRequest(lecture_id: widget.courseCardItem.lectureId, time: pausedPosition.inSeconds.toString());
 
       if(isWatched){
-        lectureManager.changeWatchedTime(watchingLectureRequest);
+        await lectureManager.changeWatchedTime(watchingLectureRequest);
       }
       else{
-        lectureManager.addWatchingLectureList(watchingLectureRequest);
+        await lectureManager.addWatchingLectureList(watchingLectureRequest);
       }
     }
   }

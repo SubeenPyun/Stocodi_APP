@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/screens/lecture/search_lecture.dart';
 import 'package:stocodi_app/screens/lecture/widget/classroom_top.dart';
-import 'package:stocodi_app/screens/lecture/widget/video_lecture.dart';
-import '../../API/retrofit/auth_manager.dart';
+
 import '../../api/lecture/lecture_manager.dart';
 import '../../model/lecture/response/lecture_response.dart';
 import '../../theme/classroom_top_theme.dart';
-import 'Item/classroom_course_item.dart';
 import 'Item/classroom_couse_list_item.dart';
 
 final theme = ClassRoomTopTheme.getAppTheme();
@@ -44,8 +42,7 @@ class _ClassRoomState extends State<ClassRoom> {
           await lectureManager.getWatchingLectureList();
 
       setState(() {
-        courseList = fetchedCourseList ??
-            []; // Use fetchedCourseList or an empty list if null
+        courseList = fetchedCourseList ?? []; // Use fetchedCourseList or an empty list if null
         watchingList = fetchedWatchingLectureList ?? [];
       });
     } catch (e) {
@@ -57,6 +54,7 @@ class _ClassRoomState extends State<ClassRoom> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: theme.colorScheme.background,
@@ -91,11 +89,31 @@ class _ClassRoomState extends State<ClassRoom> {
               child: ClassRoomTop(),
             ),
             ClassRoomCourseListItem(
-                courseTitle: '수강 중인 강의', courseList: watchingList),
+              courseTitle: '수강 중인 강의',
+              courseList: watchingList,
+              onReturnFromLecture: () async {
+                print('화면전환');
+                await setCourseList();
+                setState(() {});
+              },
+            ),
             ClassRoomCourseListItem(
-                courseTitle: '실시간 인기강의', courseList: popularCourseList),
+              courseTitle: '실시간 인기강의',
+              courseList: popularCourseList,
+              onReturnFromLecture: () async {
+                await setCourseList();
+                setState(() {});
+              },
+            ),
             ClassRoomCourseListItem(
-                courseTitle: '강의 전체 보기', courseList: courseList),
+              courseTitle: '강의 전체 보기',
+              courseList: courseList,
+              onReturnFromLecture: () async {
+                print('화면전환');
+                await setCourseList();
+                setState(() {});
+              },
+            ),
           ],
         ),
       ),
