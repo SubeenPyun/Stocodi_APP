@@ -49,6 +49,12 @@ class _LectureCommentState extends State<LectureComment> {
               child: LectureMyComment(
                 imageUrl: 'assets/kakao.jpg',
                 lectureId: widget.lectureId,
+                onCommentSubmitted: (updatedList) {
+                  setState(() {
+                    commentList = updatedList;
+                    widget.onCommentCountChanged(commentList.length);
+                  });
+                },
               ),
             ),
             Expanded(
@@ -62,11 +68,16 @@ class _LectureCommentState extends State<LectureComment> {
                     itemCount: commentList.length,
                     itemBuilder: (context, index) {
                       CommentResponse comment = commentList[index]; // 각각의 댓글을 가져옴
+                      bool myComment = (2 == comment.member_id);
                       return CommentItem(
                         name: comment.author, // 예시: 댓글 이름
                         profileImage: 'assets/kakao.jpg', // 예시: 프로필 이미지
                         text: comment.content,
-                        created: comment.created_at, // 예시: 댓글 텍스트
+                        created: comment.created_at,
+                        myComment: myComment,
+                        onDelete: () {
+                          _showDeleteDialog(comment.comment_id);
+                        },   // 예시: 댓글 텍스트
                       );
                     },
                   );
@@ -78,13 +89,42 @@ class _LectureCommentState extends State<LectureComment> {
       ),
     );
   }
+
+  void _showDeleteDialog(int commentId) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: const Text('댓글 삭제'),
+          content: const Text('이 댓글을 삭제하시겠습니까?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('아니오'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('예'),
+              onPressed: () async {
+                await LectureManager().deleteComment(commentId);
+                await setCommentList();
+                Navigator.of(dialogContext).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 class LectureMyComment extends StatefulWidget {
   final String imageUrl;
   final int lectureId;
+  final Function(List<CommentResponse>) onCommentSubmitted;
 
-  const LectureMyComment({Key? key, required this.imageUrl, required this.lectureId}) : super(key: key);
+  const LectureMyComment({Key? key, required this.imageUrl, required this.lectureId, required this.onCommentSubmitted}) : super(key: key);
 
   @override
   _LectureMyCommentState createState() => _LectureMyCommentState();
@@ -138,7 +178,6 @@ class _LectureMyCommentState extends State<LectureMyComment> {
   Future<void> _submitComment(BuildContext context) async {
     String comment = _commentController.text;
     if (comment.isNotEmpty) {
-      print('댓글: $comment');
       CommentRequest commentRequest = CommentRequest(
         lecture_id: widget.lectureId,
         content: comment,
@@ -146,9 +185,14 @@ class _LectureMyCommentState extends State<LectureMyComment> {
       final lectureManager = LectureManager();
       var commentResponse = await lectureManager.writeComment(commentRequest);
 
-      if (commentResponse == null) {
+      if (commentResponse != null) {
+        List<CommentResponse>? updatedCommentList =
+        await lectureManager.getComments(widget.lectureId);
+        widget.onCommentSubmitted(updatedCommentList!);
+      } else {
         _showErrorDialog(context, '댓글 작성에 실패했어요..');
       }
+
       _commentController.clear();
     } else {
       _showErrorDialog(context, '댓글을 입력하세요.');

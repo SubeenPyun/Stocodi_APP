@@ -47,7 +47,7 @@ dependencies:
   toggle_switch: ^2.1.0
   fl_chart: ^0.63.0
   table_calendar: ^3.0.9
-  flutter_native_splash: ^2.3.9
+  flutter_native_splash: ^2.3.7
   grouped_list: ^5.1.2
   syncfusion_flutter_charts: ^21.2.4
   flutter_secure_storage: ^5.0.10

@@ -25,7 +25,7 @@ class VideoDetail extends StatefulWidget {
 }
 
 class _VideoDetailsState extends State<VideoDetail> {
-  late String? title = null;
+  late String? title;
   late String? date = null;
   late String? views = null;
   late String? author = null;
@@ -51,11 +51,11 @@ class _VideoDetailsState extends State<VideoDetail> {
   }
 
   void increaseViews(){
-    lectureManager.lectureViews(widget.courseCardItem.lectureId.toString());
+    lectureManager.lectureViews(widget.courseCardItem.lectureId);
   }
 
   Future<void> checkLike() async {
-    isLike = await lectureManager.checkLike(widget.courseCardItem.lectureId.toString());
+    isLike = await lectureManager.checkLike(widget.courseCardItem.lectureId);
     isLikeButtonPressed = isLike!;
     print("isLikeButtonPressed + "+isLikeButtonPressed.toString());
   }
@@ -64,14 +64,14 @@ class _VideoDetailsState extends State<VideoDetail> {
     var ytInstance = yt.YoutubeExplode();
     var video = await ytInstance.videos.get(widget.courseCardItem.videoLink);
 
-    LectureResponse? lecture = await lectureManager.oneLecture(widget.courseCardItem.lectureId.toString());
+    LectureResponse? lecture = await lectureManager.oneLecture(widget.courseCardItem.lectureId);
 
     setState(() {
       title = lecture?.title;
       link = 'https://www.youtube.com/watch?v${lecture!.video_link}';
       date = DateFormat('yyyy-MM-dd HH:mm').format(video.uploadDate!);
-      views = '조회수 ${lecture?.views ?? 0}'; // 예시로 views를 가져오는 부분
-      likes = lecture!.likes;
+      views = '조회수 ${lecture.views}'; // 예시로 views를 가져오는 부분
+      likes = lecture.likes;
       author = video.author;
     });
 
@@ -87,10 +87,10 @@ class _VideoDetailsState extends State<VideoDetail> {
     setState(() {
       if(isLikeButtonPressed) {
         likes--;
-        lectureManager.likeOnOff(widget.courseCardItem.lectureId.toString());
+        lectureManager.likeOnOff(widget.courseCardItem.lectureId);
       } else {
         likes++;
-        lectureManager.likeOnOff(widget.courseCardItem.lectureId.toString());
+        lectureManager.likeOnOff(widget.courseCardItem.lectureId);
       }
       isLikeButtonPressed = !isLikeButtonPressed;
     });
@@ -125,7 +125,6 @@ class _VideoDetailsState extends State<VideoDetail> {
 
     prepare("링크가 복사되었습니다.");
   }
-
 
   @override
   Widget build(BuildContext context) {

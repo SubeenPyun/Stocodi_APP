@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:stocodi_app/model/lecture/request/watching_lecture_model.dart';
 import 'package:stocodi_app/model/lecture/response/lecture_response.dart';
 import '../../model/lecture/request/comment_model.dart';
 import '../retrofit/http_result.dart';
@@ -12,6 +13,7 @@ class LectureService {
   LectureService() {
     //dio.options.baseUrl = 'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
     dio.options.baseUrl = 'http://10.0.2.2:53001/api/v1';
+    //dio.options.baseUrl = 'https://stocodi.com/api/v1';
 
     dio.options.connectTimeout = Duration(milliseconds: 5000);
     dio.options.receiveTimeout = Duration(milliseconds: 3000);
@@ -43,9 +45,9 @@ class LectureService {
     }
   }
 
-  Future<Response> deleteComment(int lectureId) async {
+  Future<Response> deleteComment(int commendId) async {
     try {
-      final response = await dio.delete('/lectures/$lectureId');
+      final response = await dio.delete('/comments/$commendId');
       _httpResult.success(response, '댓글 삭제');
       return response;
     } catch (e) {
@@ -54,15 +56,66 @@ class LectureService {
     }
   }
 
-  Future<Response> addWatchingLectureList(int lectureId) async {
+
+
+  Future<Response> addWatchingLectureList(WatchingLectureRequest watchingLecture) async {
     try {
       await setToken('access_token');
-      final response = await dio.post('/watchings/$lectureId');
+      final response = await dio.post('/watchings',data: watchingLecture.toJson());
       _httpResult.success(response, '시청 중 강의 추가');
       return response;
     } catch (e) {
       _httpResult.fail(e, '시청 중 강의 추가',addWatchingListStatusCheck);
       throw Exception('Failed to add watching lecture list: $e');
+    }
+  }
+
+  Future<Response> deleteWatchingLecture(int lectureId) async {
+    try {
+      final response = await dio.delete('/watchings/$lectureId');
+      _httpResult.success(response, '강의 삭제');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '시청 중 강의 삭제');
+      throw Exception('Failed to delete watching lecture: $e');
+    }
+  }
+
+
+  Future<Response> getWatchingLectureList() async {
+    try {
+      await setToken('access_token');
+      final response = await dio.get('/watchings');
+      _httpResult.success(response.data["response"], '시청 중 강의 조회');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '시청 중 강의 조회', getWatchingListStatusCheck);
+      throw Exception('Failed to get watching lecture list: $e');
+    }
+  }
+
+  Future<Response> isWatched(int lectureId) async {
+    try {
+      await setToken('access_token');
+      final response = await dio.get('/watchings/$lectureId');
+      _httpResult.success(response.data["response"], '시청 중 강의 여부 조회');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '시청 중 강의 여부 조회');
+      throw Exception('Failed to checked is watched: $e');
+    }
+  }
+
+
+  Future<Response> changeWatchedTime(WatchingLectureRequest watchingLecture) async {
+    try {
+      await setToken('access_token');
+      final response = await dio.put('/watchings/${watchingLecture.lecture_id}',data: watchingLecture.toJson2());
+      _httpResult.success(response.data["response"], '시청 중 강의 시간 수정');
+      return response;
+    } catch (e) {
+      _httpResult.fail(e, '시청 중 강의 시간 수정');
+      throw Exception('Failed to change watched time: $e');
     }
   }
 
@@ -79,20 +132,19 @@ class LectureService {
     }
   }
 
-  Future<Response> getWatchingLectureList() async {
+  Future<Response> deleteLecture(int lectureId) async {
     try {
-      await setToken('access_token');
-      final response = await dio.get('/watchings');
-      _httpResult.success(response.data["response"], '시청 중 강의 조회');
+      final response = await dio.delete('/lectures/$lectureId');
+      _httpResult.success(response, '강의 삭제');
       return response;
     } catch (e) {
-      _httpResult.fail(e, '시청 중 강의 조회', getWatchingListStatusCheck);
-      throw Exception('Failed to get watching lecture list: $e');
+      _httpResult.fail(e, '강의 삭제');
+      throw Exception('Failed to delete lecture: $e');
     }
   }
 
   // 강의 하나 조회
-  Future<Response> oneLecture(String lectureId) async {
+  Future<Response> oneLecture(int lectureId) async {
     try {
       final response = await dio.get('/lectures/$lectureId');
       _httpResult.success(response, '강의 하나 조회');
@@ -104,7 +156,7 @@ class LectureService {
   }
 
   // 강의 좋아요 확인
-  Future<Response> checkLike(String lectureId) async {
+  Future<Response> checkLike(int lectureId) async {
     try {
       await setToken('access_token');
       final response = await dio.get('/likes/$lectureId');
@@ -117,7 +169,7 @@ class LectureService {
   }
 
   // 강의 좋아요 OnOff
-  Future<Response> likeOnOff(String lectureId) async {
+  Future<Response> likeOnOff(int lectureId) async {
     try {
       await setToken('access_token');
       final response = await dio.put('/likes/$lectureId');
@@ -130,7 +182,7 @@ class LectureService {
   }
 
   // 조회수 올리기
-  Future<Response> lectureViews(String lectureId) async {
+  Future<Response> lectureViews(int lectureId) async {
     try {
       final response = await dio.put('/lectures/views/$lectureId');
       _httpResult.success(response, '조회수 올리기');

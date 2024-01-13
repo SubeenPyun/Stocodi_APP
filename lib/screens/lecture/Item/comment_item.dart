@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 
 class CommentItem extends StatelessWidget {
+  final String name;
+  final String profileImage;
+  final String text;
+  final String created;
+  final bool myComment;
+  final VoidCallback onDelete;
+
   const CommentItem({
     super.key,
     this.name = 'Your Name',
     this.profileImage = 'Y',
     required this.text,
     required this.created,
+    required this.myComment,
+    required this.onDelete,
   });
 
-  final String name;
-  final String profileImage;
-  final String text;
-  final String created;
+
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +59,11 @@ class CommentItem extends StatelessWidget {
                   ],
                 ),
               ),
+              if(myComment)
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: onDelete,
+                )
             ],
           ),
         );

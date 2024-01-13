@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/screens/lecture/search_lecture.dart';
 import 'package:stocodi_app/screens/lecture/widget/classroom_top.dart';
+import 'package:stocodi_app/screens/lecture/widget/video_lecture.dart';
 import '../../API/retrofit/auth_manager.dart';
 import '../../api/lecture/lecture_manager.dart';
 import '../../model/lecture/response/lecture_response.dart';
 import '../../theme/classroom_top_theme.dart';
+import 'Item/classroom_course_item.dart';
 import 'Item/classroom_couse_list_item.dart';
 
 final theme = ClassRoomTopTheme.getAppTheme();
@@ -18,15 +20,20 @@ class ClassRoom extends StatefulWidget {
 }
 
 class _ClassRoomState extends State<ClassRoom> {
-  late List<LectureResponse> popularCourseList =
-      []; // Initialize courseList as an empty list
+  late List<LectureResponse> popularCourseList = [];
   late List<LectureResponse> watchingList = [];
   late List<LectureResponse> courseList = [];
 
   @override
   void initState() {
     super.initState();
-    setCourseList(); // Call setCourseList when the widget is initialized
+    setCourseList();
+  }
+
+  @override
+  void didChangeDependencies(){
+    super.didChangeDependencies();
+    setCourseList();
   }
 
   Future<void> setCourseList() async {
