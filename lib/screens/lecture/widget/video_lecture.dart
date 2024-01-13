@@ -18,7 +18,7 @@ class VideoLecture extends StatefulWidget {
   _VideoLectureState createState() => _VideoLectureState();
 }
 
-class _VideoLectureState extends State<VideoLecture> with RouteAware, WidgetsBindingObserver {
+class _VideoLectureState extends State<VideoLecture>{
   late ClassRoomCourseItem courseCardItem;
   late YoutubePlayerController _controller;
   String youtubeId = '';
@@ -62,23 +62,32 @@ class _VideoLectureState extends State<VideoLecture> with RouteAware, WidgetsBin
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(0, 0, 0, 12),
-      width: double.infinity,
-      height: MediaQuery.of(context).size.height * 0.3,
-      child: YoutubePlayer(
-        controller: _controller,
-        progressColors: ProgressBarColors(
-          playedColor: theme.primaryColor,
-          handleColor: theme.primaryColor,
+    return WillPopScope(
+      onWillPop: () async {
+        // 뒤로가기 버튼이 눌렸을 때 실행되는 코드
+        _controller.pause();
+        // Duration currentPosition = _controller.value.position;
+        // print("사용자가 뒤로가기 버튼을 누른 시점에서의 영상 재생 위치: ${currentPosition.inSeconds} 초");
+        return true; // true를 반환하면 뒤로가기 허용, false를 반환하면 뒤로가기 차단
+      },
+      child: Container(
+        margin: const EdgeInsets.fromLTRB(0, 0, 0, 12),
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height * 0.3,
+        child: YoutubePlayer(
+          controller: _controller,
+          progressColors: ProgressBarColors(
+            playedColor: theme.primaryColor,
+            handleColor: theme.primaryColor,
+          ),
+          onReady: () {
+            _isPlayerReady = true;
+          },
+          onEnded: (YoutubeMetaData metaData) {
+            // 영상이 종료되었을 때 호출되는 콜백
+            print('영상이 종료되었습니다.: $metaData');
+          },
         ),
-        onReady: () {
-          _isPlayerReady = true;
-        },
-        onEnded: (YoutubeMetaData metaData) {
-          // 영상이 종료되었을 때 호출되는 콜백
-          print('영상이 종료되었습니다.: $metaData');
-        },
       ),
     );
   }

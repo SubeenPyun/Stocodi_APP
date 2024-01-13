@@ -126,7 +126,6 @@ class _VideoDetailsState extends State<VideoDetail> {
     prepare("링크가 복사되었습니다.");
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
