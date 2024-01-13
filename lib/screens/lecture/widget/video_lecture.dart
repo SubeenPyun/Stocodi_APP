@@ -117,13 +117,13 @@ class _VideoLectureState extends State<VideoLecture>{
           onReady: () {
             _isPlayerReady = true;
           },
-          onEnded: (YoutubeMetaData metaData) {
+          onEnded: (YoutubeMetaData metaData) async {
             // 영상이 종료되었을 때 호출되는 콜백
             print('영상이 종료되었습니다.: $metaData');
 
             // 시청 중 강의를 끝까지 본 경우 시청 중 강의 리스트에서 삭제
             if(isWatched){
-              lectureManager.deleteWatchingLecture(widget.courseCardItem.lectureId);
+              await lectureManager.deleteWatchingLecture(widget.courseCardItem.lectureId);
             }
           },
         ),
