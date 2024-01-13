@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../api/lecture/lecture_manager.dart';
-import '../../../api/lecture/lecture_service.dart';
 import '../../../model/lecture/request/comment_model.dart';
 import '../../../model/lecture/response/comment_response.dart';
 import '../Item/comment_item.dart';
