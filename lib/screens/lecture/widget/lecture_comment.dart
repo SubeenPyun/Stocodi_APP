@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../api/lecture/lecture_manager.dart';
 import '../../../model/lecture/request/comment_model.dart';
 import '../../../model/lecture/response/comment_response.dart';
+import '../../../model/portfolio/portfolio_data.dart';
 import '../Item/comment_item.dart';
 
 class LectureComment extends StatefulWidget  {
@@ -61,26 +63,27 @@ class _LectureCommentState extends State<LectureComment> {
               child: LayoutBuilder(
                 builder: (context, constraints) {
                   final isNarrowScreen = constraints.maxWidth < 600; // 예시 너비 (조정 가능)
-
-                  return ListView.builder( //여기에 commentList를 해서 보내고 싶어
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    itemCount: commentList.length,
-                    itemBuilder: (context, index) {
-                      CommentResponse comment = commentList[index]; // 각각의 댓글을 가져옴
-                      bool myComment = (2 == comment.member_id);
-                      return CommentItem(
-                        name: comment.author, // 예시: 댓글 이름
-                        profileImage: 'assets/kakao.jpg', // 예시: 프로필 이미지
-                        text: comment.content,
-                        created: comment.created_at,
-                        myComment: myComment,
-                        onDelete: () {
-                          _showDeleteDialog(comment.comment_id);
-                        },   // 예시: 댓글 텍스트
-                      );
-                    },
-                  );
+                  return Consumer<PortfolioData>(builder: (context, portfolioData, _) {
+                    return ListView.builder( //여기에 commentList를 해서 보내고 싶어
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      itemCount: commentList.length,
+                      itemBuilder: (context, index) {
+                        CommentResponse comment = commentList[index]; // 각각의 댓글을 가져옴
+                        bool myComment = (portfolioData.memberId == comment.member_id);
+                        return CommentItem(
+                          name: comment.author, // 예시: 댓글 이름
+                          profileImage: 'assets/kakao.jpg', // 예시: 프로필 이미지
+                          text: comment.content,
+                          created: comment.created_at,
+                          myComment: myComment,
+                          onDelete: () {
+                            _showDeleteDialog(comment.comment_id);
+                          },   // 예시: 댓글 텍스트
+                        );
+                      },
+                    );
+                  });
                 },
               ),
             ),
