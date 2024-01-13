@@ -130,7 +130,7 @@ class LectureService {
   // 강의 검색
   Future<Response> lectureSearch(String key) async {
     try {
-      final response = await dio.put('/lectures/search/$key');
+      final response = await dio.get('/lectures/search?key=$key');
       _httpResult.success(response, '강의 검색: $key');
       return response;
     } catch (e) {
