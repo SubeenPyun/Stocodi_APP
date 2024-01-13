@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/screens/tmp/tmp_column.dart';
 import 'package:stocodi_app/screens/tmp/tmp_mypage.dart';
 import 'package:stocodi_app/test/crawling.dart';
 import '../theme/app_theme.dart';
@@ -28,7 +29,8 @@ class _AppScreenState extends State<AppScreen> {
     Home(),
     const ClassRoom(),
     const InvestExperiment(),
-    DongGi(),
+    //DongGi(),
+    TmpColumn(),
     Tmpmypage(),
   ];
 

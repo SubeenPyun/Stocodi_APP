@@ -19,7 +19,7 @@ class InvestExperiment extends StatefulWidget {
 
 class _InvestExperimentState extends State<InvestExperiment> {
   late PortfolioData portfolioData;
-  
+
   @override
   void initState() {
     portfolioData = Provider.of<PortfolioData>(context, listen: false);
@@ -31,35 +31,65 @@ class _InvestExperimentState extends State<InvestExperiment> {
   Widget build(BuildContext context) {
     final investmentItems = InterestItemDataManager.investmentItems;
 
-    return Scaffold(
-      appBar: CustomAppBar(
-        preferredHeight: 64,
-        title: "투자실험",
-        onSearchPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Search()),
-          );
-        },
-        showSearchIcon: true,
-      ),
-      body: Container(
-        color: theme.backgroundColor,
-        padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            PortfolioSection(),
-            InterestItemsList(
-              investmentItems: investmentItems,
-              context: context,
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: CustomAppBar(
+            preferredHeight: 64,
+            title: "투자실험",
+            onSearchPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Search()),
+              );
+            },
+            showSearchIcon: true,
+          ),
+          body: Container(
+            color: theme.colorScheme.background,
+            padding: EdgeInsets.all(20),
+            child: Column(
+              children: [
+                PortfolioSection(),
+                InterestItemsList(
+                  investmentItems: investmentItems,
+                  context: context,
+                ),
+                InterestItemsList(
+                  investmentItems: investmentItems,
+                  context: context,
+                ),
+              ],
             ),
-            InterestItemsList(
-              investmentItems: investmentItems,
-              context: context,
-            ),
-          ],
+          ),
         ),
-      ),
+        Positioned.fill(
+          child: Container(
+            color: Colors.grey.withOpacity(0.7),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/axe_fix.png', // 이미지 경로를 적절히 수정
+                    width: 120, // 이미지의 폭 조절
+                    height: 120, // 이미지의 높이 조절
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    '현재 서비스 준비 중입니다',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
