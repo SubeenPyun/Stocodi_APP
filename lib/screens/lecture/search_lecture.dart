@@ -16,6 +16,7 @@ class SearchLecture extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
+          color: Colors.white,
           child: Column(
             children: [
               SearchWindow(),

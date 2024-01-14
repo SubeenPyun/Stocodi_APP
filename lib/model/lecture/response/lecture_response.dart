@@ -7,6 +7,7 @@ class LectureResponse {
   final int id;
   final String video_link;
   final String thumbnail_name;
+  final String author;
   final String title;
   final String description;
   final List<String> tags;
@@ -17,6 +18,7 @@ class LectureResponse {
     required this.id,
     required this.video_link,
     required this.thumbnail_name,
+    required this.author,
     required this.title,
     required this.description,
     required this.tags,

@@ -13,6 +13,7 @@ class ClassRoomCourseItem extends StatelessWidget {
   final int lectureId;
   final Function onReturnFromLecture;
 
+
   const ClassRoomCourseItem({
     Key? key,
     required this.courseTitle,

@@ -179,16 +179,19 @@ class LectureManager {
     return null;
   }
 
-  // 강의 검색
-  Future<LectureResponse?> lectureSearch(String key) async {
+  Future<List<LectureResponse>?> getSearchList(String key) async {
     try {
       final response = await _apiService.lectureSearch(key);
-      final responseData = response.data['response']; // 데이터 추출
-      LectureResponse lectureResponse = LectureResponse.fromJson(responseData);
-      return lectureResponse;
+
+      List<LectureResponse> lectureResponses =
+      (response.data['response'] as List)
+          .map((json) => LectureResponse.fromJson(json)).toList();
+
+      return lectureResponses;
+
     } catch (e) {
-      print('강의 검색: $e');
+      print('강의 검색 오류: $e');
+      return null;
     }
-    return null;
   }
 }
