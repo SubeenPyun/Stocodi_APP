@@ -5,11 +5,13 @@ import 'video_detail.dart';
 
 class VideoScreenActivity extends StatefulWidget {
   final ClassRoomCourseItem courseCardItem;
+  final Function onReturnFromLecture;
 
 
   const VideoScreenActivity({
     Key? key,
     required this.courseCardItem,
+    required this.onReturnFromLecture,
   }) : super(key: key);
 
   @override
@@ -33,7 +35,7 @@ class _VideoScreenActivityState extends State<VideoScreenActivity> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          VideoLecture(courseCardItem: courseCardItem,),
+          VideoLecture(courseCardItem: courseCardItem, onReturnFromLecture: widget.onReturnFromLecture,),
           VideoDetail(courseCardItem: courseCardItem,),
         ],
       ),

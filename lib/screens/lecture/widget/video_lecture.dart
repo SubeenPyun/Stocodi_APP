@@ -9,10 +9,12 @@ final ThemeData theme = AppTheme.appTheme;
 
 class VideoLecture extends StatefulWidget {
   final ClassRoomCourseItem courseCardItem;
+  final Function onReturnFromLecture;
 
   const VideoLecture({
     Key? key,
     required this.courseCardItem,
+    required this.onReturnFromLecture,
   }) : super(key: key);
 
   @override
@@ -83,15 +85,12 @@ class _VideoLectureState extends State<VideoLecture>{
       WatchingLectureRequest watchingLectureRequest = WatchingLectureRequest(lecture_id: widget.courseCardItem.lectureId, time: pausedPosition.inSeconds.toString());
 
       if(isWatched){
-        print('before');
-
         await lectureManager.changeWatchedTime(watchingLectureRequest);
-        print('after');
+        await widget.onReturnFromLecture();
       }
       else{
-        print('before');
         await lectureManager.addWatchingLectureList(watchingLectureRequest);
-        print('after');
+        await widget.onReturnFromLecture();
       }
     }
   }
@@ -129,6 +128,7 @@ class _VideoLectureState extends State<VideoLecture>{
             // 시청 중 강의를 끝까지 본 경우 시청 중 강의 리스트에서 삭제
             if(isWatched){
               await lectureManager.deleteWatchingLecture(widget.courseCardItem.lectureId);
+              await widget.onReturnFromLecture();
             }
           },
         ),
@@ -136,3 +136,4 @@ class _VideoLectureState extends State<VideoLecture>{
     );
   }
 }
+
