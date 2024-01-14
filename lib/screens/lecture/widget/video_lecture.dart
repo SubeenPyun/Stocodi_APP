@@ -83,10 +83,15 @@ class _VideoLectureState extends State<VideoLecture>{
       WatchingLectureRequest watchingLectureRequest = WatchingLectureRequest(lecture_id: widget.courseCardItem.lectureId, time: pausedPosition.inSeconds.toString());
 
       if(isWatched){
+        print('before');
+
         await lectureManager.changeWatchedTime(watchingLectureRequest);
+        print('after');
       }
       else{
+        print('before');
         await lectureManager.addWatchingLectureList(watchingLectureRequest);
+        print('after');
       }
     }
   }

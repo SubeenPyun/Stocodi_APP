@@ -37,7 +37,7 @@ class ClassRoomCourseItem extends StatelessWidget {
           ),
         );
         // 이 부분은 Lecture 화면에서 뒤로 돌아왔을 때 실행될 코드입니다.
-        onReturnFromLecture();
+        await onReturnFromLecture();
       },
       child: IntrinsicHeight(
         child: Container(
