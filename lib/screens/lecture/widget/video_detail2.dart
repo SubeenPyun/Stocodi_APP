@@ -46,14 +46,14 @@ class _VideoDetailsState extends State<VideoDetail2> {
   }
 
   void increaseViews(){
-    lectureManager.lectureViews(widget.courseCardItem.lectureId.toString());
+    lectureManager.lectureViews(widget.courseCardItem.lectureId);
   }
 
   Future<void> getVideoDetails() async {
     var ytInstance = yt.YoutubeExplode();
     var video = await ytInstance.videos.get(widget.courseCardItem.videoLink);
 
-    LectureResponse? lecture = await lectureManager.oneLecture(widget.courseCardItem.lectureId.toString());
+    LectureResponse? lecture = await lectureManager.oneLecture(widget.courseCardItem.lectureId);
 
     setState(() {
       title = lecture?.title;

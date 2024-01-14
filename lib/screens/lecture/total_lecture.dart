@@ -88,7 +88,12 @@ class _TotalLectureState extends State<TotalLecture> {
           color: Colors.white,
           child: Column(
             children: [
-              ClassRoomTotalListItem(courseList: courseList),
+              ClassRoomTotalListItem(courseList: courseList,
+                onReturnFromLecture: () async {
+                  print('화면전환');
+                  await setCourseList();
+                  setState(() {});
+                },),
             ],
           ),
         ),

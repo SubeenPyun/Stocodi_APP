@@ -13,6 +13,7 @@ class ClassRoomTotalItem extends StatelessWidget {
   final String courseImage;
   final String videoLink;
   final int lectureId;
+  final Function onReturnFromLecture;
 
 
   const ClassRoomTotalItem({
@@ -24,6 +25,7 @@ class ClassRoomTotalItem extends StatelessWidget {
     required this.courseImage,
     required this.videoLink,
     required this.lectureId,
+    required this.onReturnFromLecture
   }) : super(key: key);
 
   @override
@@ -32,12 +34,15 @@ class ClassRoomTotalItem extends StatelessWidget {
     double cardHeight = cardWidth * 0.8;
 
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
+      onTap: () async {
+        await Navigator.push(
+          context,
           MaterialPageRoute(
             builder: (context) => Lecture2(courseCardItem: this,),
           ),
         );
+        // 이 부분은 Lecture 화면에서 뒤로 돌아왔을 때 실행될 코드입니다.
+        onReturnFromLecture();
       },
       child: IntrinsicHeight(
         child: Container(

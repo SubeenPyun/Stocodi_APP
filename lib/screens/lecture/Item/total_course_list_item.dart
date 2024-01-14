@@ -9,10 +9,12 @@ final textTheme = theme.textTheme;
 
 class ClassRoomTotalListItem extends StatelessWidget {
   final List<LectureResponse> courseList;
+  final Function onReturnFromLecture;
 
   const ClassRoomTotalListItem({
     Key? key,
     required this.courseList,
+    required this.onReturnFromLecture,
   }) : super(key: key);
 
   @override
@@ -66,6 +68,7 @@ class ClassRoomTotalListItem extends StatelessWidget {
         courseImage: courseImage,
         videoLink: courseData.video_link,
         lectureId: courseData.id,
+        onReturnFromLecture: onReturnFromLecture,
       );
       courseCards.add(courseCard);
     }

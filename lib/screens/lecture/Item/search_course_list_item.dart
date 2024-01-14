@@ -3,16 +3,19 @@ import '../../../model/lecture/response/lecture_response.dart';
 import '../../../theme/class_room_theme.dart';
 import 'classroom_course_item.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
+import '../../../api/image/image_service.dart';
 
 final theme = ClassRoomTheme.getAppTheme();
 final textTheme = theme.textTheme;
 
 class ClassRoomSearchListItem extends StatelessWidget {
   final List<LectureResponse> courseList;
+  final Function onReturnFromLecture;
 
   const ClassRoomSearchListItem({
     Key? key,
     required this.courseList,
+    required this.onReturnFromLecture,
   }) : super(key: key);
 
   @override
@@ -53,16 +56,19 @@ class ClassRoomSearchListItem extends StatelessWidget {
   Future<List<Widget>> buildCourseCards(List<LectureResponse> courseList) async {
     var ytInstance = yt.YoutubeExplode(); // YouTube 인스턴스 생성
     List<Widget> courseCards = [];
+    var imageService = ImageService();
 
     for (var courseData in courseList) {
       var video = await ytInstance.videos.get(courseData.video_link);
-      var courseImage = video.thumbnails.highResUrl;
+      var courseImage = await imageService.getImage(
+          courseData.thumbnail_name);
 
       var courseCard = ClassRoomCourseItem(
         courseTitle: courseData.title,
         courseDescription: courseData.description,
         courseImage: courseImage,
         videoLink: courseData.video_link,
+        onReturnFromLecture: onReturnFromLecture,
         lectureId: courseData.id,
       );
       courseCards.add(courseCard);

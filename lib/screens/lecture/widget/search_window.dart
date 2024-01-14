@@ -97,7 +97,12 @@ class _SearchWindowState extends State<SearchWindow> {
               ),
             ],
           ),
-          ClassRoomSearchListItem(courseList: searchCourseList),
+          ClassRoomSearchListItem(courseList: searchCourseList,
+            onReturnFromLecture: () async {
+              print('화면전환');
+              setState(() {});
+            },
+          ),
         ],
       ),
     );
