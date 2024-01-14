@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/api/lecture/lecture_manager.dart';
 import 'package:stocodi_app/model/lecture/response/lecture_response.dart';
-import 'package:stocodi_app/screens/lecture/Item/classroom_couse_list_item.dart';
+import 'package:stocodi_app/screens/lecture/Item/search_course_list_item.dart';
 
 class SearchWindow extends StatefulWidget {
   @override
@@ -10,19 +10,18 @@ class SearchWindow extends StatefulWidget {
 
 class _SearchWindowState extends State<SearchWindow> {
   final TextEditingController _textEditingController = TextEditingController();
-
   late List<LectureResponse> searchCourseList = []; // Initialize courseList as an empty list
 
   @override
   void initState() {
     super.initState();
-    setSearchList(); // Call setCourseList when the widget is initialized
+    setSearchList(""); // Call setCourseList when the widget is initialized
   }
 
-  Future<void> setSearchList() async {
+  Future<void> setSearchList(String key) async {
     try {
       final lectureManager = LectureManager();
-      final searchedCourse = await lectureManager.getSearchList("1탄");
+      final searchedCourse = await lectureManager.getSearchList(key);
 
       if (searchedCourse != null) {
         setState(() {
@@ -38,8 +37,6 @@ class _SearchWindowState extends State<SearchWindow> {
       print('강의 검색 오류2: $e');
       // 오류 처리, 스낵바 표시 등을 수행하세요.
     }
-
-    print('강의 검색!!!!!: $searchCourseList');
   }
 
 
@@ -50,50 +47,58 @@ class _SearchWindowState extends State<SearchWindow> {
     return Container(
       width: screenWidth,
       padding: EdgeInsets.only(left: 30, top: 50, bottom: 25, right: 25),
-      child: Row(
+      child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-            ),
-          ),
-          Expanded(
-            child: TextField(
-              cursorColor: Color(0xFF0ECB81),
-              controller: _textEditingController,
-              decoration: InputDecoration(
-                hintText: '검색어를 입력하세요',
-                hintStyle: TextStyle(
-                  color: Color(0xffBEBEBE),
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                ),
-                contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                ),
-                enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xff0ECB81), width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                ),
-                focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xff0ECB81), width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                ),
-                suffixIcon: GestureDetector(
-                  child: const Icon(
-                    Icons.search_rounded,
-                    color: Colors.black,
-                    size: 30,
-                  ),
-                  // 강의검색 기능 추가
-                  // onTap: () =>
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black,
                 ),
               ),
-            ),
+              Expanded(
+                child: TextField(
+                  //강의 검색
+                  onSubmitted: (String value) {
+                    // 엔터를 눌렀을 때 실행되는 코드
+                    setSearchList(value);
+                  },
+                  cursorColor: Color(0xFF0ECB81),
+                  controller: _textEditingController,
+                  decoration: InputDecoration(
+                    hintText: '검색어를 입력하세요',
+                    hintStyle: TextStyle(
+                      color: Color(0xffBEBEBE),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xff0ECB81), width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xff0ECB81), width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    ),
+                    suffixIcon: GestureDetector(
+                      child: const Icon(
+                        Icons.search_rounded,
+                        color: Colors.black,
+                        size: 30,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
+          ClassRoomSearchListItem(courseList: searchCourseList),
         ],
       ),
     );

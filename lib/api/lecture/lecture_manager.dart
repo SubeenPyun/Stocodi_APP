@@ -126,7 +126,6 @@ class LectureManager {
   Future<List<LectureResponse>?> getSearchList(String key) async {
     try {
       final response = await _apiService.lectureSearch(key);
-      print(response.data['response'] as List);
 
       List<LectureResponse> lectureResponses =
       (response.data['response'] as List)
@@ -135,7 +134,7 @@ class LectureManager {
       return lectureResponses;
     } catch (e) {
       print('강의 검색 오류: $e');
-      return "";
+      return null;
     }
   }
 }

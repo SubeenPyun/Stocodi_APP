@@ -7,55 +7,27 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
 final theme = ClassRoomTheme.getAppTheme();
 final textTheme = theme.textTheme;
 
-class ClassRoomCourseListItem extends StatelessWidget {
-  final String courseTitle;
+class ClassRoomSearchListItem extends StatelessWidget {
   final List<LectureResponse> courseList;
-  final Function()? onTapFunction;
 
-  const ClassRoomCourseListItem({
+  const ClassRoomSearchListItem({
     Key? key,
-    required this.courseTitle,
     required this.courseList,
-    this.onTapFunction,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
       color: theme.backgroundColor,
+      width: screenWidth,
+      padding: EdgeInsets.only(top: 25),
       child: Column(
         children: [
           Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GestureDetector(
-                onTap: (){
-                  onTapFunction?.call();
-                  },
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 0, 4),
-                        child: Text(courseTitle, style: textTheme.displayLarge),
-                      ),
-                      GestureDetector(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 10, 4),
-                          child: Icon(Icons.chevron_right, color: theme.primaryColor, size: 35),
-                        ),
-                        onTap: (){
-                          onTapFunction?.call();
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: FutureBuilder<List<Widget>>(

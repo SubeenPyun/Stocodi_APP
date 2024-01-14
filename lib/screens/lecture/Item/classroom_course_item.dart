@@ -12,13 +12,14 @@ class ClassRoomCourseItem extends StatelessWidget {
   final String videoLink;
   final int lectureId;
 
+
   const ClassRoomCourseItem({
     Key? key,
     required this.courseTitle,
     required this.courseDescription,
     required this.courseImage,
     required this.videoLink,
-    required this.lectureId
+    required this.lectureId,
   }) : super(key: key);
 
   @override

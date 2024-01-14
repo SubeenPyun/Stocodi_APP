@@ -6,6 +6,7 @@ import '../../api/lecture/lecture_manager.dart';
 import '../../model/lecture/response/lecture_response.dart';
 import '../../theme/classroom_top_theme.dart';
 import 'Item/classroom_couse_list_item.dart';
+import 'package:stocodi_app/screens/lecture/total_lecture.dart';
 
 final theme = ClassRoomTopTheme.getAppTheme();
 final textTheme = theme.textTheme;
@@ -21,6 +22,15 @@ class _ClassRoomState extends State<ClassRoom> {
   late List<LectureResponse> popularCourseList = []; // Initialize courseList as an empty list
   late List<LectureResponse> watchingList = [];
   late List<LectureResponse> courseList = [];
+
+  void moveTotalCourse(){
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TotalLecture(),
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -82,7 +92,7 @@ class _ClassRoomState extends State<ClassRoom> {
             ),
             ClassRoomCourseListItem(courseTitle: '수강 중인 강의', courseList: watchingList),
             ClassRoomCourseListItem(courseTitle: '실시간 인기강의', courseList: popularCourseList),
-            ClassRoomCourseListItem(courseTitle: '강의 전체 보기', courseList: courseList),
+            ClassRoomCourseListItem(onTapFunction: moveTotalCourse, courseTitle: '강의 전체 보기', courseList: courseList),
           ],
         ),
       ),
