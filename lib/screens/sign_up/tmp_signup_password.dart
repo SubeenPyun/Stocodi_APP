@@ -25,6 +25,7 @@ class TmpSignupPwd extends StatefulWidget {
 class _TmpSignupPwdState extends State<TmpSignupPwd> {
   bool isTyping = false;
   String enteredPassword = ''; // 비밀번호 저장할 변수
+
   bool isPasswordValid(String password) {
     // 영문, 숫자, 특수문자를 포함한 8~25자리 비밀번호 정규 표현식 정의
     final RegExp passwordRegex = RegExp(

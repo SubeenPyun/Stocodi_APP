@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,25 @@ class MyApp extends StatelessWidget {
       final success = await authenticationManager.newToken();
 
       if (success) {
+        var memberResponse = await authenticationManager.accountInfo();
+
+        if (memberResponse == null) {
+          Fluttertoast.showToast(
+            msg: "계정 정보를 조회하는데 실패하였습니다.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Color(0xff0ECB81),
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+        } else {
+          print("자동로그인 했을 때 여기는 멤버아이디 >> ${memberResponse.id}");
+          PortfolioData portfolioData =
+              Provider.of<PortfolioData>(context, listen: false);
+          portfolioData.memberId = memberResponse.id;
+          portfolioData.updateSelectedMemberId(memberResponse.id);
+        }
         // 자동 로그인 성공하면 2초 지연 후 AppScreen으로 이동
         await Future.delayed(const Duration(seconds: 2));
         Navigator.pushReplacement(

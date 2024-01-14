@@ -7,6 +7,8 @@ import 'package:stocodi_app/screens/lecture/widget/search_window.dart';
 final ThemeData theme = AppTheme.appTheme;
 
 class SearchLecture extends StatelessWidget {
+  const SearchLecture({super.key});
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/screens/lecture/search_lecture.dart';
 import 'package:stocodi_app/screens/lecture/widget/classroom_top.dart';
-import '../../API/retrofit/auth_manager.dart';
+
 import '../../api/lecture/lecture_manager.dart';
 import '../../model/lecture/response/lecture_response.dart';
 import '../../theme/classroom_top_theme.dart';
@@ -19,7 +19,7 @@ class ClassRoom extends StatefulWidget {
 }
 
 class _ClassRoomState extends State<ClassRoom> {
-  late List<LectureResponse> popularCourseList = []; // Initialize courseList as an empty list
+  late List<LectureResponse> popularCourseList = [];
   late List<LectureResponse> watchingList = [];
   late List<LectureResponse> courseList = [];
 
@@ -35,14 +35,21 @@ class _ClassRoomState extends State<ClassRoom> {
   @override
   void initState() {
     super.initState();
-    setCourseList(); // Call setCourseList when the widget is initialized
+    setCourseList();
+  }
+
+  @override
+  void didChangeDependencies(){
+    super.didChangeDependencies();
+    setCourseList();
   }
 
   Future<void> setCourseList() async {
     try {
       final lectureManager = LectureManager();
       final fetchedCourseList = await lectureManager.getLectureList();
-      final fetchedWatchingLectureList = await lectureManager.getWatchingLectureList();
+      final fetchedWatchingLectureList =
+          await lectureManager.getWatchingLectureList();
 
       setState(() {
         courseList = fetchedCourseList ?? []; // Use fetchedCourseList or an empty list if null
@@ -57,16 +64,17 @@ class _ClassRoomState extends State<ClassRoom> {
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: theme.backgroundColor,
+        backgroundColor: theme.colorScheme.background,
         title: Text('강의실', style: textTheme.displayLarge),
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: Color(0xff191919)),
             onPressed: () {
               // Functionality
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => SearchLecture(),
@@ -90,9 +98,33 @@ class _ClassRoomState extends State<ClassRoom> {
               width: MediaQuery.of(context).size.width,
               child: ClassRoomTop(),
             ),
-            ClassRoomCourseListItem(courseTitle: '수강 중인 강의', courseList: watchingList),
-            ClassRoomCourseListItem(courseTitle: '실시간 인기강의', courseList: popularCourseList),
-            ClassRoomCourseListItem(onTapFunction: moveTotalCourse, courseTitle: '강의 전체 보기', courseList: courseList),
+            ClassRoomCourseListItem(
+              courseTitle: '수강 중인 강의',
+              courseList: watchingList,
+              onReturnFromLecture: () async {
+                print('화면전환');
+                await setCourseList();
+                setState(() {});
+              },
+            ),
+            ClassRoomCourseListItem(
+              courseTitle: '실시간 인기강의',
+              courseList: popularCourseList,
+              onReturnFromLecture: () async {
+                await setCourseList();
+                setState(() {});
+              },
+            ),
+            ClassRoomCourseListItem(
+              courseTitle: '강의 전체 보기',
+              courseList: courseList,
+              onTapFunction: moveTotalCourse,
+              onReturnFromLecture: () async {
+                print('화면전환');
+                await setCourseList();
+                setState(() {});
+              },
+            ),
           ],
         ),
       ),

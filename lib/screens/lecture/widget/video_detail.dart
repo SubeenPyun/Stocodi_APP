@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import '../../../api/lecture/lecture_manager.dart';
 import '../../../model/lecture/response/lecture_response.dart';
@@ -24,17 +25,20 @@ class VideoDetail extends StatefulWidget {
 }
 
 class _VideoDetailsState extends State<VideoDetail> {
-  late String? title = null;
+  late String? title;
   late String? date = null;
   late String? views = null;
   late String? author = null;
   late String? description = null; // 비디오 설명을 저장할 변수
   late String? authorProfileImage = null; // 프로필 이미지 주소를 저장할 변수
   bool showDetails = false;
-  int likes = 60; // 가정한 '좋아요' 수
+  int likes = 0; // 가정한 '좋아요' 수
 
+  String link = "";
+  bool? isLike = false;
   bool isLikeButtonPressed = false; // 버튼 상태를 추적하는 변수
   bool isScrapButtonPressed = false;
+  bool isCopyButtonPressed = false;
 
   LectureManager lectureManager = LectureManager();
 
@@ -43,24 +47,35 @@ class _VideoDetailsState extends State<VideoDetail> {
     super.initState();
     increaseViews();
     getVideoDetails();
+    checkLike();
   }
 
   void increaseViews(){
-    lectureManager.lectureViews(widget.courseCardItem.lectureId.toString());
+    lectureManager.lectureViews(widget.courseCardItem.lectureId);
+  }
+
+  Future<void> checkLike() async {
+    isLike = await lectureManager.checkLike(widget.courseCardItem.lectureId);
+    isLikeButtonPressed = isLike!;
+    print("isLikeButtonPressed + "+isLikeButtonPressed.toString());
   }
 
   Future<void> getVideoDetails() async {
     var ytInstance = yt.YoutubeExplode();
     var video = await ytInstance.videos.get(widget.courseCardItem.videoLink);
 
-    LectureResponse? lecture = await lectureManager.oneLecture(widget.courseCardItem.lectureId.toString());
+    LectureResponse? lecture = await lectureManager.oneLecture(widget.courseCardItem.lectureId);
 
     setState(() {
       title = lecture?.title;
+      link = 'https://www.youtube.com/watch?v${lecture!.video_link}';
       date = DateFormat('yyyy-MM-dd HH:mm').format(video.uploadDate!);
-      views = '조회수 ${lecture?.views ?? 0}'; // 예시로 views를 가져오는 부분
+      views = '조회수 ${lecture.views}'; // 예시로 views를 가져오는 부분
+      likes = lecture.likes;
       author = video.author;
     });
+
+    print("likes : "+likes.toString());
 
     // 작성자(author)의 채널 정보 가져오기
     var channel = await ytInstance.channels.getByUsername(author!); // 수정된 부분
@@ -72,26 +87,44 @@ class _VideoDetailsState extends State<VideoDetail> {
     setState(() {
       if(isLikeButtonPressed) {
         likes--;
+        lectureManager.likeOnOff(widget.courseCardItem.lectureId);
       } else {
         likes++;
+        lectureManager.likeOnOff(widget.courseCardItem.lectureId);
       }
       isLikeButtonPressed = !isLikeButtonPressed;
     });
+  }
+
+  void prepare(String message){
+      Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Color(0xff0ECB81),
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
   }
 
   void _scrapLecture() {
     setState(() {
       isScrapButtonPressed = !isScrapButtonPressed;
     });
+
+    prepare("서비스 준비 중입니다.");
   }
 
   void _copyLink() {
-    Clipboard.setData(ClipboardData(text: 'https://your.link.here'));
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Link copied to clipboard!')),
-    );
-  }
+    Clipboard.setData(ClipboardData(text: link));
 
+    setState(() {
+      isCopyButtonPressed = !isCopyButtonPressed;
+    });
+
+    prepare("링크가 복사되었습니다.");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -207,7 +240,7 @@ class _VideoDetailsState extends State<VideoDetail> {
                       Icon(Icons.favorite_border, size: 24, color: isLikeButtonPressed ? Colors.white : Color(0xff9BA6AF)), // 아이콘
                       SizedBox(width: 6), // 아이콘과 텍스트 사이의 간격
                       Text(
-                        '${likes}K',
+                        '${likes}',
                         style: TextStyle(
                           fontSize: 13,
                           color: isLikeButtonPressed ? Colors.white : Color(0xff9BA6AF),
@@ -247,7 +280,7 @@ class _VideoDetailsState extends State<VideoDetail> {
               SizedBox(
                 height: 40,
                 child: ElevatedButton(
-                  onPressed: (){}, // 버튼이 눌렸을 때 실행할 함수
+                  onPressed: _copyLink, // 버튼이 눌렸을 때 실행할 함수
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xffF5F7F9), // 버튼의 배경 색상
                     shape: RoundedRectangleBorder(

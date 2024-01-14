@@ -7,8 +7,8 @@ class NewInputField extends StatefulWidget {
   final bool focus;
   final bool obscure;
   final TextInputType inputtype;
-  final Function(String) onTextChanged; // 입력된 텍스트를 알리는 콜백
-  final Function(_NewInputFieldState)? onStateSet; // 상태를 저장하는 콜백
+  final Function(String) onTextChanged;
+  final Function(_NewInputFieldState)? onStateSet;
   final String initialText;
 
   const NewInputField({
@@ -19,7 +19,7 @@ class NewInputField extends StatefulWidget {
     required this.obscure,
     required this.inputtype,
     required this.onTextChanged,
-    required this.initialText, // 생성자에 initialText 매개변수 추가
+    required this.initialText,
     this.onStateSet,
   }) : super(key: key);
 
@@ -29,15 +29,19 @@ class NewInputField extends StatefulWidget {
 
 class _NewInputFieldState extends State<NewInputField> {
   late TextEditingController _controller;
+  String _textContent = "";
+
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.initialText); // 초기값 설정
-    // 나머지 initState 코드...
+    _controller = TextEditingController(text: widget.initialText);
+    _textContent = widget.initialText;
 
     _controller.addListener(() {
-      // 컨트롤러 값이 변경될 때마다 입력된 텍스트를 알리는 콜백 호출
       widget.onTextChanged(_controller.text);
+      setState(() {
+        _textContent = _controller.text;
+      });
     });
     widget.onStateSet?.call(this);
   }
@@ -46,8 +50,8 @@ class _NewInputFieldState extends State<NewInputField> {
   void didUpdateWidget(covariant NewInputField oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.initialText != widget.initialText) {
-      // initialText 값이 변경될 때 컨트롤러의 텍스트를 업데이트
       _controller.text = widget.initialText;
+      _textContent = widget.initialText;
     }
   }
 
@@ -80,14 +84,19 @@ class _NewInputFieldState extends State<NewInputField> {
       ),
       obscureText: widget.obscure,
       keyboardType: widget.inputtype,
-      onChanged: (text) {
-        // 입력된 텍스트를 알리는 콜백 호출
-        widget.onTextChanged(text);
-      },
+      onChanged: _onTextChanged,
     );
   }
 
   String getEnteredText() {
-    return _controller.text;
+    return _textContent;
+  }
+
+  // _onTextChanged 메서드 추가
+  void _onTextChanged(String text) {
+    widget.onTextChanged(text);
+    setState(() {
+      _textContent = text;
+    });
   }
 }
