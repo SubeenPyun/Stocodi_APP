@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:stocodi_app/model/lecture/request/watching_lecture_model.dart';
 import 'package:stocodi_app/model/lecture/response/lecture_response.dart';
 import '../../model/lecture/request/comment_model.dart';
+import '../urls.dart';
 import '../retrofit/http_result.dart';
 
 class LectureService {
@@ -11,10 +12,7 @@ class LectureService {
   final PrintHttpResult _httpResult = PrintHttpResult(); // MyHttpResult 인스턴스 생성
 
   LectureService() {
-    //dio.options.baseUrl = 'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
-    dio.options.baseUrl = 'http://10.0.2.2:53001/api/v1';
-    //dio.options.baseUrl = 'https://stocodi.com/api/v1';
-
+    dio.options.baseUrl = Urls.url;
     dio.options.connectTimeout = Duration(milliseconds: 5000);
     dio.options.receiveTimeout = Duration(milliseconds: 3000);
   }

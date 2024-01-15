@@ -3,15 +3,14 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../model/stock/request/change_stock.dart';
 import '../../model/stock/request/interest_stock.dart';
+import '../urls.dart';
 
 class StockService {
   final Dio dio = Dio(); // Dio 인스턴스 생성
   final storage = FlutterSecureStorage();
 
   StockService() {
-    // dio.options.baseUrl = 'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
-    dio.options.baseUrl = 'http://10.0.2.2:53001/api/v1'; // localhost 에뮬레이터 URL
-    // dio.options.baseUrl = 'https://stocodi.com/api/v1';
+    dio.options.baseUrl = Urls.url;
     dio.options.connectTimeout = Duration(milliseconds: 5000);
     dio.options.receiveTimeout = Duration(milliseconds: 3000);
     dio.options.headers = {

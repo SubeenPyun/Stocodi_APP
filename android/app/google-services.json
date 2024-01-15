@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "388036390067",
+    "firebase_url": "https://stocodi-app-360ec-default-rtdb.firebaseio.com",
+    "project_id": "stocodi-app-360ec",
+    "storage_bucket": "stocodi-app-360ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:388036390067:android:b44d69ac879d42093294c6",
+        "android_client_info": {
+          "package_name": "com.example.stocodi_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmzlH9UhJr7tzLrq5YwQD1SZ97Ge3DHrI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

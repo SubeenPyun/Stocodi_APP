@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:stocodi_app/analytics_helper.dart';
 import '../../../api/lecture/lecture_manager.dart';
 import '../../../model/lecture/request/comment_model.dart';
 import '../../../model/lecture/response/comment_response.dart';
@@ -110,6 +111,7 @@ class _LectureCommentState extends State<LectureComment> {
             TextButton(
               child: const Text('예'),
               onPressed: () async {
+                AnalyticsHelper.gaEvent("delete_comment", {});
                 await LectureManager().deleteComment(commentId);
                 await setCommentList();
                 Navigator.of(dialogContext).pop();
@@ -165,6 +167,7 @@ class _LectureMyCommentState extends State<LectureMyComment> {
             const SizedBox(width: 16),
             ElevatedButton(
               onPressed: () {
+                AnalyticsHelper.gaEvent("write_comment", {});
                 _submitComment(context);
               },
               style: ElevatedButton.styleFrom(

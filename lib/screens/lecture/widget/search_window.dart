@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stocodi_app/api/lecture/lecture_manager.dart';
 import 'package:stocodi_app/model/lecture/response/lecture_response.dart';
 import 'package:stocodi_app/screens/lecture/Item/search_course_list_item.dart';
+import '../../../analytics_helper.dart';
 
 class SearchWindow extends StatefulWidget {
   final Function onReturnFromLecture;
@@ -26,6 +27,7 @@ class _SearchWindowState extends State<SearchWindow> {
   }
 
   Future<void> setSearchList(String key) async {
+    AnalyticsHelper.gaEvent("search_lectures", {"input_words " : key});
     try {
       final lectureManager = LectureManager();
       final searchedCourse = await lectureManager.getSearchList(key);

@@ -8,6 +8,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../model/auth/request/login_model.dart';
 import '../../model/auth/request/members_model.dart';
 import '../../model/portfolio/request/accounts_model.dart';
+import '../urls.dart';
 import '../retrofit/http_result.dart';
 
 class ImageService {
@@ -16,9 +17,7 @@ class ImageService {
   final PrintHttpResult _httpResult = PrintHttpResult(); // MyHttpResult 인스턴스 생성
 
   ImageService() {
-    //dio.options.baseUrl = 'http://223.130.138.147:8080/api/v1'; // API 기본 URL로 변경
-    dio.options.baseUrl = 'http://10.0.2.2:53001/api/v1';
-    //dio.options.baseUrl = 'https://stocodi.com/api/v1';
+    dio.options.baseUrl = Urls.url;
     dio.options.connectTimeout = Duration(milliseconds: 5000);
     dio.options.receiveTimeout = Duration(milliseconds: 3000);
   }

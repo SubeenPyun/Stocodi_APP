@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../analytics_helper.dart';
 import '../../../theme/class_room_theme.dart';
 import '../lecture.dart';
 
@@ -31,6 +32,7 @@ class ClassRoomCourseItem extends StatelessWidget {
 
     return GestureDetector(
       onTap: () async {
+        AnalyticsHelper.gaEvent("classroom_to_lecture", {"lecture_id" : lectureId});
         await Navigator.push(
           context,
           MaterialPageRoute(

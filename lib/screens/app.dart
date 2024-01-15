@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/analytics_helper.dart';
 import 'package:stocodi_app/screens/tmp/tmp_column.dart';
 import 'package:stocodi_app/screens/tmp/tmp_mypage.dart';
 import 'package:stocodi_app/test/crawling.dart';
@@ -67,7 +68,6 @@ class _AppScreenState extends State<AppScreen> {
       ),
       type: BottomNavigationBarType.fixed,
       onTap: (int index) {
-        //print(index);
         setState(() {
           _currentPageIndex = index;
         });
