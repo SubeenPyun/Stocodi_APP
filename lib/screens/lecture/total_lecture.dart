@@ -97,11 +97,8 @@ class _TotalLectureState extends State<TotalLecture> {
             children: [
               ClassRoomTotalListItem(
                 courseList: courseList,
-                onReturnFromLecture: () async {
-                  print('화면전환');
-                  await setCourseList();
-                  setState(() {});
-                },),
+                onReturnFromLecture: widget.onReturnFromLecture,
+              ),
             ],
           ),
         ),
