@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:stocodi_app/screens/sign_up/signup_password.dart';
 import '../../API/retrofit/auth_manager.dart';
+import '../../api/toasts.dart';
 import '../../widgets/green_long_btn.dart';
 import '../../widgets/new_input_field.dart';
 
@@ -80,30 +80,14 @@ class _SignEmailState extends State<SignEmail> {
                 final authenticationManager = AuthenticationManager();
                 // 입력된 이메일이 유효한지 확인
                 if (!isEmailValid(enteredTxt)) {
-                  Fluttertoast.showToast(
-                    msg: "유효한 이메일 주소를 입력해주세요.",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Color(0xff0ECB81),
-                    textColor: Colors.white,
-                    fontSize: 16.0,
-                  );
+                   prepare("유효한 이메일 주소를 입력해주세요.");
                 } else {
                   // 이메일이 이미 존재하는지 확인
                   bool emailExists =
                       await authenticationManager.emailExist(enteredTxt);
 
                   if (!emailExists) {
-                    Fluttertoast.showToast(
-                      msg: "이메일이 이미 존재합니다. 다른 이메일을 입력해주세요.",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Color(0xff0ECB81),
-                      textColor: Colors.white,
-                      fontSize: 16.0,
-                    );
+                    prepare("이메일이 이미 존재합니다. 다른 이메일을 입력해주세요.");
                   } else {
                     Navigator.push(
                       context,

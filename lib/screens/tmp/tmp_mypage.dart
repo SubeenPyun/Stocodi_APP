@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../../API/retrofit/auth_manager.dart';
-import '../../widgets/long_btn.dart';
-import '../../widgets/portfolio_dialog.dart';
 import '../login/login.dart';
 
 class Tmpmypage extends StatelessWidget {

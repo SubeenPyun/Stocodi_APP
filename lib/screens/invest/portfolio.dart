@@ -42,7 +42,7 @@ class _PortfolioState extends State<Portfolio> {
       body: SingleChildScrollView(
         primary: true, // 자식 위젯의 크기에 스크롤 높이 맞춰짐
         child: Container(
-          color: theme.colorScheme.background,
+          color: theme.canvasColor,
           padding: EdgeInsets.all(20),
           child: Column(
             children: [

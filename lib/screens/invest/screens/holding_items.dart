@@ -41,7 +41,7 @@ Container _bodyWidget(BuildContext context){
   double S = values.fold(0, (previousValue, element) => previousValue + element);
 
   return Container(
-    color: theme.backgroundColor,
+    color: theme.canvasColor,
     child: Column(
       children: [
         Container(
@@ -212,7 +212,7 @@ class _HoldingState extends State<HoldingItem>
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: theme.backgroundColor,
+        backgroundColor: theme.canvasColor,
         resizeToAvoidBottomInset : false,
         appBar: CustomAppBar(
           preferredHeight: 64,
@@ -230,7 +230,7 @@ class _HoldingState extends State<HoldingItem>
 
                 //tabbar+ tabbar 위쪽
                 Container(
-                  color: theme.backgroundColor,
+                  color: theme.canvasColor,
                   padding: EdgeInsets.all(20),
                   width: MediaQuery.of(context).size.width,
                   constraints: BoxConstraints(minHeight: 500),

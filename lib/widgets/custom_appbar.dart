@@ -27,7 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: theme.textTheme.titleLarge,
       ),
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.canvasColor,
       elevation: 0.0,
       titleSpacing: !isSub ? 24 : 5,
       actions: [

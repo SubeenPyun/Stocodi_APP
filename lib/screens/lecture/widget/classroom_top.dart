@@ -37,7 +37,7 @@ class _LectureSliderState extends State<LectureSlider> {
     final containerBorderRadius = isNarrowScreen ? BorderRadius.circular(10) : BorderRadius.circular(20); // 너비에 따른 BorderRadius 조정
 
     return Scaffold(
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.canvasColor,
       body: SizedBox(
         height: isNarrowScreen ? 350 : 550, // 너비에 따른 높이 조정
         child: Column(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import '../../../api/toasts.dart';
 import 'package:intl/intl.dart';
 import '../../../analytics_helper.dart';
 import '../../../api/lecture/lecture_manager.dart';
@@ -70,7 +70,7 @@ class _VideoDetailsState extends State<VideoDetail> {
 
     setState(() {
       title = lecture?.title;
-      link = 'https://www.youtube.com/watch?v${lecture!.video_link}';
+      link = lecture!.video_link;
       date = DateFormat('yyyy-MM-dd HH:mm').format(video.uploadDate!);
       views = '조회수 ${lecture.views}'; // 예시로 views를 가져오는 부분
       likes = lecture.likes;
@@ -98,18 +98,6 @@ class _VideoDetailsState extends State<VideoDetail> {
       }
       isLikeButtonPressed = !isLikeButtonPressed;
     });
-  }
-
-  void prepare(String message){
-      Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Color(0xff0ECB81),
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
   }
 
   void _scrapLecture() {

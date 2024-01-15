@@ -30,7 +30,7 @@ class _AssetSectionState extends State<AssetSection> {
         height: 34,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
-          color: isSelected ? Colors.white : widget.theme.backgroundColor,
+          color: isSelected ? Colors.white : widget.theme.canvasColor,
         ),
         child: Center(
           child: Text(
@@ -77,7 +77,7 @@ class _AssetSectionState extends State<AssetSection> {
             height: 40,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),
-              color: widget.theme.backgroundColor,
+              color: widget.theme.canvasColor,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

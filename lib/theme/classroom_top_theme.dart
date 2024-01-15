@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ClassRoomTopTheme {
   static ThemeData getAppTheme() {
     return ThemeData(
-      backgroundColor: Colors.white,
+      canvasColor: Colors.white,
       textTheme: const TextTheme(
         displayLarge: TextStyle(
           fontFamily: 'Pretendard Variable',

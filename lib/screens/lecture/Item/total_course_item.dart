@@ -48,6 +48,7 @@ class ClassRoomTotalItem extends StatelessWidget {
       },
       child: IntrinsicHeight(
         child: Container(
+          color: theme.backgroundColor,
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.fromLTRB(20, 5, 10, 15),
           child: Row(

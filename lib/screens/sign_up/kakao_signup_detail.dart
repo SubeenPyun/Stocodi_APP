@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:stocodi_app/screens/sign_up/kakao_interests.dart';
-import 'package:stocodi_app/widgets/gray_similar_edit.dart';
-import '../../API/retrofit/auth_manager.dart';
 import '../../widgets/green_long_btn.dart';
 import '../../widgets/new_input_field.dart';
-import 'interests.dart';
 
 class KaKaoSignDetail extends StatefulWidget {
   final String enteredEmail;

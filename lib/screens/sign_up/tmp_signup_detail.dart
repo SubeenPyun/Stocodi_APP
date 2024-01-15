@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:stocodi_app/screens/sign_up/kakao_interests.dart';
-import 'package:stocodi_app/widgets/gray_similar_edit.dart';
-import '../../API/retrofit/auth_manager.dart';
+import '../../api/toasts.dart';
 import '../../widgets/green_long_btn.dart';
 import '../../widgets/new_input_field.dart';
 import 'interests.dart';
@@ -46,18 +44,6 @@ class _TmpSignDetailState extends State<TmpSignDetail> {
     }
   }
 
-  void showToast(String message) {
-    Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Color(0xff0ECB81),
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
-  }
-
   Future<void> onKaKaoNextButtonPressed() async {
     if (canProceed) {
       //여기에 새롭게 넘어가야 함 다음 interest로!
@@ -75,7 +61,7 @@ class _TmpSignDetailState extends State<TmpSignDetail> {
         ),
       );
     } else {
-      showToast('모든 항목을 정확히 입력해주세요.');
+      prepare('모든 항목을 정확히 입력해주세요.');
     }
   }
 

@@ -28,7 +28,7 @@ class StockCustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: theme.textTheme.titleMedium,
       ),
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: theme.canvasColor,
       elevation: 0.0,
       actions: [
         IconButton(

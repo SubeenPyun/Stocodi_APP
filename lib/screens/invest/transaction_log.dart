@@ -95,7 +95,7 @@ class _TransactionLogState extends State<TransactionLog> {
       body: SingleChildScrollView(
         primary: true,
         child: Container(
-          color: theme.backgroundColor,
+          color: theme.canvasColor,
           padding: EdgeInsets.all(20),
           child: Column(
             children: [

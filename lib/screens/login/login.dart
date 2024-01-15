@@ -6,8 +6,8 @@ import 'package:stocodi_app/model/auth/kakao/kakao_login.dart';
 import 'package:stocodi_app/model/auth/kakao/social_viewmodel.dart';
 import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
 import 'package:stocodi_app/screens/sign_up/tmp_signup_password.dart';
-
 import '../../API/retrofit/auth_manager.dart';
+import '../../api/toasts.dart';
 import '../../model/auth/request/login_model.dart';
 import '../../widgets/green_long_btn.dart';
 import '../../widgets/new_input_field.dart';
@@ -184,15 +184,7 @@ class _LoginState extends State<Login> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Fluttertoast.showToast(
-                                msg: "서비스 준비 중입니다.",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Color(0xff0ECB81),
-                                textColor: Colors.white,
-                                fontSize: 16.0,
-                              );
+                              prepare("서비스 준비 중입니다.");
                             },
                             child: Text(
                               "아이디/비밀번호 찾기",
@@ -257,15 +249,7 @@ class _LoginState extends State<Login> {
                       children: [
                         GestureDetector(
                           onTap: () {
-                            Fluttertoast.showToast(
-                              msg: "서비스 준비 중입니다.",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Color(0xff0ECB81),
-                              textColor: Colors.white,
-                              fontSize: 16.0,
-                            );
+                            prepare("서비스 준비 중입니다.");
                           },
                           child: Container(
                             width: 70,
@@ -283,15 +267,7 @@ class _LoginState extends State<Login> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Fluttertoast.showToast(
-                              msg: "서비스 준비 중입니다.",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.BOTTOM,
-                              timeInSecForIosWeb: 1,
-                              backgroundColor: Color(0xff0ECB81),
-                              textColor: Colors.white,
-                              fontSize: 16.0,
-                            );
+                            prepare("서비스 준비 중입니다.");
                           },
                           child: Container(
                             width: 70,
@@ -316,15 +292,7 @@ class _LoginState extends State<Login> {
                               String kakaoemail = socialviewmodel.getEmail();
                               String kakaogender = socialviewmodel.getGender();
                               // 회원가입하려면 SignDone 페이지로 이동
-                              Fluttertoast.showToast(
-                                msg: "회원가입하지 않았습니다.",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Color(0xff0ECB81),
-                                textColor: Colors.white,
-                                fontSize: 16.0,
-                              );
+                              prepare("회원가입하지 않았습니다.");
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -336,15 +304,7 @@ class _LoginState extends State<Login> {
                             } else if (isLoggedIn == "-1") {
                               // 로그인이 실패한 경우에 대한 처리
                               // 예: 에러 메시지 표시 또는 다른 작업 수행
-                              Fluttertoast.showToast(
-                                msg: "이메일이 인증되지 않았습니다.",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Color(0xff0ECB81),
-                                textColor: Colors.white,
-                                fontSize: 16.0,
-                              );
+                              prepare("이메일이 인증되지 않았습니다.");
                             } else if (isLoggedIn == '1') {
                               String kakaoemail = socialviewmodel.getEmail();
                               setState(() {

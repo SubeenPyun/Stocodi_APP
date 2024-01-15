@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:stocodi_app/model/auth/request/kakao_members_model.dart';
 import 'package:stocodi_app/screens/sign_up/signup_done.dart';
 import '../../API/retrofit/auth_manager.dart';
-import '../../model/auth/request/members_model.dart';
 import '../../widgets/green_long_btn.dart';
 import '../../widgets/interest_Box.dart';
 

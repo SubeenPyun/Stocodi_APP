@@ -68,7 +68,7 @@ class _VideoDetailsState2 extends State<VideoDetail2> {
 
     setState(() {
       title = lecture?.title;
-      link = 'https://www.youtube.com/watch?v${lecture!.video_link}';
+      link = lecture!.video_link;
       date = DateFormat('yyyy-MM-dd HH:mm').format(video.uploadDate!);
       views = '조회수 ${lecture.views}'; // 예시로 views를 가져오는 부분
       likes = lecture.likes;

@@ -4,7 +4,7 @@ class AppTheme {
 
   static final ThemeData appTheme = ThemeData(
     primaryColor: const Color(0xff0ECB81),
-    backgroundColor: const Color(0xffF5F7F9),
+    canvasColor: const Color(0xffF5F7F9),
     cardColor: const Color(0xffF2F3F4),
     textTheme: const TextTheme(
       // 화면 제목

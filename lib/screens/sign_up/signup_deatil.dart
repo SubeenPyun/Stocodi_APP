@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:stocodi_app/api/toasts.dart';
 import '../../API/retrofit/auth_manager.dart';
 import '../../widgets/green_long_btn.dart';
 import '../../widgets/new_input_field.dart';
@@ -50,18 +50,6 @@ class _SignDetailState extends State<SignDetail> {
     return specialCharacters.hasMatch(value);
   }
 
-  void showToast(String message) {
-    Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Color(0xff0ECB81),
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
-  }
-
   Future<void> onNextButtonPressed() async {
     if (name.isNotEmpty &&
         phone.length == 11 &&
@@ -74,7 +62,7 @@ class _SignDetailState extends State<SignDetail> {
 
       if (!nicknameExists) {
         // 닉네임이 이미 존재하는 경우 에러 메시지 표시
-        showToast('닉네임이 이미 존재합니다. 다른 닉네임을 입력해주세요.');
+        prepare('닉네임이 이미 존재합니다. 다른 닉네임을 입력해주세요.');
       } else {
         print(
             '실제 값: email=($widget.enteredEmail), 비밀번호=($widget.enteredPwd), birth=$birth, nick=$nickname');
@@ -95,15 +83,13 @@ class _SignDetailState extends State<SignDetail> {
       }
     } else {
       // 조건이 충족되지 않았을 때 오류 메시지 토스트로 표시
-      showToast('모든 항목을 정확히 입력해주세요.');
+      prepare('모든 항목을 정확히 입력해주세요.');
       print('오류오류: name=$name, phone=$phone, birth=$birth, nick=$nickname');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    String email = widget.enteredEmail;
-    String pwd = widget.enteredPwd;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

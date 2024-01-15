@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/analytics_helper.dart';
 import 'package:stocodi_app/screens/tmp/tmp_column.dart';
 import 'package:stocodi_app/screens/tmp/tmp_mypage.dart';
-import 'package:stocodi_app/test/crawling.dart';
-import '../main.dart';
 import '../theme/app_theme.dart';
 import 'home/home.dart';
 import 'invest/invest_experiment.dart';
 import 'lecture/classroom.dart';
-import 'lecture/test/testpage.dart';
 
 class AppScreen extends StatefulWidget {
   const AppScreen({Key? key}) : super(key: key);
@@ -86,7 +82,7 @@ class _AppScreenState extends State<AppScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: theme.colorScheme.background,
+      backgroundColor: theme.canvasColor,
       body: _pages[_currentPageIndex],
       bottomNavigationBar: _bottomNavigationBarwidget(),
     );

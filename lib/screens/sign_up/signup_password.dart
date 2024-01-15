@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:stocodi_app/screens/sign_up/signup_deatil.dart';
+import '../../api/toasts.dart';
 import '../../widgets/gray_similar_edit.dart';
 import '../../widgets/green_long_btn.dart';
 import '../../widgets/new_input_field.dart';
@@ -108,15 +109,7 @@ class _SignupPwdState extends State<SignupPwd> {
               onTap: () {
                 // 비밀번호 유효성 검사
                 if (!isPasswordValid(enteredPassword)) {
-                  Fluttertoast.showToast(
-                    msg: "비밀번호는 영문, 숫자, 특수문자를 포함한 8~25자리여야 합니다.",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Color(0xff0ECB81),
-                    textColor: Colors.white,
-                    fontSize: 16.0,
-                  );
+                  prepare("비밀번호는 영문, 숫자, 특수문자를 포함한 8~25자리여야 합니다.");
                 } else {
                   // 다음 단계로 진행
                   Navigator.push(
