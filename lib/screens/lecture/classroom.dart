@@ -23,8 +23,8 @@ class _ClassRoomState extends State<ClassRoom> {
   late List<LectureResponse> watchingList = [];
   late List<LectureResponse> courseList = [];
 
-  void moveTotalCourse(){
-    Navigator.pushReplacement(
+  Future<void> moveTotalCourse() async {
+    await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => TotalLecture(
@@ -77,9 +77,9 @@ class _ClassRoomState extends State<ClassRoom> {
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: Color(0xff191919)),
-            onPressed: () {
+            onPressed: () async {
               // Functionality
-              Navigator.push(
+              await Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => SearchLecture(
