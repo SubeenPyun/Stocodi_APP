@@ -71,6 +71,7 @@ class LectureService {
 
   Future<Response> deleteWatchingLecture(int lectureId) async {
     try {
+      await setToken('access_token');
       final response = await dio.delete('/watchings/$lectureId');
       _httpResult.success(response, '강의 삭제');
       return response;
