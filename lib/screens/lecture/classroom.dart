@@ -8,6 +8,7 @@ import '../../api/lecture/lecture_manager.dart';
 import '../../model/lecture/response/lecture_response.dart';
 import '../../theme/classroom_top_theme.dart';
 import 'Item/classroom_couse_list_item.dart';
+import 'package:stocodi_app/screens/lecture/total_lecture.dart';
 
 final theme = ClassRoomTopTheme.getAppTheme();
 final textTheme = theme.textTheme;
@@ -25,6 +26,20 @@ class _ClassRoomState extends State<ClassRoom> {
   late List<LectureResponse> courseList = [];
 
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
+
+  Future<void> moveTotalCourse() async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TotalLecture(
+          onReturnFromLecture: () async {
+            print('화면전환');
+            await setCourseList();
+            setState(() {});
+          },),
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -69,10 +84,15 @@ class _ClassRoomState extends State<ClassRoom> {
             onPressed: () {
               AnalyticsHelper.gaEvent("classroom_to_searchScreen", {});
               // Functionality
-              Navigator.push(
+              await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SearchLecture(),
+                  builder: (context) => SearchLecture(
+                    onReturnFromLecture: () async {
+                      print('화면전환');
+                      await setCourseList();
+                      setState(() {});
+                    }),
                 ),
               );
             },
@@ -113,6 +133,7 @@ class _ClassRoomState extends State<ClassRoom> {
             ClassRoomCourseListItem(
               courseTitle: '강의 전체 보기',
               courseList: courseList,
+              onTapFunction: moveTotalCourse,
               onReturnFromLecture: () async {
                 print('화면전환');
                 await setCourseList();

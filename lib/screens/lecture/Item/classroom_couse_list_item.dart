@@ -11,12 +11,14 @@ final textTheme = theme.textTheme;
 class ClassRoomCourseListItem extends StatelessWidget {
   final String courseTitle;
   final List<LectureResponse> courseList;
+  final Function()? onTapFunction;
   final Function onReturnFromLecture;
 
   const ClassRoomCourseListItem({
     Key? key,
     required this.courseTitle,
     required this.courseList,
+    this.onTapFunction,
     required this.onReturnFromLecture,
   }) : super(key: key);
 
@@ -29,24 +31,32 @@ class ClassRoomCourseListItem extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(
-                width: double.infinity,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 0, 4),
-                      child: Text(courseTitle, style: textTheme.displayLarge),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 10, 4),
-                      child: Icon(
-                          Icons.chevron_right, color: theme.primaryColor,
-                          size: 35),
-                    ),
-                  ],
+              GestureDetector(
+                onTap: (){
+                  onTapFunction?.call();
+                  },
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 0, 0, 4),
+                        child: Text(courseTitle, style: textTheme.displayLarge),
+                      ),
+                      GestureDetector(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 10, 4),
+                          child: Icon(Icons.chevron_right, color: theme.primaryColor, size: 35),
+                        ),
+                        onTap: (){
+                          onTapFunction?.call();
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SingleChildScrollView(
