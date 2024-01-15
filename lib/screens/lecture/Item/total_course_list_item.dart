@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../api/image/image_service.dart';
 import '../../../model/lecture/response/lecture_response.dart';
 import '../../../theme/class_room_theme.dart';
 import 'total_course_item.dart';
@@ -56,25 +57,32 @@ class ClassRoomTotalListItem extends StatelessWidget {
       List<LectureResponse> courseList) async {
     var ytInstance = yt.YoutubeExplode(); // YouTube 인스턴스 생성
     List<Widget> courseCards = [];
+    var imageService = ImageService();
 
     for (var courseData in courseList) {
-      var video = await ytInstance.videos.get(courseData.video_link);
-      var courseImage = video.thumbnails.highResUrl;
+      try {
+        var courseImage = await imageService.getImage(
+            courseData.thumbnail_name);
 
-      var courseCard = ClassRoomTotalItem(
-        courseTitle: courseData.title,
-        courseDescription: courseData.description,
-        courseAuthor: courseData.author,
-        courseViews: courseData.views,
-        courseImage: courseImage,
-        videoLink: courseData.video_link,
-        lectureId: courseData.id,
-        onReturnFromLecture: onReturnFromLecture,
-      );
-      courseCards.add(courseCard);
+        var courseCard = ClassRoomTotalItem(
+          courseTitle: courseData.title,
+          courseDescription: courseData.description,
+          courseAuthor: courseData.author,
+          courseViews: courseData.views,
+          courseImage: Image(image:courseImage),
+          videoLink: courseData.video_link,
+          lectureId: courseData.id,
+          onReturnFromLecture: onReturnFromLecture,
+        );
+        courseCards.add(courseCard);
+      } catch (e) {
+        print('Error loading image for ${courseData.title}: $e');
+      }
     }
 
-    ytInstance.close(); // 사용이 끝난 후 인스턴스를 닫아주는 것이 좋아요.
-    return courseCards;
+    // Make sure to close the YouTube instance outside the loop.
+    ytInstance.close();
+
+    return courseCards; // Return the courseCards outside the loop.
   }
 }

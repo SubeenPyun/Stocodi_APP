@@ -10,7 +10,7 @@ class ClassRoomTotalItem extends StatelessWidget {
   final String courseDescription;
   final String courseAuthor;
   final int courseViews;
-  final String courseImage;
+  final Widget courseImage;
   final String videoLink;
   final int lectureId;
   final Function onReturnFromLecture;
@@ -59,10 +59,11 @@ class ClassRoomTotalItem extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    image: NetworkImage(courseImage),
+                    image: NetworkImage('assets/placeholder_image.png'),
                     fit: BoxFit.cover,
                   ),
                 ),
+                child: courseImage,
               ),
               SizedBox(width: 10),
               Expanded(
