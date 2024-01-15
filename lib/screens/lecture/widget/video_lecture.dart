@@ -24,7 +24,7 @@ class VideoLecture extends StatefulWidget {
   _VideoLectureState createState() => _VideoLectureState();
 }
 
-class _VideoLectureState extends State<VideoLecture>{
+class _VideoLectureState extends State<VideoLecture> {
   late ClassRoomCourseItem courseCardItem;
   late YoutubePlayerController _controller;
   String youtubeId = '';
@@ -36,6 +36,7 @@ class _VideoLectureState extends State<VideoLecture>{
   int seconds = 0;
   bool _initialized = false;
   bool isWatched = false;
+  Orientation? _previousOrientation;
 
 
   @override
@@ -51,7 +52,8 @@ class _VideoLectureState extends State<VideoLecture>{
 
     try {
       // 시청 중인 강의일 경우 seconds 부터 재생
-      secondsResponse = await lectureManager.isWatched(courseCardItem.lectureId);
+      secondsResponse =
+      await lectureManager.isWatched(courseCardItem.lectureId);
       seconds = int.parse(secondsResponse!);
       isWatched = true;
     } catch (e) {
@@ -69,10 +71,12 @@ class _VideoLectureState extends State<VideoLecture>{
         forceHD: false,
         enableCaption: true,
       ),
-    )..addListener(_listener);
+    )
+      ..addListener(_listener);
 
     setState(() {
       _initialized = true;
+      _previousOrientation = MediaQuery.of(context).orientation==Orientation.landscape?Orientation.portrait:Orientation.landscape;
     });
   }
 
@@ -83,16 +87,18 @@ class _VideoLectureState extends State<VideoLecture>{
       _hasStarted = true;
     }
 
-    if(_isPlayerReady && _controller.value.playerState == PlayerState.paused){
+    if (_isPlayerReady && _controller.value.playerState == PlayerState.paused) {
       Duration pausedPosition = _controller.value.position;
       print("유튜브 영상 일시 정지 at : ${pausedPosition.inSeconds} 초");
-      WatchingLectureRequest watchingLectureRequest = WatchingLectureRequest(lecture_id: widget.courseCardItem.lectureId, time: pausedPosition.inSeconds.toString());
+      WatchingLectureRequest watchingLectureRequest = WatchingLectureRequest(
+          lecture_id: widget.courseCardItem.lectureId,
+          time: pausedPosition.inSeconds.toString());
 
-      if(isWatched){
+      if (isWatched) {
         await lectureManager.changeWatchedTime(watchingLectureRequest);
         await widget.onReturnFromLecture();
       }
-      else{
+      else {
         await lectureManager.addWatchingLectureList(watchingLectureRequest);
         await widget.onReturnFromLecture();
       }
@@ -105,40 +111,63 @@ class _VideoLectureState extends State<VideoLecture>{
       return Container(); // 또는 초기화 중임을 나타내는 다른 위젯을 반환할 수 있습니다.
     }
 
+
     return WillPopScope(
       onWillPop: () async {
-        AnalyticsHelper.gaEvent("lecture_to_classroom", {"lecture_id" : widget.courseCardItem.lectureId});
+        AnalyticsHelper.gaEvent("lecture_to_classroom",
+            {"lecture_id": widget.courseCardItem.lectureId});
         // 뒤로가기 버튼이 눌렸을 때 실행되는 코드
         _controller.pause();
         Navigator.pop(context);
         return true; // true를 반환하면 뒤로가기 허용, false를 반환하면 뒤로가기 차단
       },
-      child: Container(
-        margin: const EdgeInsets.fromLTRB(0, 0, 0, 12),
-        width: double.infinity,
-        height: MediaQuery.of(context).orientation == Orientation.portrait
-    ? MediaQuery.of(context).size.height * 0.3
-        : MediaQuery.of(context).size.height,
-        child: YoutubePlayer(
-          controller: _controller,
-          progressColors: ProgressBarColors(
-            playedColor: theme.primaryColor,
-            handleColor: theme.primaryColor,
-          ),
-          onReady: () {
-            _isPlayerReady = true;
-          },
-          onEnded: (YoutubeMetaData metaData) async {
-            // 영상이 종료되었을 때 호출되는 콜백
-            print('영상이 종료되었습니다.: $metaData');
+      child: OrientationBuilder(
+        builder: (BuildContext context, Orientation orientation) {
+          if (_previousOrientation != MediaQuery.of(context).orientation) {
+            // 방향이 변경되었을 때만 동작
+            if (MediaQuery.of(context).orientation == Orientation.landscape) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                widget.isFullScreen(false);
+              });
 
-            // 시청 중 강의를 끝까지 본 경우 시청 중 강의 리스트에서 삭제
-            if(isWatched){
-              await lectureManager.deleteWatchingLecture(widget.courseCardItem.lectureId);
-              await widget.onReturnFromLecture();
+             _previousOrientation = MediaQuery.of(context).orientation;
+            } else if (MediaQuery.of(context).orientation == Orientation.portrait) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                widget.isFullScreen(true);
+              });
+             _previousOrientation = MediaQuery.of(context).orientation;
             }
-          },
-        ),
+
+            // 현재 방향을 이전 방향으로 업데이트
+
+
+          }
+
+          return Container(
+            margin: const EdgeInsets.fromLTRB(0, 0, 0, 12),
+            width: double.infinity,
+            height: MediaQuery.of(context).orientation == Orientation.portrait ?
+              MediaQuery.of(context).size.height * 0.3 :
+              MediaQuery.of(context).size.height,
+            child: YoutubePlayer(
+              controller: _controller,
+              progressColors: ProgressBarColors(
+                playedColor: theme.primaryColor,
+                handleColor: theme.primaryColor,
+              ),
+              onReady: () {
+                _isPlayerReady = true;
+              },
+              onEnded: (YoutubeMetaData metaData) async {
+                if (isWatched) {
+                  await lectureManager.deleteWatchingLecture(
+                      widget.courseCardItem.lectureId);
+                  await widget.onReturnFromLecture();
+                }
+              },
+            ),
+          );
+        },
       ),
     );
   }
