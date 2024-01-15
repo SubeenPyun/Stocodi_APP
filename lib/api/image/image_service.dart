@@ -40,7 +40,7 @@ class ImageService {
     return await storage.read(key: token);
   }
 
-  Future<Widget> getImage(String thumbNailName) async {
+  Future<MemoryImage> getImage(String thumbNailName) async {
     try {
       await setToken('access_token');
       final response = await dio.get('/storage/images/$thumbNailName',
@@ -48,7 +48,7 @@ class ImageService {
 
       if (response.statusCode == 200) {
         final image = MemoryImage(Uint8List.fromList(response.data));
-        return Image(image: image); // 'Image' 대신 'Image' 위젯 사용
+        return image; // 'Image' 대신 'Image' 위젯 사용
       } else {
         throw Exception('Failed to load image: ${response.statusCode}');
       }

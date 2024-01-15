@@ -95,7 +95,7 @@ class ClassRoomCourseListItem extends StatelessWidget {
         var courseCard = ClassRoomCourseItem(
           courseTitle: courseData.title,
           courseDescription: courseData.description,
-          courseImage: courseImage,
+          courseImage: Image(image:courseImage),
           videoLink: courseData.video_link,
           lectureId: courseData.id,
           onReturnFromLecture: onReturnFromLecture
