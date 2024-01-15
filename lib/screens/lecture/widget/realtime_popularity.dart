@@ -55,7 +55,7 @@ class RealtimePopularity extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "최근 검색",
+            "실시간 인기",
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,

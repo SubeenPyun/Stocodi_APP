@@ -23,7 +23,7 @@ class ClassRoomSearchListItem extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      color: theme.canvasColor,
+      color: theme.backgroundColor,
       width: screenWidth,
       padding: EdgeInsets.only(top: 25),
       child: Column(
