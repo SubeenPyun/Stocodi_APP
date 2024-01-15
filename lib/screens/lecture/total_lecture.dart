@@ -74,7 +74,7 @@ class _TotalLectureState extends State<TotalLecture> {
             icon: const Icon(Icons.search, color: Color(0xff191919)),
             onPressed: () {
               // Functionality
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => SearchLecture(onReturnFromLecture: widget.onReturnFromLecture,),

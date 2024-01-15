@@ -5,17 +5,19 @@ import 'package:stocodi_app/screens/lecture/widget/video_screen_activity2.dart';
 
 class Lecture2 extends StatefulWidget {
   final ClassRoomTotalItem courseCardItem;
+  final Function onReturnFromLecture;
 
   const Lecture2({
     Key? key,
     required this.courseCardItem,
+    required this.onReturnFromLecture,
   }) : super(key: key);
 
   @override
-  _LectureState createState() => _LectureState();
+  _LectureState2 createState() => _LectureState2();
 }
 
-class _LectureState extends State<Lecture2> {
+class _LectureState2 extends State<Lecture2> {
   late ClassRoomTotalItem courseCardItem;
 
   @override
@@ -37,6 +39,7 @@ class _LectureState extends State<Lecture2> {
             children: [
               VideoScreenActivity2(
                 courseCardItem: courseCardItem,
+                onReturnFromLecture: widget.onReturnFromLecture,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

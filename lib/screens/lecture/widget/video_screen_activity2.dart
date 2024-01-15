@@ -5,17 +5,20 @@ import 'video_detail2.dart';
 
 class VideoScreenActivity2 extends StatefulWidget {
   final ClassRoomTotalItem courseCardItem;
+  final Function onReturnFromLecture;
+
 
   const VideoScreenActivity2({
     Key? key,
     required this.courseCardItem,
+    required this.onReturnFromLecture,
   }) : super(key: key);
 
   @override
-  _VideoScreenActivityState createState() => _VideoScreenActivityState();
+  _VideoScreenActivityState2 createState() => _VideoScreenActivityState2();
 }
 
-class _VideoScreenActivityState extends State<VideoScreenActivity2> {
+class _VideoScreenActivityState2 extends State<VideoScreenActivity2> {
   late ClassRoomTotalItem courseCardItem;
 
   @override
@@ -32,7 +35,7 @@ class _VideoScreenActivityState extends State<VideoScreenActivity2> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          VideoLecture2(courseCardItem: courseCardItem,),
+          VideoLecture2(courseCardItem: courseCardItem, onReturnFromLecture: widget.onReturnFromLecture,),
           VideoDetail2(courseCardItem: courseCardItem,),
         ],
       ),
