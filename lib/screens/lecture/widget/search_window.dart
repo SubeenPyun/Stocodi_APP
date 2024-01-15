@@ -61,9 +61,14 @@ class _SearchWindowState extends State<SearchWindow> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: 10),
-                child: Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.black,
+                child: GestureDetector(
+                  child: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.black,
+                  ),
+                    onTap: (){
+                    Navigator.pop(context);
+                    },
                 ),
               ),
               Expanded(

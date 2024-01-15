@@ -73,18 +73,17 @@ class ClassRoomTotalItem extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Flexible(
-                          child: Container(
-                            child: Text(
-                              courseTitle,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                                color: Color(0xFF191919),
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                        Container(
+                          width: MediaQuery.of(context).size.width*0.5,
+                          child: Text(
+                            courseTitle,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Color(0xFF191919),
                             ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         Spacer(),

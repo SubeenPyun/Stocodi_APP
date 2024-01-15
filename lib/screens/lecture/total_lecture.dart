@@ -58,9 +58,12 @@ class _TotalLectureState extends State<TotalLecture> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
-          Icons.arrow_back_ios,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
           color: Colors.black,
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         backgroundColor: Colors.white,
         title: Text('강의 전체 보기', style: TextStyle(
