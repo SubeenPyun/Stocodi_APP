@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import '../../../analytics_helper.dart';
 import '../../../api/lecture/lecture_manager.dart';
 import '../../../model/lecture/response/lecture_response.dart';
 import '../../../theme/lecture_video_theme.dart';
@@ -84,6 +85,7 @@ class _VideoDetailsState extends State<VideoDetail> {
   }
 
   void _incrementLikes() {
+    AnalyticsHelper.gaEvent("increase_likes", {"lecture_id" : widget.courseCardItem.lectureId,"likes" : likes});
     setState(() {
       if(isLikeButtonPressed) {
         likes--;
@@ -109,6 +111,7 @@ class _VideoDetailsState extends State<VideoDetail> {
   }
 
   void _scrapLecture() {
+    AnalyticsHelper.gaEvent("scrap_lecture", {});
     setState(() {
       isScrapButtonPressed = !isScrapButtonPressed;
     });
@@ -117,6 +120,7 @@ class _VideoDetailsState extends State<VideoDetail> {
   }
 
   void _copyLink() {
+    AnalyticsHelper.gaEvent("copy_link", {"lecture_link" : link});
     Clipboard.setData(ClipboardData(text: link));
 
     setState(() {

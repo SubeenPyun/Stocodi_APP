@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -6,12 +8,14 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:provider/provider.dart';
 import 'package:stocodi_app/screens/app.dart';
 import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
-import 'package:stocodi_app/screens/login/login.dart';
 import 'package:stocodi_app/screens/sign_up/signup.dart';
 import 'package:stocodi_app/screens/sign_up/splash_screen.dart';
 import 'API/retrofit/auth_manager.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   KakaoSdk.init(nativeAppKey: '2b8c8978e959e4c010dec60a9a4594fb');
   initializeDateFormatting().then((_) => runApp(MyApp()));
 }
@@ -19,6 +23,8 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
   final authenticationManager = AuthenticationManager();
+
+  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 
   Future<void> autoLogin(BuildContext context) async {
     try {
@@ -84,6 +90,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => PortfolioData(),
       child: MaterialApp(
+        navigatorObservers: [FirebaseAnalyticsObserver(analytics: _analytics)], // 여기에 옵서버 추가
         home: Builder(
           builder: (context) => FutureBuilder(
             future: autoLogin(context),

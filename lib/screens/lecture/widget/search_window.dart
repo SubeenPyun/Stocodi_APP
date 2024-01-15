@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../analytics_helper.dart';
+
 class SearchWindow extends StatelessWidget {
   const SearchWindow({super.key});
 
@@ -17,6 +19,7 @@ class SearchWindow extends StatelessWidget {
             padding: const EdgeInsets.only(right: 10),
             child: GestureDetector(
               onTap: () {
+                AnalyticsHelper.gaEvent("searchScreen_to_classroom", {});
                 Navigator.pop(context);
               },
               child: Icon(
@@ -56,7 +59,9 @@ class SearchWindow extends StatelessWidget {
                     size: 30,
                   ),
                   //강의검색 기능 추가
-                  //onTap: () =>
+                  onTap: () {
+                    AnalyticsHelper.gaEvent("search_lectures", {"input_words " : null});
+                  }
                 ),
               ),
             ),

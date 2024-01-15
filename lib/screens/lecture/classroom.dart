@@ -1,4 +1,6 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
+import 'package:stocodi_app/analytics_helper.dart';
 import 'package:stocodi_app/screens/lecture/search_lecture.dart';
 import 'package:stocodi_app/screens/lecture/widget/classroom_top.dart';
 
@@ -21,6 +23,8 @@ class _ClassRoomState extends State<ClassRoom> {
   late List<LectureResponse> popularCourseList = [];
   late List<LectureResponse> watchingList = [];
   late List<LectureResponse> courseList = [];
+
+  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
@@ -63,6 +67,7 @@ class _ClassRoomState extends State<ClassRoom> {
           IconButton(
             icon: const Icon(Icons.search, color: Color(0xff191919)),
             onPressed: () {
+              AnalyticsHelper.gaEvent("classroom_to_searchScreen", {});
               // Functionality
               Navigator.push(
                 context,

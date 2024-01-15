@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stocodi_app/api/lecture/lecture_manager.dart';
 import 'package:stocodi_app/model/lecture/request/watching_lecture_model.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import '../../../analytics_helper.dart';
 import '../../../theme/app_theme.dart';
 import '../Item/classroom_course_item.dart';
 
@@ -103,6 +104,7 @@ class _VideoLectureState extends State<VideoLecture>{
 
     return WillPopScope(
       onWillPop: () async {
+        AnalyticsHelper.gaEvent("lecture_to_classroom", {"lecture_id" : widget.courseCardItem.lectureId});
         // 뒤로가기 버튼이 눌렸을 때 실행되는 코드
         _controller.pause();
         Navigator.pop(context);
