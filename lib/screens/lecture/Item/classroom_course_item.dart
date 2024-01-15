@@ -34,11 +34,9 @@ class ClassRoomCourseItem extends StatelessWidget {
         await Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Lecture(courseCardItem: this,),
+            builder: (context) => Lecture(courseCardItem: this, onReturnFromLecture: onReturnFromLecture,),
           ),
         );
-        // 이 부분은 Lecture 화면에서 뒤로 돌아왔을 때 실행될 코드입니다.
-        onReturnFromLecture();
       },
       child: IntrinsicHeight(
         child: Container(
