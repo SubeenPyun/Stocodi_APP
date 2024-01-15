@@ -90,7 +90,9 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => PortfolioData(),
       child: MaterialApp(
-        navigatorObservers: [FirebaseAnalyticsObserver(analytics: _analytics)], // 여기에 옵서버 추가
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: _analytics)
+        ], // 여기에 옵서버 추가
         home: Builder(
           builder: (context) => FutureBuilder(
             future: autoLogin(context),

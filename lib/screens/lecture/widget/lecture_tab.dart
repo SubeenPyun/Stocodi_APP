@@ -8,8 +8,7 @@ final textTheme = AppTheme.getAppTheme().textTheme;
 
 class LectureTab extends StatefulWidget {
   final int lectureId;
-  const LectureTab({
-    Key? key, required this.lectureId}) : super(key: key);
+  const LectureTab({Key? key, required this.lectureId}) : super(key: key);
 
   @override
   _LectureTabState createState() => _LectureTabState();
@@ -103,16 +102,22 @@ class TabItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final isNarrowScreen = screenWidth < 600;
-    final baseWidth = isNarrowScreen ? 40.0 : 40.0 * (screenWidth / 600); // 600보다 작을 때의 기본 너비 또는 비율에 따른 너비
-    final baseHeight = isNarrowScreen ? 26.0 : 26.0 * (screenWidth / 600); // 600보다 작을 때의 기본 높이 또는 비율에 따른 높이
+    final baseWidth = isNarrowScreen
+        ? 40.0
+        : 40.0 * (screenWidth / 600); // 600보다 작을 때의 기본 너비 또는 비율에 따른 너비
+    final baseHeight = isNarrowScreen
+        ? 26.0
+        : 26.0 * (screenWidth / 600); // 600보다 작을 때의 기본 높이 또는 비율에 따른 높이
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(text, style: textTheme.displayLarge?.copyWith(
-          color: isSelected ? theme.primaryColor : theme.unselectedWidgetColor,
-        )),
+        Text(text,
+            style: textTheme.displayLarge?.copyWith(
+              color:
+                  isSelected ? theme.primaryColor : theme.unselectedWidgetColor,
+            )),
         Container(
           width: baseWidth,
           height: baseHeight,
@@ -122,14 +127,15 @@ class TabItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(100.0),
           ),
           child: Center(
-            child: Text(count, style: textTheme.displaySmall?.copyWith(
-              color: isSelected ? theme.primaryColor : theme.unselectedWidgetColor,
-            )),
-            
+            child: Text(count,
+                style: textTheme.displaySmall?.copyWith(
+                  color: isSelected
+                      ? theme.primaryColor
+                      : theme.unselectedWidgetColor,
+                )),
           ),
         ),
       ],
     );
   }
 }
-

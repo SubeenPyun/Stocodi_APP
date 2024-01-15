@@ -22,7 +22,7 @@ class ClassRoomTotalListItem extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      color: theme.backgroundColor,
+      color: theme.colorScheme.background,
       width: screenWidth,
       padding: EdgeInsets.only(top: 25),
       child: Column(
@@ -52,7 +52,8 @@ class ClassRoomTotalListItem extends StatelessWidget {
     );
   }
 
-  Future<List<Widget>> buildCourseCards(List<LectureResponse> courseList) async {
+  Future<List<Widget>> buildCourseCards(
+      List<LectureResponse> courseList) async {
     var ytInstance = yt.YoutubeExplode(); // YouTube 인스턴스 생성
     List<Widget> courseCards = [];
 
