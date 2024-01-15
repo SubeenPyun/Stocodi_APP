@@ -78,7 +78,8 @@ class _ClassRoomState extends State<ClassRoom> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: theme.colorScheme.background,
+        backgroundColor: Colors.white,
+        elevation: 0,
         title: Text('강의실', style: textTheme.displayLarge),
         actions: [
           IconButton(
