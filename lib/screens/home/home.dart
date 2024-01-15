@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
                     child: Text(
                       "현재 서비스 준비중입니다",
                       style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       ),

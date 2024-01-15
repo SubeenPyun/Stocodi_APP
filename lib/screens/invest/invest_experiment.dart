@@ -65,26 +65,15 @@ class _InvestExperimentState extends State<InvestExperiment> {
         ),
         Positioned.fill(
           child: Container(
-            color: Colors.grey.withOpacity(0.7),
+            color: Colors.grey.withOpacity(0.5),
             child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/axe_fix.png', // 이미지 경로를 적절히 수정
-                    width: 120, // 이미지의 폭 조절
-                    height: 120, // 이미지의 높이 조절
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    '현재 서비스 준비 중입니다',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
+              child: Text(
+                "현재 서비스 준비중입니다",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),

@@ -15,18 +15,17 @@ class ClassRoomTotalItem extends StatelessWidget {
   final int lectureId;
   final Function onReturnFromLecture;
 
-
-  const ClassRoomTotalItem({
-    Key? key,
-    required this.courseTitle,
-    required this.courseDescription,
-    required this.courseAuthor,
-    required this.courseViews,
-    required this.courseImage,
-    required this.videoLink,
-    required this.lectureId,
-    required this.onReturnFromLecture
-  }) : super(key: key);
+  const ClassRoomTotalItem(
+      {Key? key,
+      required this.courseTitle,
+      required this.courseDescription,
+      required this.courseAuthor,
+      required this.courseViews,
+      required this.courseImage,
+      required this.videoLink,
+      required this.lectureId,
+      required this.onReturnFromLecture})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,10 @@ class ClassRoomTotalItem extends StatelessWidget {
         await Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Lecture2(courseCardItem: this, onReturnFromLecture: onReturnFromLecture,),
+            builder: (context) => Lecture2(
+              courseCardItem: this,
+              onReturnFromLecture: onReturnFromLecture,
+            ),
           ),
         );
         // 이 부분은 Lecture 화면에서 뒤로 돌아왔을 때 실행될 코드입니다.
@@ -62,43 +64,45 @@ class ClassRoomTotalItem extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 10,),
-              Container(
-                width: MediaQuery.of(context).size.width*0.6,
+              SizedBox(width: 10),
+              Expanded(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width*0.5,
-                          child: Text(courseTitle,
+                        Flexible(
+                          child: Container(
+                            child: Text(
+                              courseTitle,
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color: Color(0xFF191919),
                               ),
-                              maxLines: 1, overflow: TextOverflow.ellipsis
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ),
                         Spacer(),
                         Icon(
-                          Icons.bookmark_border, // 스크랩버튼
+                          Icons.bookmark_border,
                           color: theme.primaryColor,
-                          //스크랩여부 함수
-                          //onPressed:
                         ),
                       ],
                     ),
-                    Text(courseAuthor+" • 조회수 "+courseViews.toString()+"회",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0xFF999999),
-                        ),
-                        maxLines: 1, overflow: TextOverflow.ellipsis),
+                    Text(
+                      "$courseAuthor • 조회수 $courseViews회",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Color(0xFF999999),
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ],
                 ),
               ),

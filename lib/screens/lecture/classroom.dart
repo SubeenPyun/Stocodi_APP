@@ -36,7 +36,8 @@ class _ClassRoomState extends State<ClassRoom> {
             print('화면전환');
             await setCourseList();
             setState(() {});
-          },),
+          },
+        ),
       ),
     );
   }
@@ -48,7 +49,7 @@ class _ClassRoomState extends State<ClassRoom> {
   }
 
   @override
-  void didChangeDependencies(){
+  void didChangeDependencies() {
     super.didChangeDependencies();
     setCourseList();
   }
@@ -61,7 +62,8 @@ class _ClassRoomState extends State<ClassRoom> {
           await lectureManager.getWatchingLectureList();
 
       setState(() {
-        courseList = fetchedCourseList ?? []; // Use fetchedCourseList or an empty list if null
+        courseList = fetchedCourseList ??
+            []; // Use fetchedCourseList or an empty list if null
         watchingList = fetchedWatchingLectureList ?? [];
       });
     } catch (e) {
@@ -87,12 +89,12 @@ class _ClassRoomState extends State<ClassRoom> {
               await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SearchLecture(
-                    onReturnFromLecture: () async {
-                      print('화면전환');
-                      await setCourseList();
-                      setState(() {});
-                    }),
+                  builder: (context) =>
+                      SearchLecture(onReturnFromLecture: () async {
+                    print('화면전환');
+                    await setCourseList();
+                    setState(() {});
+                  }),
                 ),
               );
             },
