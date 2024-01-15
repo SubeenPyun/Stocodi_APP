@@ -81,7 +81,7 @@ class _ClassRoomState extends State<ClassRoom> {
         actions: [
           IconButton(
             icon: const Icon(Icons.search, color: Color(0xff191919)),
-            onPressed: () {
+            onPressed: () async {
               AnalyticsHelper.gaEvent("classroom_to_searchScreen", {});
               // Functionality
               await Navigator.push(
