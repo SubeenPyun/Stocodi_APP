@@ -18,6 +18,13 @@ final ThemeData theme = AppTheme.appTheme;
 final textTheme = theme.textTheme;
 
 class TotalLecture extends StatefulWidget {
+  final Function onReturnFromLecture;
+
+  const TotalLecture({
+    Key? key,
+    required this.onReturnFromLecture,
+  }) : super(key: key);
+
   @override
   _TotalLectureState createState() => _TotalLectureState();
 }
@@ -70,7 +77,7 @@ class _TotalLectureState extends State<TotalLecture> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SearchLecture(),
+                  builder: (context) => SearchLecture(onReturnFromLecture: widget.onReturnFromLecture,),
                 ),
               );
             },
@@ -88,7 +95,8 @@ class _TotalLectureState extends State<TotalLecture> {
           color: Colors.white,
           child: Column(
             children: [
-              ClassRoomTotalListItem(courseList: courseList,
+              ClassRoomTotalListItem(
+                courseList: courseList,
                 onReturnFromLecture: () async {
                   print('화면전환');
                   await setCourseList();

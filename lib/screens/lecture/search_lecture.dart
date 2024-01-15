@@ -7,7 +7,12 @@ import 'package:stocodi_app/screens/lecture/widget/search_window.dart';
 final ThemeData theme = AppTheme.appTheme;
 
 class SearchLecture extends StatelessWidget {
-  const SearchLecture({super.key});
+  final Function onReturnFromLecture;
+
+  const SearchLecture({
+    super.key,
+    required this.onReturnFromLecture
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,7 @@ class SearchLecture extends StatelessWidget {
           color: Colors.white,
           child: Column(
             children: [
-              SearchWindow(),
+              SearchWindow(onReturnFromLecture: onReturnFromLecture,),
               SearchRecent(),
               SizedBox(
                 height: 12,

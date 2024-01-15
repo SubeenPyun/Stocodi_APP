@@ -27,7 +27,12 @@ class _ClassRoomState extends State<ClassRoom> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => TotalLecture(),
+        builder: (context) => TotalLecture(
+          onReturnFromLecture: () async {
+            print('화면전환');
+            await setCourseList();
+            setState(() {});
+          },),
       ),
     );
   }
@@ -77,7 +82,12 @@ class _ClassRoomState extends State<ClassRoom> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SearchLecture(),
+                  builder: (context) => SearchLecture(
+                    onReturnFromLecture: () async {
+                      print('화면전환');
+                      await setCourseList();
+                      setState(() {});
+                    }),
                 ),
               );
             },

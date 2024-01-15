@@ -4,6 +4,13 @@ import 'package:stocodi_app/model/lecture/response/lecture_response.dart';
 import 'package:stocodi_app/screens/lecture/Item/search_course_list_item.dart';
 
 class SearchWindow extends StatefulWidget {
+  final Function onReturnFromLecture;
+
+  const SearchWindow({
+    Key? key,
+    required this.onReturnFromLecture,
+  }) : super(key: key);
+
   @override
   _SearchWindowState createState() => _SearchWindowState();
 }
@@ -98,10 +105,7 @@ class _SearchWindowState extends State<SearchWindow> {
             ],
           ),
           ClassRoomSearchListItem(courseList: searchCourseList,
-            onReturnFromLecture: () async {
-              print('화면전환');
-              setState(() {});
-            },
+            onReturnFromLecture:widget.onReturnFromLecture,
           ),
         ],
       ),
