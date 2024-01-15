@@ -112,6 +112,8 @@ class _LectureCommentState extends State<LectureComment> {
               child: const Text('예'),
               onPressed: () async {
                 AnalyticsHelper.gaEvent("delete_comment", {});
+                print('댓글 commentId$commentId');
+
                 await LectureManager().deleteComment(commentId);
                 await setCommentList();
                 Navigator.of(dialogContext).pop();

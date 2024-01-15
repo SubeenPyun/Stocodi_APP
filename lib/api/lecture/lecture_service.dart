@@ -45,6 +45,7 @@ class LectureService {
 
   Future<Response> deleteComment(int commendId) async {
     try {
+      await setToken('access_token');
       final response = await dio.delete('/comments/$commendId');
       _httpResult.success(response, '댓글 삭제');
       return response;

@@ -125,14 +125,14 @@ class _ClassRoomState extends State<ClassRoom> {
                 setState(() {});
               },
             ),
-            ClassRoomCourseListItem(
+            /*ClassRoomCourseListItem(
               courseTitle: '실시간 인기강의',
               courseList: popularCourseList,
               onReturnFromLecture: () async {
                 await setCourseList();
                 setState(() {});
               },
-            ),
+            ),*/
             ClassRoomCourseListItem(
               courseTitle: '강의 전체 보기',
               courseList: courseList,
