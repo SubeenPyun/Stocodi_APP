@@ -11,11 +11,13 @@ final ThemeData theme = AppTheme.appTheme;
 class VideoLecture extends StatefulWidget {
   final ClassRoomCourseItem courseCardItem;
   final Function onReturnFromLecture;
+  final Function isFullScreen;
 
   const VideoLecture({
     Key? key,
     required this.courseCardItem,
     required this.onReturnFromLecture,
+    required this.isFullScreen,
   }) : super(key: key);
 
   @override
@@ -34,6 +36,7 @@ class _VideoLectureState extends State<VideoLecture>{
   int seconds = 0;
   bool _initialized = false;
   bool isWatched = false;
+
 
   @override
   void initState() {
@@ -113,7 +116,9 @@ class _VideoLectureState extends State<VideoLecture>{
       child: Container(
         margin: const EdgeInsets.fromLTRB(0, 0, 0, 12),
         width: double.infinity,
-        height: MediaQuery.of(context).size.height * 0.3,
+        height: MediaQuery.of(context).orientation == Orientation.portrait
+    ? MediaQuery.of(context).size.height * 0.3
+        : MediaQuery.of(context).size.height,
         child: YoutubePlayer(
           controller: _controller,
           progressColors: ProgressBarColors(
@@ -138,4 +143,3 @@ class _VideoLectureState extends State<VideoLecture>{
     );
   }
 }
-

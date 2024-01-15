@@ -19,6 +19,7 @@ class Lecture extends StatefulWidget {
 
 class _LectureState extends State<Lecture> {
   late ClassRoomCourseItem courseCardItem;
+  bool isLectureTabVisible = true; // 가시성 상태를 추적
 
   @override
   void initState() {
@@ -40,15 +41,24 @@ class _LectureState extends State<Lecture> {
               VideoScreenActivity(
                 courseCardItem: courseCardItem,
                 onReturnFromLecture: widget.onReturnFromLecture,
+                isFullScreen: (visible){
+                  print('화면전환 2$visible');
+                  setState(() {
+                    isLectureTabVisible = visible;
+                  });
+                }
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                    height: screenHeight * 0.5,
-                    child: LectureTab(lectureId: courseCardItem.lectureId),
-                  ),
-                ],
+              Visibility(
+                visible: isLectureTabVisible,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(
+                      height: screenHeight * 0.5,
+                      child: LectureTab(lectureId: courseCardItem.lectureId),
+                    ),
+                  ],
+                ),
               ),
             ],
           );

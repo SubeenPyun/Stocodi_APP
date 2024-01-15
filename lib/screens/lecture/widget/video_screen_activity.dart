@@ -6,12 +6,14 @@ import 'video_detail.dart';
 class VideoScreenActivity extends StatefulWidget {
   final ClassRoomCourseItem courseCardItem;
   final Function onReturnFromLecture;
+  final Function isFullScreen;
 
 
   const VideoScreenActivity({
     Key? key,
     required this.courseCardItem,
     required this.onReturnFromLecture,
+    required this.isFullScreen,
   }) : super(key: key);
 
   @override
@@ -20,6 +22,7 @@ class VideoScreenActivity extends StatefulWidget {
 
 class _VideoScreenActivityState extends State<VideoScreenActivity> {
   late ClassRoomCourseItem courseCardItem;
+  bool isLectureTabVisible = true; // 가시성 상태를 추적
 
   @override
   void initState() {
@@ -35,8 +38,23 @@ class _VideoScreenActivityState extends State<VideoScreenActivity> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          VideoLecture(courseCardItem: courseCardItem, onReturnFromLecture: widget.onReturnFromLecture,),
-          VideoDetail(courseCardItem: courseCardItem,),
+          VideoLecture(
+            courseCardItem: courseCardItem,
+            onReturnFromLecture: widget.onReturnFromLecture,
+            isFullScreen: (visible){
+              print('화면전환 1$visible');
+              setState(() {
+                isLectureTabVisible = visible;
+              });
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                widget.isFullScreen(visible);
+              });
+            },
+          ),
+          Visibility(
+            visible: isLectureTabVisible,
+            child: VideoDetail(courseCardItem: courseCardItem,),
+          )
         ],
       ),
     );
