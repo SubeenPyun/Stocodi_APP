@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SearchRecent extends StatelessWidget {
-
-  List<String> TitleList=[
+  List<String> TitleList = [
     "검색어1",
     "검색어2",
     "검색어20",
@@ -11,7 +10,7 @@ class SearchRecent extends StatelessWidget {
     "검색어88",
   ];
 
-  Container textContainer(String text){
+  Container textContainer(String text) {
     return Container(
       alignment: Alignment.center,
       height: 40,
@@ -34,35 +33,54 @@ class SearchRecent extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Container(
-      width: screenWidth,
-      padding: EdgeInsets.only(bottom: 40, right: 25, left: 25),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "최근 검색",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+    return Stack(
+      children: [
+        Container(
+          width: screenWidth,
+          padding: EdgeInsets.only(bottom: 40, right: 25, left: 25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "최근 검색",
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              GridView.builder(
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 100,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
+                  childAspectRatio: 2 / 1,
+                ),
+                itemCount: TitleList.length,
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return textContainer(TitleList[index]);
+                },
+              ),
+            ],
+          ),
+        ),
+        Positioned.fill(
+          child: Container(
+            color: Colors.grey.withOpacity(0.5),
+            child: Center(
+              child: Text(
+                "현재 서비스 준비중입니다",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
           ),
-          GridView.builder(
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: 100,
-              crossAxisSpacing: 15,
-              mainAxisSpacing: 15,
-              childAspectRatio: 2/1,
-            ),
-            itemCount: TitleList.length,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return textContainer(TitleList[index]);
-            },
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
