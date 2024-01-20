@@ -52,7 +52,7 @@ class _LectureState extends State<Lecture> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(
-                    height: screenHeight * 0.5,
+                    height: screenHeight*0.425,
                     child: LectureTab(lectureId: courseCardItem.lectureId),
                   ),
                 ],
