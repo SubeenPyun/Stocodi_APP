@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
-import '../../../transaction/screens/transcation_main.dart';
 import '../../holding_items.dart';
+import '../../transaction/screens/transcation_main.dart';
 import '../../transaction_log.dart';
 import '../item/grid_item.dart';
 import 'grid_common.dart';

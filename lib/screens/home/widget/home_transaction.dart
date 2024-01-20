@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
-import 'package:stocodi_app/screens/transaction/screens/transcation_main.dart';
+
+import '../../invest/transaction/screens/transcation_main.dart';
 
 class HomeTransaction extends StatefulWidget {
   const HomeTransaction({super.key});

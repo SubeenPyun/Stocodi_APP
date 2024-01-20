@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/screens/transaction/widget/done_transaction_log.dart';
-import 'package:stocodi_app/screens/transaction/widget/reservation_log.dart';
+import 'package:stocodi_app/screens/invest/transaction/widget/done_transaction_log.dart';
+import 'package:stocodi_app/screens/invest/transaction/widget/reservation_log.dart';
+
 import 'package:stocodi_app/theme/transaction_theme.dart';
 
 final theme = TransactionTheme.appTheme;
