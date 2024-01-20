@@ -42,56 +42,53 @@ class _LectureCommentState extends State<LectureComment> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        body: Column(
-          children: [
-            SizedBox(
-              height: 65,
-              child: LectureMyComment(
-                imageUrl: 'assets/kakao.jpg',
-                lectureId: widget.lectureId,
-                onCommentSubmitted: (updatedList) {
-                  setState(() {
-                    commentList = updatedList;
-                    widget.onCommentCountChanged(commentList.length);
-                  });
-                },
-              ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          SizedBox(
+            height: 65,
+            child: LectureMyComment(
+              imageUrl: 'assets/kakao.jpg',
+              lectureId: widget.lectureId,
+              onCommentSubmitted: (updatedList) {
+                setState(() {
+                  commentList = updatedList;
+                  widget.onCommentCountChanged(commentList.length);
+                });
+              },
             ),
-            Expanded(
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  final isNarrowScreen = constraints.maxWidth < 600; // 예시 너비 (조정 가능)
-                  return Consumer<PortfolioData>(builder: (context, portfolioData, _) {
-                    return ListView.builder( //여기에 commentList를 해서 보내고 싶어
-                      padding: EdgeInsets.zero,
-                      shrinkWrap: true,
-                      itemCount: commentList.length,
-                      itemBuilder: (context, index) {
-                        CommentResponse comment = commentList[index]; // 각각의 댓글을 가져옴
-                        bool myComment = (portfolioData.memberId == comment.member_id);
-                        return CommentItem(
-                          name: comment.author, // 예시: 댓글 이름
-                          profileImage: 'assets/kakao.jpg', // 예시: 프로필 이미지
-                          text: comment.content,
-                          created: comment.created_at,
-                          myComment: myComment,
-                          onDelete: () {
-                            _showDeleteDialog(comment.comment_id);
-                          },   // 예시: 댓글 텍스트
-                        );
-                      },
-                    );
-                  });
-                },
-              ),
+          ),
+          Expanded(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isNarrowScreen = constraints.maxWidth < 600; // 예시 너비 (조정 가능)
+                return Consumer<PortfolioData>(builder: (context, portfolioData, _) {
+                  return ListView.builder( //여기에 commentList를 해서 보내고 싶어
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    itemCount: commentList.length,
+                    itemBuilder: (context, index) {
+                      CommentResponse comment = commentList[index]; // 각각의 댓글을 가져옴
+                      bool myComment = (portfolioData.memberId == comment.member_id);
+                      return CommentItem(
+                        name: comment.author, // 예시: 댓글 이름
+                        profileImage: 'assets/kakao.jpg', // 예시: 프로필 이미지
+                        text: comment.content,
+                        created: comment.created_at,
+                        myComment: myComment,
+                        onDelete: () {
+                          _showDeleteDialog(comment.comment_id);
+                        },   // 예시: 댓글 텍스트
+                      );
+                    },
+                  );
+                });
+              },
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ],
+      ),);
   }
 
   void _showDeleteDialog(int commentId) {

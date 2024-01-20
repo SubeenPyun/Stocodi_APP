@@ -36,8 +36,6 @@ class _VideoLectureState extends State<VideoLecture> {
   int seconds = 0;
   bool _initialized = false;
   bool isWatched = false;
-  Orientation? _previousOrientation;
-
 
   @override
   void initState() {
@@ -51,9 +49,7 @@ class _VideoLectureState extends State<VideoLecture> {
     courseCardItem = widget.courseCardItem;
 
     try {
-      // 시청 중인 강의일 경우 seconds 부터 재생
-      secondsResponse =
-      await lectureManager.isWatched(courseCardItem.lectureId);
+      secondsResponse = await lectureManager.isWatched(courseCardItem.lectureId);
       seconds = int.parse(secondsResponse!);
       isWatched = true;
     } catch (e) {
@@ -76,7 +72,6 @@ class _VideoLectureState extends State<VideoLecture> {
 
     setState(() {
       _initialized = true;
-      _previousOrientation = MediaQuery.of(context).orientation==Orientation.landscape?Orientation.portrait:Orientation.landscape;
     });
   }
 
@@ -91,16 +86,19 @@ class _VideoLectureState extends State<VideoLecture> {
       Duration pausedPosition = _controller.value.position;
       print("유튜브 영상 일시 정지 at : ${pausedPosition.inSeconds} 초");
       WatchingLectureRequest watchingLectureRequest = WatchingLectureRequest(
-          lecture_id: widget.courseCardItem.lectureId,
-          time: pausedPosition.inSeconds.toString());
+        lecture_id: widget.courseCardItem.lectureId,
+        time: pausedPosition.inSeconds.toString(),
+      );
 
-      if (isWatched) {
-        await lectureManager.changeWatchedTime(watchingLectureRequest);
+      try {
+        if (isWatched) {
+          await lectureManager.changeWatchedTime(watchingLectureRequest);
+        } else {
+          await lectureManager.addWatchingLectureList(watchingLectureRequest);
+        }
         await widget.onReturnFromLecture();
-      }
-      else {
-        await lectureManager.addWatchingLectureList(watchingLectureRequest);
-        await widget.onReturnFromLecture();
+      } catch (e) {
+        print("예외 발생: $e");
       }
     }
   }
@@ -108,65 +106,66 @@ class _VideoLectureState extends State<VideoLecture> {
   @override
   Widget build(BuildContext context) {
     if (!_initialized) {
-      return Container(); // 또는 초기화 중임을 나타내는 다른 위젯을 반환할 수 있습니다.
+      return Container();
     }
-
 
     return WillPopScope(
       onWillPop: () async {
-        AnalyticsHelper.gaEvent("lecture_to_classroom",
-            {"lecture_id": widget.courseCardItem.lectureId});
-        // 뒤로가기 버튼이 눌렸을 때 실행되는 코드
+        AnalyticsHelper.gaEvent("lecture_to_classroom", {"lecture_id": widget.courseCardItem.lectureId});
         _controller.pause();
         Navigator.pop(context);
-        return true; // true를 반환하면 뒤로가기 허용, false를 반환하면 뒤로가기 차단
+        return true;
       },
       child: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
-          if (_previousOrientation != MediaQuery.of(context).orientation) {
-            // 방향이 변경되었을 때만 동작
-            if (MediaQuery.of(context).orientation == Orientation.landscape) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                widget.isFullScreen(false);
-              });
-
-             _previousOrientation = MediaQuery.of(context).orientation;
-            } else if (MediaQuery.of(context).orientation == Orientation.portrait) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                widget.isFullScreen(true);
-              });
-             _previousOrientation = MediaQuery.of(context).orientation;
-            }
-
-            // 현재 방향을 이전 방향으로 업데이트
-          }
-
           return Container(
             margin: const EdgeInsets.fromLTRB(0, 0, 0, 12),
-            width: double.infinity,
-            height: MediaQuery.of(context).orientation == Orientation.portrait ?
-              MediaQuery.of(context).size.height * 0.3 :
-              MediaQuery.of(context).size.height,
-            child: YoutubePlayer(
-              controller: _controller,
-              progressColors: ProgressBarColors(
-                playedColor: theme.primaryColor,
-                handleColor: theme.primaryColor,
-              ),
-              onReady: () {
-                _isPlayerReady = true;
-              },
-              onEnded: (YoutubeMetaData metaData) async {
-                if (isWatched) {
-                  await lectureManager.deleteWatchingLecture(
-                      widget.courseCardItem.lectureId);
-                  await widget.onReturnFromLecture();
-                }
-              },
+            /*width: double.infinity,
+            height: MediaQuery.of(context).orientation == Orientation.portrait
+                ? MediaQuery.of(context).size.height * 0.3
+                : MediaQuery.of(context).size.height,*/
+            child: Flexible(
+                flex: 5,
+                child:
+                YoutubePlayerBuilder(
+                  onEnterFullScreen: (){
+                    _updateFullScreen(false);
+                  },
+                  onExitFullScreen: () {
+                    _updateFullScreen(true);
+                  },
+                  player: YoutubePlayer(
+                    aspectRatio: MediaQuery.of(context).size.height / MediaQuery.of(context).size.width,
+                    width: double.infinity,
+                    controller: _controller,
+                    progressColors: ProgressBarColors(
+                      playedColor: theme.primaryColor,
+                      handleColor: theme.primaryColor,
+                    ),
+                    onReady: () {
+                      _isPlayerReady = true;
+                    },
+                    onEnded: (YoutubeMetaData metaData) async {
+                      if (isWatched) {
+                        await lectureManager.deleteWatchingLecture(widget.courseCardItem.lectureId);
+                        await widget.onReturnFromLecture();
+                      }
+                    },
+                  ),
+                  builder: (context, player) {
+                    return player;
+                  },
+                ),
             ),
           );
         },
       ),
     );
+  }
+
+  void _updateFullScreen(bool isFullScreen) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.isFullScreen(isFullScreen);
+    });
   }
 }

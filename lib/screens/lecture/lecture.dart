@@ -42,24 +42,21 @@ class _LectureState extends State<Lecture> {
                 courseCardItem: courseCardItem,
                 onReturnFromLecture: widget.onReturnFromLecture,
                 isFullScreen: (visible){
-                  print('화면전환 2$visible');
                   setState(() {
                     isLectureTabVisible = visible;
                   });
                 }
               ),
-              Visibility(
-                visible: isLectureTabVisible,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(
-                      height: screenHeight * 0.5,
-                      child: LectureTab(lectureId: courseCardItem.lectureId),
-                    ),
-                  ],
-                ),
-              ),
+              isLectureTabVisible ?
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(
+                    height: screenHeight * 0.5,
+                    child: LectureTab(lectureId: courseCardItem.lectureId),
+                  ),
+                ],
+              ) :Container(),
             ],
           );
         },

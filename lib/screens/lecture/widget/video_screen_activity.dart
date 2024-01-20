@@ -42,7 +42,6 @@ class _VideoScreenActivityState extends State<VideoScreenActivity> {
             courseCardItem: courseCardItem,
             onReturnFromLecture: widget.onReturnFromLecture,
             isFullScreen: (visible){
-              print('화면전환 1$visible');
               setState(() {
                 isLectureTabVisible = visible;
               });
@@ -51,10 +50,7 @@ class _VideoScreenActivityState extends State<VideoScreenActivity> {
               });
             },
           ),
-          Visibility(
-            visible: isLectureTabVisible,
-            child: VideoDetail(courseCardItem: courseCardItem,),
-          )
+          isLectureTabVisible ? VideoDetail(courseCardItem: courseCardItem,) : Container(),
         ],
       ),
     );
