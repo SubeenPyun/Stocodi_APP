@@ -136,7 +136,7 @@ class _VideoLectureState extends State<VideoLecture> {
                   },
                   player: YoutubePlayer(
                     aspectRatio: MediaQuery.of(context).size.height / MediaQuery.of(context).size.width,
-                    width: double.infinity,
+                    width: MediaQuery.of(context).size.width,
                     controller: _controller,
                     progressColors: ProgressBarColors(
                       playedColor: theme.primaryColor,

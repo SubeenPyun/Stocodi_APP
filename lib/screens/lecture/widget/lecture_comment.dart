@@ -47,7 +47,7 @@ class _LectureCommentState extends State<LectureComment> {
       body: Column(
         children: [
           SizedBox(
-            height: 65,
+            height: 100,
             child: LectureMyComment(
               imageUrl: 'assets/kakao.jpg',
               lectureId: widget.lectureId,
