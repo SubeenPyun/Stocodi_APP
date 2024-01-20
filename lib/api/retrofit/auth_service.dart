@@ -10,7 +10,7 @@ import '../../model/auth/request/login_model.dart';
 import '../../model/auth/request/members_model.dart';
 import '../../model/portfolio/request/accounts_model.dart';
 import '../urls.dart';
-import 'http_result.dart';
+import '../http_result.dart';
 
 class ApiService {
   final Dio dio = Dio(); // Dio 인스턴스 생성
