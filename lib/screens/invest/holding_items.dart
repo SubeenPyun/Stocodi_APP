@@ -5,6 +5,8 @@ import 'package:stocodi_app/widgets/round_square_container.dart';
 import 'holding_items/widget/foreign_item_widget.dart';
 import 'holding_items/widget/holding_item_piechart.dart';
 import 'holding_items/widget/internal_item_widget.dart';
+import 'holding_items/widget/piechart_legend.dart';
+
 
 final ThemeData theme = AppTheme.appTheme;
 
@@ -59,123 +61,10 @@ Container _bodyWidget(BuildContext context){
                   Container(
                     child: Column(
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3),
-                                color: colorList[0],
-                              ),
-                              height: 10,
-                              width: 10,
-                              margin:EdgeInsets.all(10),
-                            ),
-                            Text(
-                              keys[0],
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Spacer(),
-                            Text(
-                              (values[0]/S*100).toInt().toString()+"%",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFF575E6B),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              height: 10,
-                              width: 10,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3),
-                                color: colorList[1],
-
-                              ),
-                              margin:EdgeInsets.all(10),
-                            ),
-                            Text(
-                              keys[1],
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Spacer(),
-                            Text(
-                              (values[1]/S*100).toInt().toString()+"%",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFF575E6B),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              height: 10,
-                              width: 10,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3),
-                                color: colorList[2],
-                              ),
-                              margin:EdgeInsets.all(10),
-                            ),
-                            Text(
-                              keys[2],
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Spacer(),
-                            Text(
-                              (values[2]/S*100).toInt().toString()+"%",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFF575E6B),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              height: 10,
-                              width: 10,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3),
-                                color: colorList[3],
-                              ),
-                              margin:EdgeInsets.all(10),
-                            ),
-                            Text(
-                              keys[3],
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Spacer(),
-                            Text(
-                              (values[3]/S*100).toInt().toString()+"%",
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                color: Color(0xFF575E6B),
-                              ),
-                            ),
-                          ],
-                        ),
+                        PieChartLegend(title: keys[0], color: colorList[0], value: values[0], total: S,),
+                        PieChartLegend(title: keys[1], color: colorList[1], value: values[1], total: S,),
+                        PieChartLegend(title: keys[2], color: colorList[2], value: values[2], total: S,),
+                        PieChartLegend(title: keys[3], color: colorList[3], value: values[3], total: S,),
                       ],
                     ),
                   ),
