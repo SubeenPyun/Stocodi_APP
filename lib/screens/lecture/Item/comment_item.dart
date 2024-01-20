@@ -25,12 +25,12 @@ class CommentItem extends StatelessWidget {
         final isNarrowScreen = constraints.maxWidth < 600; // 예시 너비 (조정 가능)
 
         return Container(
-          margin: const EdgeInsets.symmetric(vertical: 10.0),
+          margin: const EdgeInsets.all(10.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: const EdgeInsets.fromLTRB(10, 0, 15, 0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
                 child: CircleAvatar(
                   backgroundImage: AssetImage(profileImage),
                   radius: isNarrowScreen ? 20.0 : 30.0, // 너비에 따라 크기 조정
@@ -47,11 +47,11 @@ class CommentItem extends StatelessWidget {
                       maxLines: 1,
                     ),
                     Container(
-                      margin: const EdgeInsets.only(top: 5.0),
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
                       child: Text(
                         text,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: isNarrowScreen ? 3 : 5, // 너비에 따라 텍스트 줄 수 조정
+                        overflow: TextOverflow.visible,
+                        maxLines: 100, // 너비에 따라 텍스트 줄 수 조정
                       ),
                     ),
                   ],
