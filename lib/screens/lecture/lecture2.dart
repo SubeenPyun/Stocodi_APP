@@ -19,6 +19,7 @@ class Lecture2 extends StatefulWidget {
 
 class _LectureState2 extends State<Lecture2> {
   late ClassRoomTotalItem courseCardItem;
+  bool isLectureTabVisible = true; // 가시성 상태를 추적
 
   @override
   void initState() {
@@ -30,29 +31,40 @@ class _LectureState2 extends State<Lecture2> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      body: ListView.builder(
-        padding: EdgeInsets.zero,
-        itemCount: 1,
-        itemBuilder: (BuildContext outerContext, int outerIndex) {
-          return Column(
-            children: [
-              VideoScreenActivity2(
-                courseCardItem: courseCardItem,
-                onReturnFromLecture: widget.onReturnFromLecture,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                    height: screenHeight * 0.5,
-                    child: LectureTab(lectureId: courseCardItem.lectureId),
-                  ),
-                ],
-              ),
-            ],
-          );
-        },
+    return GestureDetector(
+      onTap: (){
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        body: ListView.builder(
+          padding: EdgeInsets.zero,
+          itemCount: 1,
+          itemBuilder: (BuildContext outerContext, int outerIndex) {
+            return Column(
+              children: [
+                VideoScreenActivity2(
+                    courseCardItem: courseCardItem,
+                    onReturnFromLecture: widget.onReturnFromLecture,
+                    isFullScreen: (visible){
+                      setState(() {
+                        isLectureTabVisible = visible;
+                      });
+                    }
+                ),
+                isLectureTabVisible ?
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(
+                      height: screenHeight*0.425,
+                      child: LectureTab(lectureId: courseCardItem.lectureId),
+                    ),
+                  ],
+                ) :Container(),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

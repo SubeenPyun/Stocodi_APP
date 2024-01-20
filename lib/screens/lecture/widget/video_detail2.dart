@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import '../../../api/toasts.dart';
 import 'package:intl/intl.dart';
+import '../../../analytics_helper.dart';
 import '../../../api/lecture/lecture_manager.dart';
 import '../../../model/lecture/response/lecture_response.dart';
 import '../../../theme/lecture_video_theme.dart';
@@ -31,6 +32,7 @@ class _VideoDetailsState2 extends State<VideoDetail2> {
   late String? author = null;
   late String? description = null; // 비디오 설명을 저장할 변수
   late String? authorProfileImage = null; // 프로필 이미지 주소를 저장할 변수
+  late String tags="";
   bool showDetails = false;
   int likes = 0; // 가정한 '좋아요' 수
 
@@ -73,6 +75,7 @@ class _VideoDetailsState2 extends State<VideoDetail2> {
       views = '조회수 ${lecture.views}'; // 예시로 views를 가져오는 부분
       likes = lecture.likes;
       author = video.author;
+      tags=lecture.tags.join(' ');
     });
 
     print("likes : "+likes.toString());
@@ -84,6 +87,7 @@ class _VideoDetailsState2 extends State<VideoDetail2> {
   }
 
   void _incrementLikes() {
+    AnalyticsHelper.gaEvent("increase_likes", {"lecture_id" : widget.courseCardItem.lectureId,"likes" : likes});
     setState(() {
       if(isLikeButtonPressed) {
         likes--;
@@ -96,19 +100,8 @@ class _VideoDetailsState2 extends State<VideoDetail2> {
     });
   }
 
-  void prepare(String message){
-    Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 1,
-      backgroundColor: Color(0xff0ECB81),
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
-  }
-
   void _scrapLecture() {
+    AnalyticsHelper.gaEvent("scrap_lecture", {});
     setState(() {
       isScrapButtonPressed = !isScrapButtonPressed;
     });
@@ -117,6 +110,7 @@ class _VideoDetailsState2 extends State<VideoDetail2> {
   }
 
   void _copyLink() {
+    AnalyticsHelper.gaEvent("copy_link", {"lecture_link" : link});
     Clipboard.setData(ClipboardData(text: link));
 
     setState(() {
@@ -176,16 +170,29 @@ class _VideoDetailsState2 extends State<VideoDetail2> {
           ),
           if (showDetails)
             Container(
+              padding: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                  color: Color(0xffF5F7F9),
+                  borderRadius: BorderRadius.circular(12)
+              ),
               margin: const EdgeInsets.fromLTRB(5, 20, 0, 0),
               width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.courseCardItem.courseDescription,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    tags,
+                    style: TextStyle(
+                      color: Color(0xff0ECB81),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   SizedBox(height: 8),
+                  Text(
+                    widget.courseCardItem.courseDescription,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  ),
                 ],
               ),
             ),
@@ -228,7 +235,7 @@ class _VideoDetailsState2 extends State<VideoDetail2> {
                 child: ElevatedButton(
                   onPressed: _incrementLikes, // 버튼이 눌렸을 때 실행할 함수
                   style: ElevatedButton.styleFrom(
-                    primary: isLikeButtonPressed ? Colors.green : Color(0xffF5F7F9), // 버튼의 배경 색상
+                    primary: isLikeButtonPressed ? Color(0xff0ECB81) : Color(0xffF5F7F9), // 버튼의 배경 색상
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100), // 둥근 모서리
                     ),
@@ -255,7 +262,7 @@ class _VideoDetailsState2 extends State<VideoDetail2> {
                 child: ElevatedButton(
                   onPressed: _scrapLecture, // 버튼이 눌렸을 때 실행할 함수
                   style: ElevatedButton.styleFrom(
-                    primary: isScrapButtonPressed ? Colors.green : Color(0xffF5F7F9), // 버튼의 배경 색상
+                    primary: isScrapButtonPressed ? Color(0xff0ECB81) : Color(0xffF5F7F9), // 버튼의 배경 색상
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100), // 둥근 모서리
                     ),
