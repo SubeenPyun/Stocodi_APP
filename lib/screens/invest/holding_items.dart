@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:stocodi_app/widgets/custom_appbar.dart';
-import 'package:stocodi_app/screens/invest/widget/holding_item_piechart.dart';
-import 'package:stocodi_app/screens/invest/widget/foreign_item_widget.dart';
-import 'package:stocodi_app/screens/invest/widget/internal_item_widget.dart';
-
 import 'package:stocodi_app/theme/app_theme.dart';
 import 'package:stocodi_app/widgets/round_square_container.dart';
+import 'holding_items/widget/foreign_item_widget.dart';
+import 'holding_items/widget/holding_item_piechart.dart';
+import 'holding_items/widget/internal_item_widget.dart';
 
 final ThemeData theme = AppTheme.appTheme;
 

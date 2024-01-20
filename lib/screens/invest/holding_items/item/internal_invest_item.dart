@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../../theme/app_theme.dart';
+import '../../../../theme/app_theme.dart';
 
 
-class ForeignInvestItem extends StatelessWidget {
+class InternalInvestItem extends StatelessWidget {
   ThemeData theme = AppTheme.appTheme;
 
   final String image;
@@ -13,7 +13,7 @@ class ForeignInvestItem extends StatelessWidget {
   final int profit;
   final int numOfItem;
 
-  ForeignInvestItem({
+  InternalInvestItem({
     required this.image,
     required this.title,
     required this.totalprice,
