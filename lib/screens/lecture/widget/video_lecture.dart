@@ -120,42 +120,37 @@ class _VideoLectureState extends State<VideoLecture> {
         builder: (BuildContext context, Orientation orientation) {
           return Container(
             margin: const EdgeInsets.fromLTRB(0, 0, 0, 12),
-            /*width: double.infinity,
+            width: double.infinity,
             height: MediaQuery.of(context).orientation == Orientation.portrait
                 ? MediaQuery.of(context).size.height * 0.3
-                : MediaQuery.of(context).size.height,*/
-            child: Flexible(
-                flex: 5,
-                child:
-                YoutubePlayerBuilder(
-                  onEnterFullScreen: (){
-                    _updateFullScreen(false);
-                  },
-                  onExitFullScreen: () {
-                    _updateFullScreen(true);
-                  },
-                  player: YoutubePlayer(
-                    aspectRatio: MediaQuery.of(context).size.height / MediaQuery.of(context).size.width,
-                    width: MediaQuery.of(context).size.width,
-                    controller: _controller,
-                    progressColors: ProgressBarColors(
-                      playedColor: theme.primaryColor,
-                      handleColor: theme.primaryColor,
-                    ),
-                    onReady: () {
-                      _isPlayerReady = true;
-                    },
-                    onEnded: (YoutubeMetaData metaData) async {
-                      if (isWatched) {
-                        await lectureManager.deleteWatchingLecture(widget.courseCardItem.lectureId);
-                        await widget.onReturnFromLecture();
-                      }
-                    },
-                  ),
-                  builder: (context, player) {
-                    return player;
-                  },
+                : MediaQuery.of(context).size.height,
+            child: YoutubePlayerBuilder(
+              onEnterFullScreen: (){
+                _updateFullScreen(false);
+              },
+              onExitFullScreen: () {
+                _updateFullScreen(true);
+              },
+              player: YoutubePlayer(
+                aspectRatio: MediaQuery.of(context).size.height / MediaQuery.of(context).size.width,
+                controller: _controller,
+                progressColors: ProgressBarColors(
+                  playedColor: theme.primaryColor,
+                  handleColor: theme.primaryColor,
                 ),
+                onReady: () {
+                  _isPlayerReady = true;
+                },
+                onEnded: (YoutubeMetaData metaData) async {
+                  if (isWatched) {
+                    await lectureManager.deleteWatchingLecture(widget.courseCardItem.lectureId);
+                    await widget.onReturnFromLecture();
+                  }
+                },
+              ),
+              builder: (context, player) {
+                return player;
+              },
             ),
           );
         },
