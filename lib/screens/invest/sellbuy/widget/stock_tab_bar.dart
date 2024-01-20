@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stocodi_app/screens/chart/widget/ChartDetail.dart';
+import 'package:stocodi_app/screens/chart/widget/chart_detail.dart';
 import 'package:stocodi_app/screens/invest/sellbuy/widget/price_column_list.dart';
-import '../../../chart/widget/Chart.dart';
 
 class StockTabBar extends StatefulWidget {
   final double currentPrice;

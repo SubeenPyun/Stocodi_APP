@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../Item/ElevatedButton.dart';
-import 'Chart.dart';
+import '../Item/elevated_button.dart';
+import 'chart.dart';
 
 class ChartDetail extends StatefulWidget {
   const ChartDetail({super.key});

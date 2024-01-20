@@ -1,4 +1,4 @@
-import '../data/ChartData.dart';
+import '../data/chart_data.dart';
 
 List<num> getMinMax(List<ChartData> data) {
   if (data.isEmpty) {

@@ -1,4 +1,4 @@
-import 'ChartData.dart';
+import 'chart_data.dart';
 
 List<ChartData> getChartData() {
   return <ChartData>[
