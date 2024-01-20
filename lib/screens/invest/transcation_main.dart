@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:stocodi_app/model/portfolio/portfolio_data.dart';
 import 'package:stocodi_app/theme/transaction_theme.dart';
 import 'package:stocodi_app/widgets/custom_appbar.dart';
-import '../../transaction_info.dart';
+
+import 'transaction/screens/transaction_info.dart';
 
 void main() {
   runApp(const TransactionMain());
