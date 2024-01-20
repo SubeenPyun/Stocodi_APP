@@ -23,7 +23,7 @@ class _SearchWindowState extends State<SearchWindow> {
   @override
   void initState() {
     super.initState();
-    setSearchList(""); // Call setCourseList when the widget is initialized
+    searchCourseList = []; // Call setCourseList when the widget is initialized
   }
 
   Future<void> setSearchList(String key) async {

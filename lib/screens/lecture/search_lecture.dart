@@ -18,25 +18,31 @@ class SearchLecture extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              SearchWindow(onReturnFromLecture: onReturnFromLecture,),
-              SearchRecent(),
-              SizedBox(
-                height: 12,
-                width: screenWidth,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF2F3F4),
+    return GestureDetector(
+      onTap: () {
+        //키보드 닫기
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Container(
+            color: Colors.white,
+            child: Column(
+              children: [
+                SearchWindow(onReturnFromLecture: onReturnFromLecture,),
+                SearchRecent(),
+                SizedBox(
+                  height: 12,
+                  width: screenWidth,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Color(0xFFF2F3F4),
+                    ),
                   ),
                 ),
-              ),
-              RealtimePopularity(),
-            ],
+                RealtimePopularity(),
+              ],
+            ),
           ),
         ),
       ),
