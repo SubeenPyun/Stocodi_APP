@@ -23,7 +23,6 @@ class CommentItem extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isNarrowScreen = constraints.maxWidth < 600; // 예시 너비 (조정 가능)
-
         return Container(
           margin: const EdgeInsets.all(10.0),
           child: Row(

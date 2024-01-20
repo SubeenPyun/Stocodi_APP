@@ -31,35 +31,40 @@ class _LectureState extends State<Lecture> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      body: ListView.builder(
-        padding: EdgeInsets.zero,
-        itemCount: 1,
-        itemBuilder: (BuildContext outerContext, int outerIndex) {
-          return Column(
-            children: [
-              VideoScreenActivity(
-                courseCardItem: courseCardItem,
-                onReturnFromLecture: widget.onReturnFromLecture,
-                isFullScreen: (visible){
-                  setState(() {
-                    isLectureTabVisible = visible;
-                  });
-                }
-              ),
-              isLectureTabVisible ?
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                    height: screenHeight*0.425,
-                    child: LectureTab(lectureId: courseCardItem.lectureId),
-                  ),
-                ],
-              ) :Container(),
-            ],
-          );
-        },
+    return GestureDetector(
+      onTap: (){
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        body: ListView.builder(
+          padding: EdgeInsets.zero,
+          itemCount: 1,
+          itemBuilder: (BuildContext outerContext, int outerIndex) {
+            return Column(
+              children: [
+                VideoScreenActivity(
+                  courseCardItem: courseCardItem,
+                  onReturnFromLecture: widget.onReturnFromLecture,
+                  isFullScreen: (visible){
+                    setState(() {
+                      isLectureTabVisible = visible;
+                    });
+                  }
+                ),
+                isLectureTabVisible ?
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(
+                      height: screenHeight*0.425,
+                      child: LectureTab(lectureId: courseCardItem.lectureId),
+                    ),
+                  ],
+                ) :Container(),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

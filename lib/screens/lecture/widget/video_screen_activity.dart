@@ -32,26 +32,34 @@ class _VideoScreenActivityState extends State<VideoScreenActivity> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          VideoLecture(
-            courseCardItem: courseCardItem,
-            onReturnFromLecture: widget.onReturnFromLecture,
-            isFullScreen: (visible){
-              setState(() {
-                isLectureTabVisible = visible;
-              });
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                widget.isFullScreen(visible);
-              });
-            },
-          ),
-          isLectureTabVisible ? VideoDetail(courseCardItem: courseCardItem,) : Container(),
-        ],
+    return NotificationListener<ScrollNotification>(
+        onNotification: (scrollNotification) {
+          if (scrollNotification is ScrollUpdateNotification) {
+            FocusScope.of(context).unfocus();
+          }
+          return false;
+        },
+      child: Container(
+        width: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            VideoLecture(
+              courseCardItem: courseCardItem,
+              onReturnFromLecture: widget.onReturnFromLecture,
+              isFullScreen: (visible){
+                setState(() {
+                  isLectureTabVisible = visible;
+                });
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  widget.isFullScreen(visible);
+                });
+              },
+            ),
+            isLectureTabVisible ? VideoDetail(courseCardItem: courseCardItem,) : Container(),
+          ],
+        ),
       ),
     );
   }

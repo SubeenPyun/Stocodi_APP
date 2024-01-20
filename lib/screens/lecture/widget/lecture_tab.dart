@@ -33,53 +33,67 @@ class _LectureTabState extends State<LectureTab>
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: PreferredSize(
-          preferredSize:
-              const Size.fromHeight(kToolbarHeight), // Set the height to 0.0
-          child: Container(
-            color: Colors.white,
-            child: TabBar(
-              controller: _tabController,
-              indicatorColor: theme.primaryColor, // 선택된 탭의 밑줄 색상
-              indicatorWeight: 3.0, // 선택된 탭의 밑줄 두께
-              indicatorSize: TabBarIndicatorSize.label,
-              /*labelColor: theme.primaryColor,
-              unselectedLabelColor: theme.unselectedWidgetColor,*/
-              tabs: [
-                Tab(
-                  child: TabItem(
-                      text: '댓글',
-                      count: '$commentCount',
-                      isSelected: _tabController.index == 0),
-                ),
-                Tab(
-                  child: Text(
-                    '다음 동영상',
-                    style: textTheme.displayLarge?.copyWith(
-                      color: _tabController.index == 0
-                          ? theme.unselectedWidgetColor
-                          : theme.primaryColor,
+      home: GestureDetector(
+        onTap: (){
+          FocusScope.of(context).unfocus();
+        },
+        child: NotificationListener<ScrollNotification>(
+          onNotification: (scrollNotification) {
+            // 스크롤 이벤트가 발생하면 키보드를 내립니다.
+            if (scrollNotification is ScrollUpdateNotification) {
+              FocusScope.of(context).unfocus();
+            }
+            return false;
+          },
+          child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize:
+                  const Size.fromHeight(kToolbarHeight), // Set the height to 0.0
+              child: Container(
+                color: Colors.white,
+                child: TabBar(
+                  controller: _tabController,
+                  indicatorColor: theme.primaryColor, // 선택된 탭의 밑줄 색상
+                  indicatorWeight: 3.0, // 선택된 탭의 밑줄 두께
+                  indicatorSize: TabBarIndicatorSize.label,
+                  /*labelColor: theme.primaryColor,
+                  unselectedLabelColor: theme.unselectedWidgetColor,*/
+                  tabs: [
+                    Tab(
+                      child: TabItem(
+                          text: '댓글',
+                          count: '$commentCount',
+                          isSelected: _tabController.index == 0),
                     ),
-                  ),
+                    Tab(
+                      child: Text(
+                        '다음 동영상',
+                        style: textTheme.displayLarge?.copyWith(
+                          color: _tabController.index == 0
+                              ? theme.unselectedWidgetColor
+                              : theme.primaryColor,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
+              ),
+            ),
+            body: TabBarView(
+              controller: _tabController,
+              children: [
+                LectureComment(
+                  widget.lectureId,
+                  onCommentCountChanged: (count) {
+                    setState(() {
+                      commentCount = count;
+                    });
+                  },
+                ),
+                LectureNextVideo(),
               ],
             ),
           ),
-        ),
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            LectureComment(
-              widget.lectureId,
-              onCommentCountChanged: (count) {
-                setState(() {
-                  commentCount = count;
-                });
-              },
-            ),
-            LectureNextVideo(),
-          ],
         ),
       ),
     );
