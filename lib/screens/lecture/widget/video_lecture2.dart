@@ -59,7 +59,7 @@ class _VideoLectureState2 extends State<VideoLecture2>{
       flags: const YoutubePlayerFlags(
         mute: false,
         autoPlay: true,
-        disableDragSeek: false,
+        disableDragSeek: true,
         loop: false,
         isLive: false,
         forceHD: false,

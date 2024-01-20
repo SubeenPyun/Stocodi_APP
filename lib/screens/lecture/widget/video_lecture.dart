@@ -65,7 +65,7 @@ class _VideoLectureState extends State<VideoLecture> {
       flags: const YoutubePlayerFlags(
         mute: false,
         autoPlay: true,
-        disableDragSeek: false,
+        disableDragSeek: true,
         loop: false,
         isLive: false,
         forceHD: false,
@@ -139,8 +139,6 @@ class _VideoLectureState extends State<VideoLecture> {
             }
 
             // 현재 방향을 이전 방향으로 업데이트
-
-
           }
 
           return Container(
