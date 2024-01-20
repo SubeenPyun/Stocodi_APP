@@ -145,49 +145,40 @@ class _LectureMyCommentState extends State<LectureMyComment> {
         onTap: (){
           FocusScope.of(context).unfocus();
         },
-        child: NotificationListener<ScrollNotification>(
-          onNotification: (scrollNotification) {
-            // 스크롤 이벤트가 발생하면 키보드를 내립니다.
-            if (scrollNotification is ScrollUpdateNotification) {
-              FocusScope.of(context).unfocus();
-            }
-            return false;
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundImage: AssetImage(widget.imageUrl),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: TextField(
-                    controller: _commentController,
-                    decoration: const InputDecoration(
-                      hintText: '댓글을 입력하세요...',
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: const Color(0xFF0ECB81)),
-                      ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            children: [
+              CircleAvatar(
+                radius: 20,
+                backgroundImage: AssetImage(widget.imageUrl),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: TextField(
+                  controller: _commentController,
+                  decoration: const InputDecoration(
+                    hintText: '댓글을 입력하세요...',
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: const Color(0xFF0ECB81)),
                     ),
-                    cursorColor: const Color(0xFF0ECB81),
-                    maxLines: null, // 여러 줄 텍스트 입력 가능
                   ),
+                  cursorColor: const Color(0xFF0ECB81),
+                  maxLines: null, // 여러 줄 텍스트 입력 가능
                 ),
-                const SizedBox(width: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    AnalyticsHelper.gaEvent("write_comment", {});
-                    _submitComment(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: const Color(0xFF0ECB81),
-                  ),
-                  child: const Text('입력'),
-                )
-              ],
-            ),
+              ),
+              const SizedBox(width: 16),
+              ElevatedButton(
+                onPressed: () {
+                  AnalyticsHelper.gaEvent("write_comment", {});
+                  _submitComment(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: const Color(0xFF0ECB81),
+                ),
+                child: const Text('입력'),
+              )
+            ],
           ),
         ),
       ),
